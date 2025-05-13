@@ -1,7 +1,10 @@
 # OSX
 #
 .DS_Store
-
+*.log
+.env
+ios/Pods/
+.watchmanconfig
 # Xcode
 #
 build/
