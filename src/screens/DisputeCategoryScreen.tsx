@@ -21,7 +21,7 @@ const DisputeCategoryScreen = () => {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.navigate('DisputeType')}
+          onPress={() => navigation.navigate('DisputeType', { isAgreement: false })}
         >
           <Text style={styles.buttonText}>
             Konusu Para Olmayan{'\n'}Veya Para İle Değerlendirilemeyen Uyuşmazlıklar

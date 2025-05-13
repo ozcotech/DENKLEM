@@ -4,13 +4,16 @@ import StartScreen from '../screens/StartScreen';
 import DisputeCategoryScreen from '../screens/DisputeCategoryScreen';
 import AgreementStatusScreen from '../screens/AgreementStatusScreen';
 import DisputeTypeScreen from '../screens/DisputeTypeScreen';
+import InputScreen from '../screens/InputScreen';
+import ResultScreen from '../screens/ResultScreen';
 
 export type RootStackParamList = {
   Start: undefined;
   DisputeCategory: undefined;
   AgreementStatus: undefined;
-  DisputeType: undefined;
-  // Additional screens can be added here
+  DisputeType: { isAgreement: boolean };
+  Input: { isAgreement: boolean; disputeType: string };
+  Result: { result: number };
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -36,6 +39,16 @@ const AppNavigator = () => {
       <Stack.Screen
         name="DisputeType"
         component={DisputeTypeScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Input"
+        component={InputScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Result"
+        component={ResultScreen}
         options={{ headerShown: false }}
       />
       {/* Additional screens can be added here */}

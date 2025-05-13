@@ -1,7 +1,8 @@
-
-
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import type { RootStackParamList } from '../navigation/AppNavigator';
 
 const disputeTypes = [
   'İşçi-İşveren',
@@ -14,9 +15,13 @@ const disputeTypes = [
 ];
 
 const DisputeTypeScreen = () => {
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const route = useRoute();
+  const { isAgreement } = route.params as { isAgreement: boolean };
+
   const handleSelect = (type: string) => {
     console.log('Seçilen Uyuşmazlık Türü:', type);
-    // navigation can be added here
+    navigation.navigate('Input', { isAgreement, disputeType: type });
   };
 
   return (

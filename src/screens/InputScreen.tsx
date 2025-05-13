@@ -1,29 +1,34 @@
-
-
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Switch } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import { useRoute, useNavigation } from '@react-navigation/native';
+import type { RouteProp } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import type { RootStackParamList } from '../navigation/AppNavigator';
+import { calculateMediationFee } from '../models/tariffModel';
 
 const InputScreen = () => {
-  // This will later come from route params or navigation
-  const [isAgreement, setIsAgreement] = useState(true);
+  const route = useRoute<RouteProp<RootStackParamList, 'Input'>>();
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const isAgreement = route.params?.isAgreement ?? false;
+  const disputeType = route.params?.disputeType ?? 'İşçi-İşveren';
   const [amount, setAmount] = useState('');
   const [partyCount, setPartyCount] = useState('');
 
   const handleCalculate = () => {
-    console.log('Calculating fee...');
+    const fee = calculateMediationFee({
+      isAgreement,
+      isMonetary: true,
+      amount: isAgreement ? Number(amount) : undefined,
+      partyCount: Number(partyCount),
+      disputeType: disputeType,
+    });
+
+    navigation.navigate('Result', { result: fee });
   };
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Bilgileri Giriniz</Text>
-      <View style={styles.switchContainer}>
-        <Text style={styles.switchLabel}>Anlaşmalı</Text>
-        <Switch
-          value={isAgreement}
-          onValueChange={setIsAgreement}
-        />
-        <Text style={styles.switchLabel}>Anlaşmasız</Text>
-      </View>
       {isAgreement && (
         <TextInput
           style={styles.input}

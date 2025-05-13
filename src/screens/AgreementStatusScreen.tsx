@@ -15,13 +15,13 @@ const AgreementStatusScreen = () => {
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.navigate('DisputeType')}
+          onPress={() => navigation.navigate('DisputeType', { isAgreement: true })}
         >
           <Text style={styles.buttonText}>Anlaşma</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.navigate('DisputeType')}
+          onPress={() => navigation.navigate('DisputeType', { isAgreement: false })}
         >
           <Text style={styles.buttonText}>Anlaşmama</Text>
         </TouchableOpacity>
