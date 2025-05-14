@@ -20,36 +20,40 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const AppNavigator = () => {
   return (
-    <Stack.Navigator initialRouteName="Start">
+    <Stack.Navigator
+      initialRouteName="Start"
+      screenOptions={{
+        headerShown: false,
+        gestureEnabled: true,
+        gestureDirection: 'horizontal',
+      }}
+    >
       <Stack.Screen
         name="Start"
         component={StartScreen}
-        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="DisputeCategory"
         component={DisputeCategoryScreen}
-        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="AgreementStatus"
         component={AgreementStatusScreen}
-        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="DisputeType"
         component={DisputeTypeScreen}
-        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="Input"
         component={InputScreen}
-        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="Result"
         component={ResultScreen}
-        options={{ headerShown: false }}
+        options={{
+          gestureEnabled: false, // Disable gestures on the Result screen
+        }}
       />
       {/* Additional screens can be added here */}
     </Stack.Navigator>
