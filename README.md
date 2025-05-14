@@ -116,6 +116,7 @@ To learn more about React Native, take a look at the following resources:
 - Supports agreement and non-agreement scenarios
 - Dynamic fee calculation based on official tariff
 - Built-in navigation and gesture support
+- Swipe gesture navigation enabled for backward screen transitions
 - Turkish language UI
 - Lightweight and mobile-friendly
 
