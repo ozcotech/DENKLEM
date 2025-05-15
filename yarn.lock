@@ -1396,6 +1396,11 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
+"@react-native-community/blur@^4.4.1":
+  version "4.4.1"
+  resolved "https://registry.npmjs.org/@react-native-community/blur/-/blur-4.4.1.tgz"
+  integrity sha512-XBSsRiYxE/MOEln2ayunShfJtWztHwUxLFcSL20o+HNNRnuUDv+GXkF6FmM2zE8ZUfrnhQ/zeTqvnuDPGw6O8A==
+
 "@react-native-community/cli-clean@18.0.0":
   version "18.0.0"
   resolved "https://registry.npmjs.org/@react-native-community/cli-clean/-/cli-clean-18.0.0.tgz"
