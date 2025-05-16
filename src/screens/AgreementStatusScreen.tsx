@@ -1,70 +1,76 @@
-
-
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../navigation/AppNavigator';
+import { useTheme } from '../theme/ThemeContext';
+import ThemedBackground from '../components/common/ThemedBackground';
+import ThemedButton from '../components/common/ThemedButton';
 
 const AgreementStatusScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const theme = useTheme();
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Anlaşma Durumu</Text>
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => navigation.navigate('DisputeType', { isAgreement: true })}
-        >
-          <Text style={styles.buttonText}>Anlaşma</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => navigation.navigate('DisputeType', { isAgreement: false })}
-        >
-          <Text style={styles.buttonText}>Anlaşmama</Text>
-        </TouchableOpacity>
+    <ThemedBackground>
+      <View style={styles.container}>
+        <Text style={[styles.title, { color: theme.colors.text.primary }]}>
+          Anlaşma Durumu
+        </Text>
+        <View style={styles.buttonContainer}>
+          <ThemedButton
+            title="Anlaşma"
+            onPress={() => navigation.navigate('DisputeType', { isAgreement: true })}
+            style={styles.button}
+            textStyle={styles.buttonText}
+          />
+          <ThemedButton
+            title="Anlaşmama"
+            onPress={() => navigation.navigate('DisputeType', { isAgreement: false })}
+            style={styles.button} 
+            textStyle={styles.buttonText}
+          />
+        </View>
       </View>
-    </View>
+    </ThemedBackground>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'flex-start',
-    backgroundColor: '#fff',
-    paddingHorizontal: 20,
-    paddingTop: 80,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 16,
+    width: '100%',
   },
   title: {
-    fontSize: 26,
+    fontSize: 24,
     fontWeight: 'bold',
-    color: '#2e86de',
     textAlign: 'center',
-    marginBottom: 20,
+    marginBottom: 24,
   },
   buttonContainer: {
+    width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    gap: 12,
+    alignItems: 'stretch',
+    marginBottom: 20,
+    marginHorizontal: -2,
   },
   button: {
     flex: 1,
-    backgroundColor: '#d0e8ff',
-    paddingVertical: 16,
-    paddingHorizontal: 10,
-    borderRadius: 10,
-    alignItems: 'center',
-    marginHorizontal: 5,
+    margin: 5,
+    padding: 5,
+    height: 100,
+    minHeight: 80,
+    justifyContent: 'center',
   },
   buttonText: {
-    color: '#333',
-    fontSize: 16,
-    fontWeight: '600',
+    fontSize: 18,
     textAlign: 'center',
-  },
+    fontWeight: '500',
+  }
 });
 
 export default AgreementStatusScreen;

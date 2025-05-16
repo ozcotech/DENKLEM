@@ -53,12 +53,19 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: 'transparent',
     borderColor: '#fff',
-    borderWidth: 2,
-    borderRadius: 30,
+    borderWidth: 0.5, 
+    borderRadius: 18, 
     paddingVertical: 12,
     paddingHorizontal: 30,
     alignItems: 'center',
     justifyContent: 'center',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    elevation: 3,
   },
   text: {
     color: '#fff',
