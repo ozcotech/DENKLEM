@@ -1,5 +1,3 @@
-
-
 import React, { useRef } from 'react';
 import {
   Animated,
@@ -9,13 +7,14 @@ import {
   ViewStyle,
   TextStyle,
   GestureResponderEvent,
+  StyleProp,        
 } from 'react-native';
 
 interface AnimatedButtonProps {
   title: string;
   onPress: (event: GestureResponderEvent) => void;
-  style?: ViewStyle;
-  textStyle?: TextStyle;
+  style?: StyleProp<ViewStyle>;     
+  textStyle?: StyleProp<TextStyle>; 
 }
 
 const AnimatedButton: React.FC<AnimatedButtonProps> = ({ title, onPress, style, textStyle }) => {

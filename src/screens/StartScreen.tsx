@@ -1,13 +1,17 @@
 import React, { useRef, useEffect } from 'react';
 import { View, Text, StyleSheet, Image, Animated } from 'react-native';
-import AnimatedButton from '../components/AnimatedButton';
-import LinearGradient from 'react-native-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../navigation/AppNavigator';
+import ThemedBackground from '../components/common/ThemedBackground';
+import ThemedButton from '../components/common/ThemedButton';
+import { ThemedCard } from '../components/common/ThemedCard';
+import { useTheme } from '../theme/ThemeContext';
 
 const StartScreen = () => {
+  const theme = useTheme();
   const logoOpacity = useRef(new Animated.Value(0)).current;
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   useEffect(() => {
     Animated.timing(logoOpacity, {
@@ -16,51 +20,54 @@ const StartScreen = () => {
       useNativeDriver: true,
     }).start();
   }, []);
-  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   return (
-    <LinearGradient colors={['#d0e8ff', '#6ca0dc']} style={styles.container}>
+    <ThemedBackground>
       <View style={styles.headerContainer}>
-        <Text style={styles.headerText}>Arabuluculuk Ücreti{'\n'}Hesaplama Programı</Text>
+        <Text style={[styles.headerText, { color: theme.colors.text.primary }]}>
+          Arabuluculuk Ücreti{'\n'}Hesaplama Programı
+        </Text>
       </View>
       <View style={styles.contentContainer}>
         <View style={styles.logoWrapper}>
-          <Animated.View style={[styles.logoContainer, { opacity: logoOpacity }]}>
-            <Image 
-              source={require('../../assets/images/first_screen_logo.png')} 
-              style={styles.logoImage}
-            />
+          <Animated.View style={{ 
+            opacity: logoOpacity, 
+            width: '100%', 
+            height: '100%',
+            alignItems: 'center', 
+            justifyContent: 'center' 
+          }}>
+            <ThemedCard>
+              <Image 
+                source={require('../../assets/images/first_screen_logo_transparent.png')} 
+                style={styles.logoImage}
+              />
+            </ThemedCard>
           </Animated.View>
         </View>
         <View style={styles.buttonWrapper}>
-          <AnimatedButton
+          <ThemedButton
             title="Hesaplamaya Başla"
             onPress={() => navigation.navigate('DisputeCategory')}
-            style={styles.button}
-            textStyle={styles.buttonText}
           />
         </View>
       </View>
-      <Text style={styles.footer}>Made by ozcotech</Text>
-    </LinearGradient>
+      <Text style={[styles.footer, { color: theme.colors.text.secondary }]}>
+        Made by ozcotech
+      </Text>
+    </ThemedBackground>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   headerContainer: {
     position: 'absolute',
-    top: '10%', 
+    top: '10%',
     alignItems: 'center',
     width: '100%',
   },
   headerText: {
     fontSize: 20,
-    color: '#fff',
     fontWeight: '600',
     textAlign: 'center',
     letterSpacing: 0.5,
@@ -75,71 +82,30 @@ const styles = StyleSheet.create({
   logoWrapper: {
     position: 'absolute',
     width: '100%',
-    height: '35%', 
+    height: '35%',
     alignItems: 'center',
     justifyContent: 'center',
     top: '25%',
     zIndex: 0,
   },
-  buttonWrapper: {
-    position: 'absolute',
-    width: '100%',
-    alignItems: 'center',
-    bottom: '15%', 
-    zIndex: 1,
-  },
-  logoContainer: {
-    width: '85%',
-    height: '100%',
-    backgroundColor: 'white',
-    borderRadius: 20, 
-    padding: '5%', 
-    alignItems: 'center',
-    justifyContent: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 10,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 15,
-    elevation: 8,
-  },
   logoImage: {
     width: '100%',
     height: '100%',
     resizeMode: 'contain',
+    alignSelf: 'center', 
   },
-  button: {
-    backgroundColor: 'transparent', 
-    paddingVertical: 12,
-    paddingHorizontal: 24,
-    borderRadius: 30, 
-    borderWidth: 2, 
-    borderColor: '#fff',
-    width: '85%',
-    shadowColor: '#fff',
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    shadowOpacity: 0.4,
-    shadowRadius: 6,
-    elevation: 4,
+  buttonWrapper: {
+    position: 'absolute',
+    width: '100%',
     alignItems: 'center',
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 24,
-    fontWeight: '600',
-    textAlign: 'center',
+    bottom: '15%',
+    zIndex: 1,
   },
   footer: {
     fontSize: 16,
-    color: 'rgba(255,255,255,0.6)',
     textAlign: 'center',
     position: 'absolute',
-    bottom: '2%', 
+    bottom: '2%',
   },
 });
 

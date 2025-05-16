@@ -3,16 +3,19 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import AppNavigator from './src/navigation/AppNavigator';
+import { ThemeProvider } from './src/theme/ThemeContext';
 
-function App(): React.JSX.Element {
+const App = () => {
   return (
     <GestureHandlerRootView style={styles.container}>
-      <NavigationContainer>
-        <AppNavigator />
-      </NavigationContainer>
+      <ThemeProvider>
+        <NavigationContainer>
+          <AppNavigator />
+        </NavigationContainer>
+      </ThemeProvider>
     </GestureHandlerRootView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
