@@ -1,8 +1,11 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Dimensions, SafeAreaView } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../navigation/AppNavigator';
+import { useTheme } from '../theme/ThemeContext';
+import ThemedBackground from '../components/common/ThemedBackground';
+import ThemedButton from '../components/common/ThemedButton';
 
 const disputeTypes = [
   'İşçi-İşveren',
@@ -18,59 +21,99 @@ const DisputeTypeScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const route = useRoute();
   const { isAgreement } = route.params as { isAgreement: boolean };
+  const theme = useTheme();
 
-  const handleSelect = (type: string) => {
-    console.log('Seçilen Uyuşmazlık Türü:', type);
-    navigation.navigate('Input', { isAgreement, disputeType: type });
+  // Butonları 2'li satırlara böl
+  const getRows = () => {
+    let rows: string[][] = [];
+    for (let i = 0; i < disputeTypes.length; i += 2) {
+      rows.push(disputeTypes.slice(i, i + 2));
+    }
+    return rows;
   };
 
+  const rows = getRows();
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Uyuşmazlık Türü</Text>
-      <ScrollView contentContainerStyle={styles.grid}>
-        {disputeTypes.map((type, index) => (
-          <TouchableOpacity key={index} style={styles.button} onPress={() => handleSelect(type)}>
-            <Text style={styles.buttonText}>{type}</Text>
-          </TouchableOpacity>
-        ))}
-      </ScrollView>
-    </View>
+    <ThemedBackground>
+      <SafeAreaView style={styles.safeArea}>
+        <View style={styles.mainContentContainer}>
+          <Text style={[styles.title, { color: theme.colors.text.primary }]}>
+            Uyuşmazlık Türü
+          </Text>
+          <ScrollView
+            contentContainerStyle={styles.scroll}
+            style={styles.scrollViewStyle}
+            showsVerticalScrollIndicator={false}
+          >
+            {rows.map((row, i) => (
+              <View style={styles.row} key={i}>
+                {row.map((type, j) => (
+                  <ThemedButton
+                    key={type}
+                    title={type}
+                    onPress={() => navigation.navigate('Input', { isAgreement, disputeType: type })}
+                    style={styles.button}
+                    textStyle={styles.buttonText}
+                  />
+                ))}
+                {/* Tekli satır varsa, görünmez bir View ile tamamla */}
+                {row.length === 1 && <View style={[styles.button, { opacity: 0 }]} />}
+              </View>
+            ))}
+          </ScrollView>
+        </View>
+      </SafeAreaView>
+    </ThemedBackground>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  safeArea: {
     flex: 1,
-    backgroundColor: '#fff',
-    paddingHorizontal: 20,
-    paddingTop: 80,
+    width: '100%',
+  },
+  mainContentContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    paddingHorizontal: 10,
   },
   title: {
-    fontSize: 26,
+    fontSize: 24,
     fontWeight: 'bold',
-    color: '#2e86de',
     textAlign: 'center',
-    marginBottom: 20,
+    marginBottom: 24,
   },
-  grid: {
+  scrollViewStyle: {
+    width: '100%',
+    flexGrow: 0,
+  },
+  scroll: {
+    alignItems: 'center',
+    width: '100%',
+    paddingBottom: 20,
+  },
+  row: {
     flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
+    width: '100%',
+    justifyContent: 'center',
+    marginBottom: 16,
   },
   button: {
-    width: '48%',
-    backgroundColor: '#d0e8ff',
-    paddingVertical: 16,
-    paddingHorizontal: 10,
-    borderRadius: 10,
-    marginBottom: 12,
+    width: Dimensions.get('window').width * 0.40,
+    height: 90,
+    marginHorizontal: Dimensions.get('window').width * 0.025,
+    justifyContent: 'center',
     alignItems: 'center',
+    paddingVertical: 8,
+    paddingHorizontal: 10,
   },
   buttonText: {
-    color: '#333',
-    fontSize: 14,
-    fontWeight: '600',
+    fontSize: 16,
     textAlign: 'center',
+    fontWeight: '500',
   },
 });
 
