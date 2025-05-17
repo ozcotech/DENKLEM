@@ -14,7 +14,7 @@ const AgreementStatusScreen = () => {
   return (
     <ThemedBackground>
       <View style={styles.container}>
-        <Text style={[styles.title, { color: theme.colors.text.primary }]}>
+        <Text style={[styles.title, { color: theme.colors.text.primary, ...theme.typography.h1 }]}>
           Anlaşma Durumu
         </Text>
         <View style={styles.buttonContainer}>
@@ -22,13 +22,11 @@ const AgreementStatusScreen = () => {
             title="Anlaşma"
             onPress={() => navigation.navigate('DisputeType', { isAgreement: true })}
             style={styles.button}
-            textStyle={styles.buttonText}
           />
           <ThemedButton
             title="Anlaşmama"
             onPress={() => navigation.navigate('DisputeType', { isAgreement: false })}
             style={styles.button} 
-            textStyle={styles.buttonText}
           />
         </View>
       </View>
@@ -45,8 +43,6 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   title: {
-    fontSize: 24,
-    fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: 24,
   },
@@ -66,11 +62,6 @@ const styles = StyleSheet.create({
     minHeight: 80,
     justifyContent: 'center',
   },
-  buttonText: {
-    fontSize: 18,
-    textAlign: 'center',
-    fontWeight: '500',
-  }
 });
 
 export default AgreementStatusScreen;

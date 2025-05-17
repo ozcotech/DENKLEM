@@ -18,7 +18,7 @@ const DisputeCategoryScreen = () => {
   return (
     <ThemedBackground>
       <View style={styles.container}>
-        <Text style={[styles.title, { color: theme.colors.text.primary }]}>
+        <Text style={[styles.title, { color: theme.colors.text.primary, ...theme.typography.h1 }]}>
           Uyuşmazlık Kategorisi
         </Text>
         <View style={styles.rowButtonContainer}>
@@ -26,17 +26,17 @@ const DisputeCategoryScreen = () => {
             title="Konusu Para Olan Veya Para İle Değerlendirilebilen Uyuşmazlıklar"
             onPress={() => navigation.navigate('AgreementStatus')}
             style={styles.halfButton}
-            textStyle={styles.buttonText}
+            textStyle={styles.smallButtonText}
           />
           <ThemedButton
             title="Konusu Para Olmayan Veya Para İle Değerlendirilemeyen Uyuşmazlıklar"
             onPress={() => navigation.navigate('DisputeType', { isAgreement: false })}
             style={styles.halfButton}
-            textStyle={styles.buttonText}
+            textStyle={styles.smallButtonText}
           />
         </View>
         
-        <Text style={[styles.title, { color: theme.colors.text.primary, marginTop: 30 }]}>
+        <Text style={[styles.subTitle, { color: theme.colors.text.primary, ...theme.typography.h2 }]}>
           Diğer Hesaplamalar
         </Text>
         <View style={styles.rowButtonContainer}>
@@ -44,13 +44,11 @@ const DisputeCategoryScreen = () => {
             title="Süre Hesaplama" 
             onPress={handleNotImplemented}
             style={styles.halfButton}
-            textStyle={styles.buttonText}
           />
           <ThemedButton
             title="SMM Hesaplama"
             onPress={handleNotImplemented}
             style={styles.halfButton}
-            textStyle={styles.buttonText}
           />
         </View>
       </View>
@@ -67,9 +65,12 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   title: {
-    fontSize: 24,
-    fontWeight: 'bold',
     textAlign: 'center',
+    marginBottom: 16,
+  },
+  subTitle: {
+    textAlign: 'center',
+    marginTop: 30,
     marginBottom: 16,
   },
   rowButtonContainer: {
@@ -89,11 +90,8 @@ const styles = StyleSheet.create({
     minHeight: 130,
     justifyContent: 'center',
   },
-  buttonText: {
-    fontSize: 13, 
-    textAlign: 'center',
-    lineHeight: 18, 
-    fontWeight: '500', 
+  smallButtonText: {
+    fontSize: 14,
   }
 });
 

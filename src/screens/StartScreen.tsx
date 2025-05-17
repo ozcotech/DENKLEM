@@ -24,7 +24,7 @@ const StartScreen = () => {
   return (
     <ThemedBackground>
       <View style={styles.headerContainer}>
-        <Text style={[styles.headerText, { color: theme.colors.text.primary }]}>
+        <Text style={[styles.headerText, { color: theme.colors.text.primary, ...theme.typography.h2 }]}>
           Arabuluculuk Ücreti{'\n'}Hesaplama Programı
         </Text>
       </View>
@@ -52,7 +52,7 @@ const StartScreen = () => {
           />
         </View>
       </View>
-      <Text style={[styles.footer, { color: theme.colors.text.secondary }]}>
+      <Text style={[styles.footer, { color: theme.colors.text.secondary, ...theme.typography.body }]}>
         Made by ozcotech
       </Text>
     </ThemedBackground>
@@ -67,8 +67,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   headerText: {
-    fontSize: 20,
-    fontWeight: '600',
+    // fontSize and fontWeight removed, will be supplied by theme.typography.h2
     textAlign: 'center',
     letterSpacing: 0.5,
   },
@@ -102,7 +101,7 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   footer: {
-    fontSize: 16,
+    // fontSize removed, will be supplied by theme.typography.body
     textAlign: 'center',
     position: 'absolute',
     bottom: '2%',

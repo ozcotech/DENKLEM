@@ -38,7 +38,7 @@ const DisputeTypeScreen = () => {
     <ThemedBackground>
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.mainContentContainer}>
-          <Text style={[styles.title, { color: theme.colors.text.primary }]}>
+          <Text style={[styles.title, { color: theme.colors.text.primary, ...theme.typography.h1 }]}>
             Uyuşmazlık Türü
           </Text>
           <ScrollView
@@ -54,7 +54,6 @@ const DisputeTypeScreen = () => {
                     title={type}
                     onPress={() => navigation.navigate('Input', { isAgreement, disputeType: type })}
                     style={styles.button}
-                    textStyle={styles.buttonText}
                   />
                 ))}
                 {/* If there's a single item in the row, complete it with an invisible View */}
@@ -81,8 +80,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   title: {
-    fontSize: 24,
-    fontWeight: 'bold',
+    // fontSize and fontWeight removed, will be supplied by theme.typography.h1
     textAlign: 'center',
     marginBottom: 24,
   },
@@ -109,11 +107,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 8,
     paddingHorizontal: 10,
-  },
-  buttonText: {
-    fontSize: 16,
-    textAlign: 'center',
-    fontWeight: '500',
   },
 });
 
