@@ -23,7 +23,7 @@ const DisputeTypeScreen = () => {
   const { isAgreement } = route.params as { isAgreement: boolean };
   const theme = useTheme();
 
-  // Butonları 2'li satırlara böl
+  // Function to split the dispute types into rows of two
   const getRows = () => {
     let rows: string[][] = [];
     for (let i = 0; i < disputeTypes.length; i += 2) {

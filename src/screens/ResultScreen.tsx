@@ -7,20 +7,25 @@ import type { RootStackParamList } from '../navigation/AppNavigator';
 import ThemedBackground from '../components/common/ThemedBackground';
 import ThemedButton from '../components/common/ThemedButton';
 import { useTheme } from '../theme/ThemeContext';
+import { formatKurusToTlString } from '../utils/formatCurrency'; // Import formatKurusToTlString
 
 const ResultScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const route = useRoute<RouteProp<RootStackParamList, 'Result'>>();
   const theme = useTheme();
-  const { result } = route.params;
+  const { result } = route.params; // result is in TL, e.g., 6000
+
+  // Convert TL result to kurus string
+  const resultInKurusString = Math.round(result * 100).toString(); // "600000"
+  const formattedResult = formatKurusToTlString(resultInKurusString); // "6.000,00"
 
   return (
     <ThemedBackground>
       <View style={styles.container}>
         <Text style={[styles.titleText, { color: theme.colors.text.primary, ...theme.typography.h1 }]}>Hesaplama Sonucu</Text>
-        <Text style={[styles.resultText, { color: theme.colors.text.primary, ...theme.typography.h1, fontSize: 32 }]}>{result.toLocaleString('tr-TR')} TL</Text>
+        <Text style={[styles.resultText, { color: theme.colors.text.primary, ...theme.typography.h1, fontSize: 55 }]}>{formattedResult} ₺</Text>
 
-        <ThemedButton 
+        <ThemedButton
           title="Ana Sayfaya Dön"
           onPress={() => navigation.navigate('Start')}
           style={styles.button}
