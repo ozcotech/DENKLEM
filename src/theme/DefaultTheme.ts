@@ -28,4 +28,10 @@ export const DefaultTheme: ThemeType = {
     medium: 20,
     large: 40,
   },
+  typography: {
+    h1: { fontSize: 28, fontWeight: 'bold' },
+    h2: { fontSize: 24, fontWeight: '600' },
+    button: { fontSize: 18, fontWeight: '600' }, // Adjusted from ThemedButton's original 24
+    body: { fontSize: 16, fontWeight: 'normal' },
+  },
 };
