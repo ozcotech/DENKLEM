@@ -33,7 +33,7 @@ const ThemedButton: React.FC<ThemedButtonProps> = ({
       textStyle={[
         styles.buttonText, 
         { color: theme.colors.button.text },
-        theme.typography.button, // Added theme typography for button
+        theme.typography.button, 
         textStyle,
       ]}
     />
@@ -58,8 +58,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttonText: {
-    // fontSize: 24, // Removed, now from theme.typography.button
-    // fontWeight: '600', // Removed, now from theme.typography.button
+    
     textAlign: 'center',
   },
 });

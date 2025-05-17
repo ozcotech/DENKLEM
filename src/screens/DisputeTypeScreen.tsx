@@ -57,7 +57,7 @@ const DisputeTypeScreen = () => {
                     textStyle={styles.buttonText}
                   />
                 ))}
-                {/* Tekli satır varsa, görünmez bir View ile tamamla */}
+                {/* If there's a single item in the row, complete it with an invisible View */}
                 {row.length === 1 && <View style={[styles.button, { opacity: 0 }]} />}
               </View>
             ))}

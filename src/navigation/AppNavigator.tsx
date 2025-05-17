@@ -52,7 +52,7 @@ const AppNavigator = () => {
         name="Result"
         component={ResultScreen}
         options={{
-          gestureEnabled: false, // Disable gestures on the Result screen
+          gestureEnabled: true, 
         }}
       />
       {/* Additional screens can be added here */}

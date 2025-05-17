@@ -12,7 +12,7 @@ export const DefaultTheme: ThemeType = {
       shadow: 'rgba(255,255,255,0.6)',
     },
     card: {
-      background: 'rgba(255,255,255,0.16)', // modern, soft glass
+      background: 'rgba(255,255,255,0.16)', 
       shadow: '#000',
     },
   },
@@ -31,7 +31,7 @@ export const DefaultTheme: ThemeType = {
   typography: {
     h1: { fontSize: 28, fontWeight: 'bold' },
     h2: { fontSize: 24, fontWeight: '600' },
-    button: { fontSize: 18, fontWeight: '600' }, // Adjusted from ThemedButton's original 24
+    button: { fontSize: 18, fontWeight: '600' }, 
     body: { fontSize: 16, fontWeight: 'normal' },
   },
 };
