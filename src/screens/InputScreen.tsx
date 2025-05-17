@@ -19,29 +19,54 @@ const InputScreen = () => {
   const [partyCount, setPartyCount] = useState('');
 
   const handleCalculate = () => {
-    // Validation
+    // Is party count empty?
     if (!partyCount.trim()) {
       Alert.alert('Uyarı', 'Lütfen taraf sayısını boş bırakmayınız.');
       return;
     }
-    if (isNaN(Number(partyCount))) {
-      Alert.alert('Uyarı', 'Lütfen taraf sayısı için sayısal bir değer giriniz.');
+
+    const numPartyCount = Number(partyCount);
+
+    // Is it numeric?
+    if (isNaN(numPartyCount)) {
+      Alert.alert('Uyarı', 'Lütfen taraf sayısı için geçerli bir sayısal değer giriniz.');
       return;
     }
-    if (isAgreement && !amount.trim()) {
-      Alert.alert('Uyarı', 'Lütfen anlaşma tutarını boş bırakmayınız.');
+
+    // Is it zero or negative?
+    if (numPartyCount <= 0) {
+      Alert.alert('Uyarı', 'Taraf sayısı pozitif bir tam sayı olmalıdır.');
       return;
     }
-    if (isAgreement && isNaN(Number(amount))) {
-      Alert.alert('Uyarı', 'Lütfen anlaşma tutarı için sayısal bir değer giriniz.');
+
+    // Is it decimal? (If not an integer)
+    if (!Number.isInteger(numPartyCount)) {
+      Alert.alert('Uyarı', 'Taraf sayısı ondalıklı bir değer olamaz, lütfen tam sayı giriniz.');
       return;
+    }
+
+    // If agreement, check amount fields
+    if (isAgreement) {
+      if (!amount.trim()) {
+        Alert.alert('Uyarı', 'Lütfen anlaşma tutarını boş bırakmayınız.');
+        return;
+      }
+      const numAmount = Number(amount);
+      if (isNaN(numAmount)) {
+        Alert.alert('Uyarı', 'Lütfen anlaşma tutarı için geçerli bir sayısal değer giriniz.');
+        return;
+      }
+      if (numAmount < 0) {
+        Alert.alert('Uyarı', 'Anlaşma tutarı negatif bir değer olamaz.');
+        return;
+      }
     }
 
     const fee = calculateMediationFee({
       isAgreement,
       isMonetary: true,
       amount: isAgreement ? Number(amount) : undefined,
-      partyCount: Number(partyCount),
+      partyCount: numPartyCount,
       disputeType: disputeType,
     });
 
