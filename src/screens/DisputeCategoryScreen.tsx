@@ -42,7 +42,7 @@ const DisputeCategoryScreen = () => {
         <View style={styles.rowButtonContainer}>
           <ThemedButton
             title="Süre Hesaplama" 
-            onPress={handleNotImplemented}
+            onPress={() => navigation.navigate('TimeCalculation')}
             style={styles.halfButton}
           />
           <ThemedButton
