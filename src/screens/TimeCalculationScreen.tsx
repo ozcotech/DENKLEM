@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 import {
   View,
   Text,
@@ -23,6 +24,10 @@ import { useTheme } from '../theme/ThemeContext';
 
 export default function TimeCalculationScreen() {
   const theme = useTheme();
+  const navigation = useNavigation();
+  const handleNavigateHome = () => {
+    navigation.navigate('Start' as never); // If your route is 'Home', use 'Home' instead of 'Start'
+  };
   const [startDate, setStartDate] = useState('');
   const [dateObject, setDateObject] = useState(new Date());
   const [showPicker, setShowPicker] = useState(false);
@@ -144,6 +149,14 @@ export default function TimeCalculationScreen() {
                 onPress={handleCalculate}
                 style={styles.calculateButton}
               />
+              <ThemedButton
+                title="Ana Sayfaya Dön"
+                onPress={handleNavigateHome}
+                style={[
+                  styles.calculateButton,
+                  !calculated && { marginTop: 60 } 
+                ]}
+              />
             </View>
 
             {calculated && (
@@ -187,8 +200,10 @@ const styles = StyleSheet.create({
   contentContainer: {
     flex: 1,
     padding: 20,
+    justifyContent: 'center',
   },
   inputSection: {
+    width: '100%', 
     marginBottom: 20,
     alignItems: 'center',
   },
@@ -202,7 +217,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     borderRadius: 18,
     marginBottom: 20,
-    width: '85%',
+    width: '100%', 
     alignItems: 'center',
     backgroundColor: 'transparent',
   },
@@ -210,7 +225,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   calculateButton: {
-    width: '85%', // Match ThemedButton default width if desired
+    width: '100%', 
     marginTop: 10,
   },
   resultsContainer: {
@@ -236,12 +251,12 @@ const styles = StyleSheet.create({
   },
   disputeTypeName: {
     fontSize: 16,
-    fontWeight: '600', // Slightly less bold than header
+    fontWeight: '600', 
     marginBottom: 8,
   },
   dateText: {
     fontSize: 14,
-    marginLeft: 10, // Indent week results slightly
-    lineHeight: 20, // Improve readability
+    marginLeft: 10, 
+    lineHeight: 20, 
   },
 });
