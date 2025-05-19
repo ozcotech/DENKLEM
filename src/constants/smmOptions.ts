@@ -35,11 +35,11 @@ export interface SMMResults {
 }
 
 export const smmResultTableLabels = {
-  mediationFee: 'Arabuluculuk Ücreti',
+  mediationFee: 'Brüt Ücret (KDV Hariç)',
   kdv: `KDV (%${KDV_RATE * 100})`,
   stopaj: `Stopaj (%${STOPAJ_RATE * 100})`,
   araToplam: 'Ara Toplam', // Intermediate sum if needed
-  gelirVergisiStopaji: 'Gelir Vergisi Stopajı', // Specific for some calculations
+  gelirVergisiStopaji: 'Gelir Vergisi Stopajı (%20)', // Specific for some calculations
   netUcret: 'Net Ücret',
   tahsilEdilecek: 'Tahsil Edilecek Tutar',
 };
