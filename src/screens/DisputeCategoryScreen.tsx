@@ -47,7 +47,7 @@ const DisputeCategoryScreen = () => {
           />
           <ThemedButton
             title="SMM Hesaplama"
-            onPress={handleNotImplemented}
+            onPress={() => navigation.navigate('SMMCalculation')}
             style={styles.halfButton}
           />
         </View>
