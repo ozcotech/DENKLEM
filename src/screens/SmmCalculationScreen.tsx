@@ -68,10 +68,10 @@ const SMMCalculationScreen: React.FC = () => {
     setCalculated(true);
     Keyboard.dismiss();
     
-    // Hesaplama sonrası scroll pozisyonunu ayarla
+    // Scroll to top after calculation
     setTimeout(() => {
       scrollViewRef.current?.scrollTo({ y: 0, animated: true });
-    }, 100);
+    }, 200); // Increased timeout for more reliable scrolling
   };
 
   // Navigate back to home screen
@@ -101,19 +101,18 @@ const SMMCalculationScreen: React.FC = () => {
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.container}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 80 : 0}
       >
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <ScrollView
             ref={scrollViewRef}
             contentContainerStyle={styles.scrollContent}
             keyboardShouldPersistTaps="handled"
+            showsVerticalScrollIndicator={true}
           >
             <View style={[
               styles.contentContainer, 
-              { 
-                justifyContent: calculated ? 'flex-start' : 'center',
-                paddingTop: calculated ? 70 : 0 
-              }
+              { justifyContent: calculated ? 'flex-start' : 'center' }
             ]}>
               {/* Input Section */}
               <View style={styles.inputSection}>
@@ -133,7 +132,7 @@ const SMMCalculationScreen: React.FC = () => {
                   value={mediationFee === '' ? '' : formatKurusToTlString(mediationFee)} // Show formatted value or empty string
                   onChangeText={handleMediationFeeChange}
                   placeholder="Arabuluculuk Ücretini Girin"
-                  placeholderTextColor={'#A0A0A0'}
+                  placeholderTextColor={theme.colors.text.secondary || '#666666'}
                   keyboardType="numeric"
                   maxLength={18} // Prevent excessively long entries
                   textAlign="center" 
@@ -143,24 +142,29 @@ const SMMCalculationScreen: React.FC = () => {
                   Hesaplama Türü:
                 </Text>
                 <View style={styles.optionsContainer}>
-                  {smmCalculationTypeOptions.map((option) => (
-                    <ThemedButton
-                      key={option.value}
-                      title={option.label}
-                      onPress={() => setCalculationType(option.value)}
-                      style={[
-                        styles.optionButton,
-                        calculationType === option.value && {
-                          ...styles.selectedOption,
-                          borderColor: theme.colors.text.primary
-                        }
-                      ]}
-                      textStyle={[
-                        styles.optionText,
-                        calculationType === option.value && styles.selectedOptionText
-                      ]}
-                    />
-                  ))}
+                  {smmCalculationTypeOptions.map((option) => {
+                    
+                    const [firstLine, secondLine] = option.label.split(', ');
+                    
+                    return (
+                      <ThemedButton
+                        key={option.value}
+                        title={`${firstLine}\n${secondLine}`} 
+                        onPress={() => setCalculationType(option.value)}
+                        style={[
+                          styles.optionButton,
+                          calculationType === option.value && {
+                            ...styles.selectedOption,
+                            borderColor: theme.colors.text.primary
+                          }
+                        ]}
+                        textStyle={[
+                          styles.optionText,
+                          calculationType === option.value && styles.selectedOptionText
+                        ]}
+                      />
+                    );
+                  })}
                 </View>
 
                 <ThemedButton
@@ -213,15 +217,14 @@ const SMMCalculationScreen: React.FC = () => {
                 </View>
               )}
 
-              {/* Home Button */}
-              <ThemedButton
-                title="Ana Sayfaya Dön"
-                onPress={handleGoHome}
-                style={[
-                  styles.homeButton,
-                  !calculated && { marginTop: 40 } 
-                ]}
-              />
+              {/* Home Button - added proper spacing with paddingTop */}
+              <View style={styles.homeButtonContainer}>
+                <ThemedButton
+                  title="Ana Sayfaya Dön"
+                  onPress={handleGoHome}
+                  style={styles.homeButton}
+                />
+              </View>
             </View>
           </ScrollView>
         </TouchableWithoutFeedback>
@@ -237,8 +240,8 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     flexGrow: 1,
-    paddingVertical: 20,
-    paddingBottom: 40, 
+    paddingVertical: 40, // Increased vertical padding 
+    paddingBottom: 60, // Increased bottom padding for more space
   },
   contentContainer: {
     flex: 1,
@@ -287,13 +290,13 @@ const styles = StyleSheet.create({
   },
   resultsContainer: {
     width: '100%',
-    marginTop: 1, 
-    marginBottom: 5, 
+    marginTop: 1,
+    marginBottom: 20, // Increased margin for better separation
   },
   resultsCard: {
     padding: 8, 
     paddingTop: 10, 
-    paddingBottom: 8, 
+    paddingBottom: 12, // Slightly more padding at the bottom 
   },
   resultsTitle: {
     fontSize: 18,
@@ -325,17 +328,25 @@ const styles = StyleSheet.create({
     paddingRight: 5,
   },
   homeButton: {
-    marginTop: 5, 
     width: '85%',
+  },
+  homeButtonContainer: {
+    width: '100%',
+    alignItems: 'center',
+    marginTop: 25, // Add consistent space before the home button
+    paddingBottom: 20, // Additional bottom padding
   },
   optionsContainer: {
     width: '85%',
-    flexDirection: 'column',
-    marginBottom: 10, 
+    flexDirection: 'row', // Horizontal alignment
+    flexWrap: 'wrap', // Allows buttons to wrap to the next line if they don't fit
+    justifyContent: 'space-between', // Equal space between buttons
+    marginBottom: 10,
   },
   optionButton: {
-    marginVertical: 5, 
-    width: '100%', // Make sure the button takes full width of its container
+    marginVertical: 3,
+    width: '48%', // Instead of full width, use 48% (to leave space between)
+    height: 60, // Increase button height (since content will be 2 lines)
   },
   selectedOption: {
     backgroundColor: 'rgba(255,255,255,0.2)',
@@ -344,8 +355,9 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.4, // Add more shadow for better visibility
   },
   optionText: {
-    fontSize: 14,
+    fontSize: 13, // Slightly reduce font size
     textAlign: 'center',
+    flexWrap: 'wrap', // Allows text to wrap
   },
   selectedOptionText: {
     fontWeight: 'bold',
