@@ -30,6 +30,7 @@ const AppNavigator = () => {
         headerShown: false,
         gestureEnabled: true,
         gestureDirection: 'horizontal',
+        fullScreenGestureEnabled: true // Enable full-screen gestures
       }}
     >
       <Stack.Screen
