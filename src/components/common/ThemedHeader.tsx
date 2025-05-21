@@ -68,18 +68,20 @@ const styles = StyleSheet.create({
   },
   homeButton: {
     padding: 8,
-    backgroundColor: 'rgba(255, 255, 255, 0.15)', 
+    backgroundColor: 'transparent', 
     borderRadius: 50, 
     width: 40,
     height: 40,
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 5, 
+    marginRight: 5,
+    borderWidth: 0.5, 
+    borderColor: 'rgba(255, 255, 255, 0.6)', 
   },
   homeIcon: {
     width: 24,
     height: 24,
-    tintColor: '#ffffff', 
+    tintColor: undefined, 
   },
 });
 

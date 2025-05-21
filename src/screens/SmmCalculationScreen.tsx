@@ -10,7 +10,8 @@ import {
   Platform,
   TouchableWithoutFeedback,
   Keyboard,
-  Alert
+  Alert,
+  Image
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '../theme/ThemeContext';
@@ -221,9 +222,16 @@ const SMMCalculationScreen: React.FC = () => {
                 {/* Home Button - added proper spacing with paddingTop */}
                 <View style={styles.homeButtonContainer}>
                   <ThemedButton
-                    title="Ana Sayfaya Dön"
+                    title="Ana Sayfa"
                     onPress={handleGoHome}
                     style={styles.homeButton}
+                    textStyle={styles.homeButtonText}
+                    icon={
+                      <Image
+                        source={require('../../assets/images/home-icon.png')}
+                        style={styles.homeIcon}
+                      />
+                    }
                   />
                 </View>
               </View>
@@ -337,6 +345,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 20, // Add consistent space before the home button
     paddingBottom: 20, // Additional bottom padding
+  },
+  homeButtonText: {
+    fontWeight: '600',
+  },
+  homeIcon: {
+    width: 20,
+    height: 20,
+    tintColor: '#ffffff',
   },
   optionsContainer: {
     width: '85%',
