@@ -7,6 +7,7 @@ import type { RootStackParamList } from '../navigation/AppNavigator';
 import ThemedBackground from '../components/common/ThemedBackground';
 import ThemedButton from '../components/common/ThemedButton';
 import ThemedHeader from '../components/common/ThemedHeader';
+import { ThemedCard } from '../components/common/ThemedCard';
 import { useTheme } from '../theme/ThemeContext';
 import { formatKurusToTlString } from '../utils/formatCurrency'; // Import formatKurusToTlString
 
@@ -24,8 +25,12 @@ const ResultScreen = () => {
     <ThemedBackground>
       <ThemedHeader />
       <View style={styles.container}>
-        <Text style={[styles.titleText, { color: theme.colors.text.primary, ...theme.typography.h1 }]}>Hesaplama Sonucu</Text>
-        <Text style={[styles.resultText, { color: theme.colors.text.primary, ...theme.typography.h1, fontSize: 55 }]}>{formattedResult} ₺</Text>
+        <Text style={[styles.titleText, { color: theme.colors.text.primary, ...theme.typography.h1 }]}>Arabuluculuk Ücreti</Text>
+        
+        <ThemedCard style={styles.resultCard}>
+          <Text style={[styles.resultLabel, { color: theme.colors.text.secondary }]}>Yasal Ücret:</Text>
+          <Text style={[styles.resultText, { color: theme.colors.text.primary }]}>{formattedResult} ₺</Text>
+        </ThemedCard>
 
         <ThemedButton
           title="Ana Sayfaya Dön"
@@ -50,13 +55,25 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 30,
   },
-  resultText: {
-    textAlign: 'center',
+  resultCard: {
+    width: '90%',
+    padding: 25,
     marginBottom: 40,
+    alignItems: 'center',
+  },
+  resultLabel: {
+    fontSize: 16,
+    marginBottom: 10,
+    textAlign: 'center',
+  },
+  resultText: {
+    fontSize: 45,
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
   button: {
     width: '80%',
-    marginTop: 20,
+    marginTop: 10,
   },
 });
 

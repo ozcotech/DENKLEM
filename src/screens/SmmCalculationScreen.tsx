@@ -101,133 +101,135 @@ const SMMCalculationScreen: React.FC = () => {
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.container}
-        keyboardVerticalOffset={Platform.OS === 'ios' ? 80 : 0}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 40 : 0}
       >
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <ScrollView
-            ref={scrollViewRef}
-            contentContainerStyle={styles.scrollContent}
-            keyboardShouldPersistTaps="handled"
-            showsVerticalScrollIndicator={true}
-          >
-            <View style={[
-              styles.contentContainer, 
-              { justifyContent: calculated ? 'flex-start' : 'center' }
-            ]}>
-              {/* Input Section */}
-              <View style={styles.inputSection}>
-                <Text style={[styles.label, { color: theme.colors.text.primary }]}>
-                  Arabuluculuk Ücreti:
-                </Text>
-                <TextInput
-                  style={[
-                    styles.input,
-                    { 
-                      color: theme.colors.text.primary,
-                      borderColor: theme.colors.button.border,
-                      backgroundColor: theme.colors.card.background,
-                      textAlign: 'center' 
-                    }
-                  ]}
-                  value={mediationFee === '' ? '' : formatKurusToTlString(mediationFee)} // Show formatted value or empty string
-                  onChangeText={handleMediationFeeChange}
-                  placeholder="Arabuluculuk Ücretini Girin"
-                  placeholderTextColor={theme.colors.text.secondary || '#666666'}
-                  keyboardType="numeric"
-                  maxLength={18} // Prevent excessively long entries
-                  textAlign="center" 
-                />
-                
-                <Text style={[styles.label, { color: theme.colors.text.primary, marginTop: 15 }]}>
-                  Hesaplama Türü:
-                </Text>
-                <View style={styles.optionsContainer}>
-                  {smmCalculationTypeOptions.map((option) => {
-                    
-                    const [firstLine, secondLine] = option.label.split(', ');
-                    
-                    return (
-                      <ThemedButton
-                        key={option.value}
-                        title={`${firstLine}\n${secondLine}`} 
-                        onPress={() => setCalculationType(option.value)}
-                        style={[
-                          styles.optionButton,
-                          calculationType === option.value && {
-                            ...styles.selectedOption,
-                            borderColor: theme.colors.text.primary
-                          }
-                        ]}
-                        textStyle={[
-                          styles.optionText,
-                          calculationType === option.value && styles.selectedOptionText
-                        ]}
-                      />
-                    );
-                  })}
-                </View>
+        <View style={styles.container}>
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <ScrollView
+              ref={scrollViewRef}
+              contentContainerStyle={styles.scrollContent}
+              keyboardShouldPersistTaps="handled"
+              showsVerticalScrollIndicator={true}
+            >
+              <View style={[
+                styles.contentContainer, 
+                { justifyContent: calculated ? 'flex-start' : 'center' }
+              ]}>
+                {/* Input Section */}
+                <View style={styles.inputSection}>
+                  <Text style={[styles.label, { color: theme.colors.text.primary }]}>
+                    Arabuluculuk Ücreti:
+                  </Text>
+                  <TextInput
+                    style={[
+                      styles.input,
+                      { 
+                        color: theme.colors.text.primary,
+                        borderColor: theme.colors.button.border,
+                        backgroundColor: theme.colors.card.background,
+                        textAlign: 'center' 
+                      }
+                    ]}
+                    value={mediationFee === '' ? '' : formatKurusToTlString(mediationFee)} // Show formatted value or empty string
+                    onChangeText={handleMediationFeeChange}
+                    placeholder="Arabuluculuk Ücretini Girin"
+                    placeholderTextColor={theme.colors.text.secondary || '#666666'}
+                    keyboardType="numeric"
+                    maxLength={18} // Prevent excessively long entries
+                    textAlign="center" 
+                  />
+                  
+                  <Text style={[styles.label, { color: theme.colors.text.primary, marginTop: 15 }]}>
+                    Hesaplama Türü:
+                  </Text>
+                  <View style={styles.optionsContainer}>
+                    {smmCalculationTypeOptions.map((option) => {
+                      
+                      const [firstLine, secondLine] = option.label.split(', ');
+                      
+                      return (
+                        <ThemedButton
+                          key={option.value}
+                          title={`${firstLine}\n${secondLine}`} 
+                          onPress={() => setCalculationType(option.value)}
+                          style={[
+                            styles.optionButton,
+                            calculationType === option.value && {
+                              ...styles.selectedOption,
+                              borderColor: theme.colors.text.primary
+                            }
+                          ]}
+                          textStyle={[
+                            styles.optionText,
+                            calculationType === option.value && styles.selectedOptionText
+                          ]}
+                        />
+                      );
+                    })}
+                  </View>
 
-                <ThemedButton
-                  title="Hesapla"
-                  onPress={handleCalculate}
-                  style={styles.calculateButton}
-                  textStyle={styles.calculateButtonText}
-                />
-              </View>
-              
-              {/* Results Section */}
-              {calculated && results && (
-                <View style={styles.resultsContainer}>
-                  <ThemedCard style={styles.resultsCard}>
-                    <Text style={[styles.resultsTitle, { color: theme.colors.text.primary }]}>
-                      SMM Hesaplama Sonuçları
-                    </Text>
-                    
-                    {/* Table Header */}
-                    <View style={styles.tableRow}>
-                      <Text style={[styles.tableHeaderCell, styles.descriptionCell, { color: theme.colors.text.primary }]}>
-                        Açıklama
+                  <ThemedButton
+                    title="Hesapla"
+                    onPress={handleCalculate}
+                    style={styles.calculateButton}
+                    textStyle={styles.calculateButtonText}
+                  />
+                </View>
+                
+                {/* Results Section */}
+                {calculated && results && (
+                  <View style={styles.resultsContainer}>
+                    <ThemedCard style={styles.resultsCard}>
+                      <Text style={[styles.resultsTitle, { color: theme.colors.text.primary }]}>
+                        SMM Hesaplama Sonuçları
                       </Text>
-                      <Text style={[styles.tableHeaderCell, styles.amountCell, { color: theme.colors.text.primary }]}>
-                        {PERSON_TYPE_TUZEL}
-                      </Text>
-                      <Text style={[styles.tableHeaderCell, styles.amountCell, { color: theme.colors.text.primary }]}>
-                        {PERSON_TYPE_GERCEK}
-                      </Text>
-                    </View>
-                    
-                    {/* Table Rows */}
-                    {results.rows.map((row: any, index: number) => (
-                      <View key={index} style={[
-                        styles.tableRow,
-                        index % 2 === 0 ? { backgroundColor: 'rgba(0,0,0,0.02)' } : {}
-                      ]}>
-                        <Text style={[styles.tableCell, styles.descriptionCell, { color: theme.colors.text.primary }]}>
-                          {row.label}
+                      
+                      {/* Table Header */}
+                      <View style={styles.tableRow}>
+                        <Text style={[styles.tableHeaderCell, styles.descriptionCell, { color: theme.colors.text.primary }]}>
+                          Açıklama
                         </Text>
-                        <Text style={[styles.tableCell, styles.amountCell, { color: theme.colors.text.primary }]}>
-                          {formatCurrency(row.tuzelKisiAmount)}
+                        <Text style={[styles.tableHeaderCell, styles.amountCell, { color: theme.colors.text.primary }]}>
+                          {PERSON_TYPE_TUZEL}
                         </Text>
-                        <Text style={[styles.tableCell, styles.amountCell, { color: theme.colors.text.primary }]}>
-                          {formatCurrency(row.gercekKisiAmount)}
+                        <Text style={[styles.tableHeaderCell, styles.amountCell, { color: theme.colors.text.primary }]}>
+                          {PERSON_TYPE_GERCEK}
                         </Text>
                       </View>
-                    ))}
-                  </ThemedCard>
-                </View>
-              )}
+                      
+                      {/* Table Rows */}
+                      {results.rows.map((row: any, index: number) => (
+                        <View key={index} style={[
+                          styles.tableRow,
+                          index % 2 === 0 ? { backgroundColor: 'rgba(0,0,0,0.02)' } : {}
+                        ]}>
+                          <Text style={[styles.tableCell, styles.descriptionCell, { color: theme.colors.text.primary }]}>
+                            {row.label}
+                          </Text>
+                          <Text style={[styles.tableCell, styles.amountCell, { color: theme.colors.text.primary }]}>
+                            {formatCurrency(row.tuzelKisiAmount)}
+                          </Text>
+                          <Text style={[styles.tableCell, styles.amountCell, { color: theme.colors.text.primary }]}>
+                            {formatCurrency(row.gercekKisiAmount)}
+                          </Text>
+                        </View>
+                      ))}
+                    </ThemedCard>
+                  </View>
+                )}
 
-              {/* Home Button - added proper spacing with paddingTop */}
-              <View style={styles.homeButtonContainer}>
-                <ThemedButton
-                  title="Ana Sayfaya Dön"
-                  onPress={handleGoHome}
-                  style={styles.homeButton}
-                />
+                {/* Home Button - added proper spacing with paddingTop */}
+                <View style={styles.homeButtonContainer}>
+                  <ThemedButton
+                    title="Ana Sayfaya Dön"
+                    onPress={handleGoHome}
+                    style={styles.homeButton}
+                  />
+                </View>
               </View>
-            </View>
-          </ScrollView>
-        </TouchableWithoutFeedback>
+            </ScrollView>
+          </TouchableWithoutFeedback>
+        </View>
       </KeyboardAvoidingView>
     </ThemedBackground>
   );
@@ -240,8 +242,8 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     flexGrow: 1,
-    paddingVertical: 40, // Increased vertical padding 
-    paddingBottom: 60, // Increased bottom padding for more space
+    paddingTop: 70, // Increased top padding to avoid notch
+    paddingBottom: 60, // Bottom padding for more space
   },
   contentContainer: {
     flex: 1,
@@ -333,7 +335,7 @@ const styles = StyleSheet.create({
   homeButtonContainer: {
     width: '100%',
     alignItems: 'center',
-    marginTop: 25, // Add consistent space before the home button
+    marginTop: 20, // Add consistent space before the home button
     paddingBottom: 20, // Additional bottom padding
   },
   optionsContainer: {
