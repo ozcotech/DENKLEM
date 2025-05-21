@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, ReactNode } from 'react';
 import {
   Animated,
   TouchableWithoutFeedback,
@@ -7,17 +7,19 @@ import {
   ViewStyle,
   TextStyle,
   GestureResponderEvent,
-  StyleProp,        
+  StyleProp,
+  View,
 } from 'react-native';
 
 interface AnimatedButtonProps {
   title: string;
   onPress: (event: GestureResponderEvent) => void;
   style?: StyleProp<ViewStyle>;     
-  textStyle?: StyleProp<TextStyle>; 
+  textStyle?: StyleProp<TextStyle>;
+  icon?: ReactNode; 
 }
 
-const AnimatedButton: React.FC<AnimatedButtonProps> = ({ title, onPress, style, textStyle }) => {
+const AnimatedButton: React.FC<AnimatedButtonProps> = ({ title, onPress, style, textStyle, icon }) => {
   const scaleAnim = useRef(new Animated.Value(1)).current;
 
   const handlePressIn = () => {
@@ -43,7 +45,10 @@ const AnimatedButton: React.FC<AnimatedButtonProps> = ({ title, onPress, style, 
       onPressOut={handlePressOut}
     >
       <Animated.View style={[styles.button, style, { transform: [{ scale: scaleAnim }] }]}>
-        <Text style={[styles.text, textStyle]}>{title}</Text>
+        <View style={styles.buttonContent}>
+          {icon && <View style={styles.iconContainer}>{icon}</View>}
+          <Text style={[styles.text, textStyle]}>{title}</Text>
+        </View>
       </Animated.View>
     </TouchableWithoutFeedback>
   );
@@ -66,6 +71,14 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 3,
     elevation: 3,
+  },
+  buttonContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  iconContainer: {
+    marginRight: 8,
   },
   text: {
     color: '#fff',

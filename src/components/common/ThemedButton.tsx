@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { StyleSheet, StyleProp, ViewStyle, TextStyle } from 'react-native';
 import { useTheme } from '../../theme/ThemeContext';
 import AnimatedButton from '../AnimatedButton';
@@ -8,13 +8,15 @@ interface ThemedButtonProps {
   onPress: () => void;
   style?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<TextStyle>;
+  icon?: ReactNode;
 }
 
 const ThemedButton: React.FC<ThemedButtonProps> = ({ 
   title, 
   onPress, 
   style, 
-  textStyle 
+  textStyle,
+  icon
 }) => {
   const theme = useTheme();
 
@@ -22,6 +24,7 @@ const ThemedButton: React.FC<ThemedButtonProps> = ({
     <AnimatedButton
       title={title}
       onPress={onPress}
+      icon={icon}
       style={[
         styles.button, 
         { 

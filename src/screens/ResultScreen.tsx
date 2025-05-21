@@ -1,12 +1,11 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RouteProp } from '@react-navigation/native';
 import type { RootStackParamList } from '../navigation/AppNavigator';
 import ThemedBackground from '../components/common/ThemedBackground';
 import ThemedButton from '../components/common/ThemedButton';
-import ThemedHeader from '../components/common/ThemedHeader';
 import { ThemedCard } from '../components/common/ThemedCard';
 import { useTheme } from '../theme/ThemeContext';
 import { formatKurusToTlString } from '../utils/formatCurrency'; // Import formatKurusToTlString
@@ -23,7 +22,6 @@ const ResultScreen = () => {
 
   return (
     <ThemedBackground>
-      <ThemedHeader />
       <View style={styles.container}>
         <Text style={[styles.titleText, { color: theme.colors.text.primary, ...theme.typography.h1 }]}>Arabuluculuk Ücreti</Text>
         
@@ -33,9 +31,16 @@ const ResultScreen = () => {
         </ThemedCard>
 
         <ThemedButton
-          title="Ana Sayfaya Dön"
+          title="Ana Sayfa"
           onPress={() => navigation.navigate('Start')}
           style={styles.button}
+          textStyle={styles.buttonText}
+          icon={
+            <Image
+              source={require('../../assets/images/home-icon.png')}
+              style={styles.homeIcon}
+            />
+          }
         />
       </View>
     </ThemedBackground>
@@ -49,7 +54,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 20,
     width: '100%',
-    paddingTop: 30, // Extra padding for header
+    paddingTop: 80, // Increased top padding since we removed the header
   },
   titleText: {
     textAlign: 'center',
@@ -72,8 +77,16 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   button: {
-    width: '80%',
+    width: '90%', 
     marginTop: 10,
+  },
+  buttonText: {
+    fontWeight: '600',
+  },
+  homeIcon: {
+    width: 20,
+    height: 20,
+    tintColor: '#ffffff',
   },
 });
 
