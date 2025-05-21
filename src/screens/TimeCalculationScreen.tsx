@@ -15,6 +15,7 @@ import DateTimePicker, {
 } from '@react-native-community/datetimepicker';
 import ThemedBackground from '../components/common/ThemedBackground';
 import ThemedButton from '../components/common/ThemedButton';
+import ThemedHeader from '../components/common/ThemedHeader';
 import {
   calculateWeekDates,
   getDisputeTypes,
@@ -25,9 +26,12 @@ import { useTheme } from '../theme/ThemeContext';
 export default function TimeCalculationScreen() {
   const theme = useTheme();
   const navigation = useNavigation();
-  const handleNavigateHome = () => {
-    navigation.navigate('Start' as never); // If your route is 'Home', use 'Home' instead of 'Start'
-  };
+  
+  // That method is commented out because it was not used in the original code
+  // const handleNavigateHome = () => {
+  //   navigation.navigate('Start' as never); 
+  // };
+  
   const [startDate, setStartDate] = useState('');
   const [dateObject, setDateObject] = useState(new Date());
   const [showPicker, setShowPicker] = useState(false);
@@ -116,6 +120,7 @@ export default function TimeCalculationScreen() {
 
   return (
     <ThemedBackground>
+      <ThemedHeader />
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.pageContainer}>
           <View style={styles.contentContainer}>
@@ -149,14 +154,7 @@ export default function TimeCalculationScreen() {
                 onPress={handleCalculate}
                 style={styles.calculateButton}
               />
-              <ThemedButton
-                title="Ana Sayfaya Dön"
-                onPress={handleNavigateHome}
-                style={[
-                  styles.calculateButton,
-                  !calculated && { marginTop: 60 } 
-                ]}
-              />
+              {/* Home button is now provided by ThemedHeader */}
             </View>
 
             {calculated && (
@@ -193,6 +191,7 @@ export default function TimeCalculationScreen() {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
+    paddingTop: 10, // Extra padding for the header
   },
   pageContainer: {
     flex: 1,

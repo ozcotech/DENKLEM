@@ -6,6 +6,7 @@ import type { RootStackParamList } from '../navigation/AppNavigator';
 import { useTheme } from '../theme/ThemeContext';
 import ThemedBackground from '../components/common/ThemedBackground';
 import ThemedButton from '../components/common/ThemedButton';
+import ThemedHeader from '../components/common/ThemedHeader';
 
 const AgreementStatusScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -13,6 +14,7 @@ const AgreementStatusScreen = () => {
 
   return (
     <ThemedBackground>
+      <ThemedHeader />
       <View style={styles.container}>
         <Text style={[styles.title, { color: theme.colors.text.primary, ...theme.typography.h1 }]}>
           Anlaşma Durumu
@@ -41,6 +43,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 16,
     width: '100%',
+    paddingTop: 20, // Extra padding for header
   },
   title: {
     textAlign: 'center',

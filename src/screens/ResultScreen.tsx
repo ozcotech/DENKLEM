@@ -6,6 +6,7 @@ import type { RouteProp } from '@react-navigation/native';
 import type { RootStackParamList } from '../navigation/AppNavigator';
 import ThemedBackground from '../components/common/ThemedBackground';
 import ThemedButton from '../components/common/ThemedButton';
+import ThemedHeader from '../components/common/ThemedHeader';
 import { useTheme } from '../theme/ThemeContext';
 import { formatKurusToTlString } from '../utils/formatCurrency'; // Import formatKurusToTlString
 
@@ -21,6 +22,7 @@ const ResultScreen = () => {
 
   return (
     <ThemedBackground>
+      <ThemedHeader />
       <View style={styles.container}>
         <Text style={[styles.titleText, { color: theme.colors.text.primary, ...theme.typography.h1 }]}>Hesaplama Sonucu</Text>
         <Text style={[styles.resultText, { color: theme.colors.text.primary, ...theme.typography.h1, fontSize: 55 }]}>{formattedResult} ₺</Text>
@@ -42,6 +44,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 20,
     width: '100%',
+    paddingTop: 30, // Extra padding for header
   },
   titleText: {
     textAlign: 'center',

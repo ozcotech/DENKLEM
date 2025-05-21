@@ -6,6 +6,7 @@ import type { RootStackParamList } from '../navigation/AppNavigator';
 import { useTheme } from '../theme/ThemeContext';
 import ThemedBackground from '../components/common/ThemedBackground';
 import ThemedButton from '../components/common/ThemedButton';
+import ThemedHeader from '../components/common/ThemedHeader';
 
 const disputeTypes = [
   'İşçi-İşveren',
@@ -36,6 +37,7 @@ const DisputeTypeScreen = () => {
 
   return (
     <ThemedBackground>
+      <ThemedHeader />
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.mainContentContainer}>
           <Text style={[styles.title, { color: theme.colors.text.primary, ...theme.typography.h1 }]}>

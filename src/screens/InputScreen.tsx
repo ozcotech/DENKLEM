@@ -7,6 +7,7 @@ import type { RootStackParamList } from '../navigation/AppNavigator';
 import { calculateMediationFee } from '../models/tariffModel';
 import ThemedBackground from '../components/common/ThemedBackground';
 import ThemedButton from '../components/common/ThemedButton';
+import ThemedHeader from '../components/common/ThemedHeader';
 import { useTheme } from '../theme/ThemeContext';
 import { formatKurusToTlString, normalizeToKurusString, convertKurusStringToTlNumber } from '../utils/formatCurrency'; // Import helper functions
 
@@ -87,6 +88,7 @@ const InputScreen = () => {
 
   return (
     <ThemedBackground>
+      <ThemedHeader />
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.keyboardAvoidingContainer}
