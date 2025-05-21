@@ -25,7 +25,13 @@ const DisputeCategoryScreen = () => {
           <ThemedButton
             title="Konusu Para Olan Veya Para İle Değerlendirilebilen Uyuşmazlıklar"
             onPress={() => navigation.navigate('AgreementStatus')}
-            style={styles.halfButton}
+            style={[
+              styles.halfButton,
+              { 
+                borderColor: theme.colors.text.primary, 
+                borderWidth: 1.5, // Adjusted border width
+              } 
+            ]}
             textStyle={styles.smallButtonText}
           />
           <ThemedButton

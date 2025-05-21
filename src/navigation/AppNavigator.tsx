@@ -55,9 +55,6 @@ const AppNavigator = () => {
       <Stack.Screen
         name="Result"
         component={ResultScreen}
-        options={{
-          gestureEnabled: true, 
-        }}
       />
       <Stack.Screen
         name="TimeCalculation"
