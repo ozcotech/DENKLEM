@@ -1,7 +1,7 @@
 import { ThemeType } from './types';
 export const DefaultTheme: ThemeType = {
   colors: {
-    background: ['#4f8cff', '#9b40ff', '#e82fff'], 
+    background: ['#141e61', '#393e72', '#7a3f6d'],
     text: {
       primary: '#fff',
       secondary: '#d0e8ff',
