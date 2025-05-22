@@ -17,7 +17,7 @@ const ResultScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const route = useRoute<RouteProp<RootStackParamList, 'Result'>>();
   const theme = useTheme();
-  const { result, isAgreement } = route.params; // result is in TL, e.g., 6000
+  const { result, isAgreement, disputeType } = route.params; // result is in TL, e.g., 6000
 
   // Convert TL result to kurus string
   const resultInKurusString = Math.round(result * 100).toString(); // "600000"
@@ -48,7 +48,14 @@ const ResultScreen = () => {
         <Text style={[styles.titleText, { color: theme.colors.text.primary, ...theme.typography.h1 }]}>Arabuluculuk Ücreti</Text>
         
         <ThemedCard style={styles.resultCard}>
-          <Text style={[styles.resultLabel, { color: theme.colors.text.secondary }]}>{/* Upper Text */}</Text>
+          <>
+            <Text style={[styles.resultLabel, { color: theme.colors.text.secondary }]}>
+              Uyuşmazlık Türü
+            </Text>
+            <Text style={[styles.resultLabel, { color: theme.colors.text.secondary, fontWeight: 'bold' }]}>
+              {disputeType}
+            </Text>
+          </>
           <Text style={[styles.resultText, { color: theme.colors.text.primary }]}>{formattedResult} ₺</Text>
           <Text style={[styles.resultLabel, { color: theme.colors.text.secondary }]}>{/* Sub Text */}</Text>
         </ThemedCard>

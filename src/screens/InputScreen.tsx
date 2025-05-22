@@ -83,7 +83,7 @@ const InputScreen = () => {
       disputeType: disputeType,
     });
 
-    navigation.navigate('Result', { result: fee, isAgreement });
+    navigation.navigate('Result', { result: fee, isAgreement, disputeType });
   };
 
   return (
@@ -99,7 +99,14 @@ const InputScreen = () => {
           style={styles.scrollView}
           keyboardShouldPersistTaps="handled"
         >
-          <Text style={[styles.titleText, { color: theme.colors.text.primary, ...theme.typography.h1 }]}>Bilgileri Giriniz</Text>
+          <>
+            <Text style={[styles.titleText, { color: theme.colors.text.primary, ...theme.typography.h1 }]}>
+              Uyuşmazlık Türü
+            </Text>
+            <Text style={[styles.disputeTypeValue, { color: theme.colors.text.primary, fontWeight: 'bold' }]}>
+              {disputeType}
+            </Text>
+          </>
           {isAgreement && (
             <TextInput
               style={[styles.input, { color: theme.colors.text.primary, backgroundColor: theme.colors.card.background, borderColor: theme.colors.button.border }]}
@@ -153,6 +160,16 @@ const styles = StyleSheet.create({
   titleText: {
     textAlign: 'center',
     marginBottom: 30,
+  },
+  resultLabel: {
+    textAlign: 'center',
+    marginBottom: 10,
+    fontSize: 16,
+  },
+  disputeTypeValue: {
+    textAlign: 'center',
+    marginBottom: 30,
+    fontSize: 20,
   },
   input: {
     borderRadius: 8,
