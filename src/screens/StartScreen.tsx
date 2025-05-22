@@ -67,10 +67,11 @@ const StartScreen = () => {
             }
           />
         </View>
+        <Text style={[styles.footer, { color: theme.colors.text.secondary, ...theme.typography.body }]}>
+        © {new Date().getFullYear()} Tüm hakları saklıdır
+        </Text>
       </View>
-      <Text style={[styles.footer, { color: theme.colors.text.secondary, ...theme.typography.body }]}>
-        info@ozco.studio
-      </Text>
+      
     </ThemedBackground>
   );
 };
