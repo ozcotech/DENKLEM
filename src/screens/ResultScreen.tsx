@@ -84,7 +84,17 @@ const ResultScreen = () => {
                 </Text>
               </View>
               
-              {/* Row 4: Tahsil Edilecek Tutar */}
+              {/* Row 4: KDV */}
+              <View style={styles.smmTableRow}>
+                <Text style={[styles.smmTableCell, styles.smmLabelCell, { color: theme.colors.text.secondary }]}>
+                  KDV (%20)
+                </Text>
+                <Text style={[styles.smmTableCell, styles.smmValueCell, { color: theme.colors.text.primary }]}>
+                  {formatSmmValue(smmResults.rows[3].tuzelKisiAmount)}
+                </Text>
+              </View>
+              
+              {/* Row 5: Tahsil Edilecek Tutar */}
               <View style={styles.smmTableRow}>
                 <Text style={[styles.smmTableCell, styles.smmLabelCell, { color: theme.colors.text.secondary }]}>
                   Tahsil Edilecek Tutar
