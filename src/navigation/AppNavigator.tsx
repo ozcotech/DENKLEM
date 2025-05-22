@@ -15,7 +15,7 @@ export type RootStackParamList = {
   AgreementStatus: undefined;
   DisputeType: { isAgreement: boolean };
   Input: { isAgreement: boolean; disputeType: string };
-  Result: { result: number };
+  Result: { result: number; isAgreement: boolean };
   TimeCalculation: undefined; // Added for TimeCalculationScreen
   SMMCalculation: undefined; // Added for SMMCalculationScreen
 };

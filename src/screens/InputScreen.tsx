@@ -83,7 +83,7 @@ const InputScreen = () => {
       disputeType: disputeType,
     });
 
-    navigation.navigate('Result', { result: fee });
+    navigation.navigate('Result', { result: fee, isAgreement });
   };
 
   return (
