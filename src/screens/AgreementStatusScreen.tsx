@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../navigation/AppNavigator';
@@ -15,7 +15,11 @@ const AgreementStatusScreen = () => {
   return (
     <ThemedBackground>
       <ThemedHeader />
-      <View style={styles.container}>
+      <ScrollView
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+        style={styles.scrollView}
+      >
         <Text style={[styles.title, { color: theme.colors.text.primary, ...theme.typography.h1 }]}>
           Anlaşma Durumu
         </Text>
@@ -31,19 +35,25 @@ const AgreementStatusScreen = () => {
             style={styles.button} 
           />
         </View>
-      </View>
+      </ScrollView>
     </ThemedBackground>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  scrollView: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingHorizontal: 16,
     width: '100%',
-    paddingTop: 20, // Extra padding for header
+    marginTop: 70, // Adjust this value based on the height of your header
+  },
+  scrollContent: {
+    alignItems: 'center',
+    justifyContent: 'center', // Center the content vertically
+    flexGrow: 1,
+    paddingTop: 10,
+    paddingBottom: 180,
+    width: '100%',
+    minHeight: '100%',
   },
   title: {
     textAlign: 'center',
@@ -56,6 +66,7 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     marginBottom: 20,
     marginHorizontal: -2,
+    paddingHorizontal: 16,
   },
   button: {
     flex: 1,

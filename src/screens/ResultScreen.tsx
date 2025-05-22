@@ -1,11 +1,12 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RouteProp } from '@react-navigation/native';
 import type { RootStackParamList } from '../navigation/AppNavigator';
 import ThemedBackground from '../components/common/ThemedBackground';
 import ThemedButton from '../components/common/ThemedButton';
+import ThemedHeader from '../components/common/ThemedHeader';
 import { ThemedCard } from '../components/common/ThemedCard';
 import { useTheme } from '../theme/ThemeContext';
 import { formatKurusToTlString } from '../utils/formatCurrency'; // Import formatKurusToTlString
@@ -38,7 +39,12 @@ const ResultScreen = () => {
 
   return (
     <ThemedBackground>
-      <View style={styles.container}>
+      <ThemedHeader />
+      <ScrollView
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+        style={styles.scrollView}
+      >
         <Text style={[styles.titleText, { color: theme.colors.text.primary, ...theme.typography.h1 }]}>Arabuluculuk Ücreti</Text>
         
         <ThemedCard style={styles.resultCard}>
@@ -119,7 +125,7 @@ const ResultScreen = () => {
             />
           }
         />
-      </View>
+      </ScrollView>
       <Text style={[styles.footer, { color: theme.colors.text.secondary, ...theme.typography.body }]}>
         info@ozco.studio
       </Text>
@@ -134,7 +140,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 20,
     width: '100%',
-    paddingTop: 80, // Increased top padding since we removed the header
   },
   titleText: {
     textAlign: 'center',
@@ -206,6 +211,19 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     position: 'absolute',
     bottom: '2%',
+  },
+  scrollContent: {
+    flexGrow: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingBottom: 180,
+    paddingTop: 10,
+    minHeight: '100%',
+    width: '100%',
+  },
+  scrollView: {
+    width: '100%',
+    marginTop: 70, // Adjust based on the height of the header
   },
 });
 

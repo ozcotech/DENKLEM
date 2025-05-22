@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Alert } from 'react-native';
+import { View, Text, StyleSheet, Alert, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../navigation/AppNavigator';
@@ -19,7 +19,11 @@ const DisputeCategoryScreen = () => {
   return (
     <ThemedBackground>
       <ThemedHeader />
-      <View style={styles.container}>
+      <ScrollView
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+        style={styles.scrollView}
+      >
         <Text style={[styles.title, { color: theme.colors.text.primary, ...theme.typography.h1 }]}>
           Uyuşmazlık Kategorisi
         </Text>
@@ -59,19 +63,25 @@ const DisputeCategoryScreen = () => {
             style={styles.halfButton}
           />
         </View>
-      </View>
+      </ScrollView>
     </ThemedBackground>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  scrollView: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingHorizontal: 16,
     width: '100%',
-    paddingTop: 20, // Extra padding for header
+    marginTop: 70, // Adjust this value based on the height of your header
+  },
+  scrollContent: {
+    alignItems: 'center',
+    justifyContent: 'center', // Center the content vertically
+    flexGrow: 1,
+    paddingTop: 10,
+    paddingBottom: 100,
+    width: '100%',
+    minHeight: '100%',
   },
   title: {
     textAlign: 'center',

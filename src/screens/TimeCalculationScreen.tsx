@@ -8,7 +8,6 @@ import {
   Alert,
   Platform,
   Pressable,
-  SafeAreaView,
 } from 'react-native';
 import DateTimePicker, {
   DateTimePickerEvent,
@@ -121,7 +120,11 @@ export default function TimeCalculationScreen() {
   return (
     <ThemedBackground>
       <ThemedHeader />
-      <SafeAreaView style={styles.safeArea}>
+      <ScrollView
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+        style={styles.scrollView}
+      >
         <View style={styles.pageContainer}>
           <View style={styles.contentContainer}>
             <View style={styles.inputSection}>
@@ -158,7 +161,7 @@ export default function TimeCalculationScreen() {
             </View>
 
             {calculated && (
-              <ScrollView style={styles.resultsContainer}>
+              <View style={styles.resultsContainer}>
                 <Text style={[styles.resultsHeader, { color: theme.colors.text.primary }]}>
                   Hesaplanan Tarihler:
                 </Text>
@@ -179,19 +182,26 @@ export default function TimeCalculationScreen() {
                     })}
                   </View>
                 ))}
-              </ScrollView>
+              </View>
             )}
           </View>
         </View>
-      </SafeAreaView>
+      </ScrollView>
     </ThemedBackground>
   );
 }
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    paddingTop: 10, // Extra padding for the header
+  scrollView: {
+    width: '100%',
+    marginTop: 70, // Adjust this value based on the height of your header
+  },
+  scrollContent: {
+    flexGrow: 1,
+    width: '100%',
+    minHeight: '100%',
+    paddingBottom: 250,
+    paddingTop: 10,
   },
   pageContainer: {
     flex: 1,
@@ -205,6 +215,7 @@ const styles = StyleSheet.create({
     width: '100%', 
     marginBottom: 20,
     alignItems: 'center',
+    marginTop: 10,
   },
   header: {
     marginBottom: 15,
@@ -228,7 +239,8 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   resultsContainer: {
-    flex: 1,
+    width: '100%',
+    marginTop: 10,
   },
   resultsHeader: {
     fontSize: 18,

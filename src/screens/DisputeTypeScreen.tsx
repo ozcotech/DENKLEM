@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, Dimensions, SafeAreaView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Dimensions } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../navigation/AppNavigator';
@@ -38,62 +38,52 @@ const DisputeTypeScreen = () => {
   return (
     <ThemedBackground>
       <ThemedHeader />
-      <SafeAreaView style={styles.safeArea}>
-        <View style={styles.mainContentContainer}>
-          <Text style={[styles.title, { color: theme.colors.text.primary, ...theme.typography.h1 }]}>
-            Uyuşmazlık Türü
-          </Text>
-          <ScrollView
-            contentContainerStyle={styles.scroll}
-            style={styles.scrollViewStyle}
-            showsVerticalScrollIndicator={false}
-          >
-            {rows.map((row, i) => (
-              <View style={styles.row} key={i}>
-                {row.map((type, j) => (
-                  <ThemedButton
-                    key={type}
-                    title={type}
-                    onPress={() => navigation.navigate('Input', { isAgreement, disputeType: type })}
-                    style={styles.button}
-                  />
-                ))}
-                {/* If there's a single item in the row, complete it with an invisible View */}
-                {row.length === 1 && <View style={[styles.button, { opacity: 0 }]} />}
-              </View>
+      <ScrollView
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+        style={styles.scrollView}
+      >
+        <Text style={[styles.title, { color: theme.colors.text.primary, ...theme.typography.h1 }]}>
+          Uyuşmazlık Türü
+        </Text>
+        
+        {rows.map((row, i) => (
+          <View style={styles.row} key={i}>
+            {row.map((type, j) => (
+              <ThemedButton
+                key={type}
+                title={type}
+                onPress={() => navigation.navigate('Input', { isAgreement, disputeType: type })}
+                style={styles.button}
+              />
             ))}
-          </ScrollView>
-        </View>
-      </SafeAreaView>
+            {/* If there's a single item in the row, complete it with an invisible View */}
+            {row.length === 1 && <View style={[styles.button, { opacity: 0 }]} />}
+          </View>
+        ))}
+      </ScrollView>
     </ThemedBackground>
   );
 };
 
 const styles = StyleSheet.create({
-  safeArea: {
+  scrollView: {
     flex: 1,
     width: '100%',
+    marginTop: 70, // Adjust this value based on the height of your header
   },
-  mainContentContainer: {
-    flex: 1,
-    justifyContent: 'center',
+  scrollContent: {
     alignItems: 'center',
+    justifyContent: 'center', // Center the content vertically
+    flexGrow: 1, 
+    paddingTop: 10,
+    paddingBottom: 80,
     width: '100%',
-    paddingHorizontal: 10,
+    minHeight: '100%',
   },
   title: {
-    // fontSize and fontWeight removed, will be supplied by theme.typography.h1
     textAlign: 'center',
     marginBottom: 24,
-  },
-  scrollViewStyle: {
-    width: '100%',
-    flexGrow: 0,
-  },
-  scroll: {
-    alignItems: 'center',
-    width: '100%',
-    paddingBottom: 20,
   },
   row: {
     flexDirection: 'row',

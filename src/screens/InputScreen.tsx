@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, KeyboardAvoidingView, Platform, Alert } from 'react-native';
+import { View, Text, StyleSheet, TextInput, KeyboardAvoidingView, Platform, Alert, ScrollView } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import type { RouteProp } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -93,7 +93,12 @@ const InputScreen = () => {
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.keyboardAvoidingContainer}
       >
-        <View style={styles.container}>
+        <ScrollView
+          contentContainerStyle={styles.scrollContent}
+          showsVerticalScrollIndicator={false}
+          style={styles.scrollView}
+          keyboardShouldPersistTaps="handled"
+        >
           <Text style={[styles.titleText, { color: theme.colors.text.primary, ...theme.typography.h1 }]}>Bilgileri Giriniz</Text>
           {isAgreement && (
             <TextInput
@@ -119,7 +124,7 @@ const InputScreen = () => {
             onPress={handleCalculate}
             style={styles.button}
           />
-        </View>
+        </ScrollView>
       </KeyboardAvoidingView>
     </ThemedBackground>
   );
@@ -129,12 +134,21 @@ const styles = StyleSheet.create({
   keyboardAvoidingContainer: {
     flex: 1,
     width: '100%',
-    justifyContent: 'center',
   },
-  container: {
-    paddingHorizontal: 20,
+  scrollView: {
+    flex: 1,
     width: '100%',
+    marginTop: 70, // Adjust this value based on the height of your header
+  },
+  scrollContent: {
     alignItems: 'center',
+    justifyContent: 'center', // Center the content vertically
+    flexGrow: 1,
+    paddingHorizontal: 20,
+    paddingTop: 20,
+    paddingBottom: 190,
+    width: '100%',
+    minHeight: '100%',
   },
   titleText: {
     textAlign: 'center',
