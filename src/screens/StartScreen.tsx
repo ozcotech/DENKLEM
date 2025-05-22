@@ -56,13 +56,20 @@ const StartScreen = () => {
         </View>
         <View style={styles.buttonWrapper}>
           <ThemedButton
-            title="Hesaplamaya Başla"
+            title="Başla"
             onPress={() => navigation.navigate('DisputeCategory')}
+            textStyle={styles.buttonText}
+            icon={
+              <Image
+                source={require('../../assets/images/start-icon.png')}
+                style={styles.startIcon}
+              />
+            }
           />
         </View>
       </View>
       <Text style={[styles.footer, { color: theme.colors.text.secondary, ...theme.typography.body }]}>
-        Made by ozcotech
+        info@ozco.studio
       </Text>
     </ThemedBackground>
   );
@@ -148,6 +155,14 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     position: 'absolute',
     bottom: '2%',
+  },
+  buttonText: {
+    fontWeight: '600',
+  },
+  startIcon: {
+    width: 20,
+    height: 20,
+    tintColor: '#ffffff',
   },
 });
 

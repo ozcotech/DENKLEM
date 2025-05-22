@@ -43,6 +43,9 @@ const ResultScreen = () => {
           }
         />
       </View>
+      <Text style={[styles.footer, { color: theme.colors.text.secondary, ...theme.typography.body }]}>
+        info@ozco.studio
+      </Text>
     </ThemedBackground>
   );
 };
@@ -87,6 +90,11 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     tintColor: '#ffffff',
+  },
+  footer: {
+    textAlign: 'center',
+    position: 'absolute',
+    bottom: '2%',
   },
 });
 
