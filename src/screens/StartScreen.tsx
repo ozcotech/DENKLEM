@@ -5,6 +5,7 @@ import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../navigation/AppNavigator';
 import ThemedBackground from '../components/common/ThemedBackground';
 import ThemedButton from '../components/common/ThemedButton';
+import ThemedHeader from '../components/common/ThemedHeader';
 import { ThemedCard } from '../components/common/ThemedCard';
 import { useTheme } from '../theme/ThemeContext';
 
@@ -23,6 +24,7 @@ const StartScreen = () => {
 
   return (
     <ThemedBackground>
+      <ThemedHeader />
       <View style={styles.headerContainer}>
         <Text style={[styles.headerText, { color: theme.colors.text.primary, ...theme.typography.h2 }]}>
           Arabuluculuk Ücreti{'\n'}Hesaplama Programı
@@ -79,7 +81,7 @@ const StartScreen = () => {
 const styles = StyleSheet.create({
   headerContainer: {
     position: 'absolute',
-    top: '10%',
+    top: '15%', // Adjusted to position the header text
     alignItems: 'center',
     width: '100%',
   },
