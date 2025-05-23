@@ -26,7 +26,7 @@ const InputScreen = () => {
   };
 
   const navigateToAbout = () => {
-    navigation.navigate('About' as never);
+    navigation.navigate('Main', { screen: 'About' } as never);
   };
 
   const handleAmountChange = (text: string) => {

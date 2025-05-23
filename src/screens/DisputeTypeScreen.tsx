@@ -30,7 +30,7 @@ const DisputeTypeScreen = () => {
   };
 
   const navigateToAbout = () => {
-    navigation.navigate('About' as never);
+    navigation.navigate('Main', { screen: 'About' } as never);
   };
 
   // Function to split the dispute types into rows of two

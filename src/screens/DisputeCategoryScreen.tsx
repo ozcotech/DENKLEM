@@ -22,7 +22,7 @@ const DisputeCategoryScreen = () => {
   };
 
   const navigateToAbout = () => {
-    navigation.navigate('About' as never);
+    navigation.navigate('Main', { screen: 'About' } as never);
   };
 
   return (

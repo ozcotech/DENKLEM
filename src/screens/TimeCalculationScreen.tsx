@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import type { RootStackParamList } from '../navigation/AppNavigator';
 import {
   View,
   Text,
@@ -26,7 +28,7 @@ import { useTheme } from '../theme/ThemeContext';
 
 export default function TimeCalculationScreen() {
   const theme = useTheme();
-  const navigation = useNavigation();
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const insets = useSafeAreaInsets();
   
   const [startDate, setStartDate] = useState('');
@@ -57,7 +59,7 @@ export default function TimeCalculationScreen() {
   };
 
   const navigateToAbout = () => {
-    navigation.navigate('About' as never);
+    navigation.navigate('Main', { screen: 'About' } as never);
   };
 
   const openPicker = () => {

@@ -22,7 +22,6 @@ export type RootStackParamList = {
   Result: { result: number; isAgreement: boolean; disputeType: string };
   TimeCalculation: undefined; // Added for TimeCalculationScreen
   SMMCalculation: undefined; // Added for SMMCalculationScreen
-  About: undefined; // Added for AboutScreen
 };
 
 // Tab navigator için tür tanımı
@@ -98,11 +97,6 @@ const AppNavigator = () => {
         name="SMMCalculation"
         component={SMMCalculationScreen}
         options={{ title: 'SMM Hesaplama' }}
-      />
-      <Stack.Screen
-        name="About"
-        component={AboutScreen}
-        options={{ title: 'Hakkımızda' }}
       />
       {/* Additional screens can be added here */}
     </Stack.Navigator>
