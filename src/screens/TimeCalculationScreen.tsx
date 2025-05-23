@@ -270,13 +270,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
+    paddingHorizontal: '7.5%', // Added to match tab bar width
   },
   titleText: {
     textAlign: 'center',
     marginBottom: 30,
   },
   inputSection: {
-    width: '85%', // Match TabBar width
+    width: '100%', // Changed from 85% to 100% to fill container
     marginBottom: 20,
     alignItems: 'center',
     marginTop: 10,
@@ -313,6 +314,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   disputeTypeContainer: {
+    width: '100%', // Added to ensure consistent width
     marginBottom: 15,
     padding: 15,
     borderRadius: 12,
