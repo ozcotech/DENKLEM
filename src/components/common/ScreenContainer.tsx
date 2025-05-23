@@ -21,6 +21,7 @@ const ScreenContainer: React.FC<ScreenContainerProps> = ({
   
   return (
     <ScrollView
+      keyboardShouldPersistTaps="handled"
       contentContainerStyle={[
         styles.container,
         { 
