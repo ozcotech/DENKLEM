@@ -148,13 +148,6 @@ export default function TimeCalculationScreen() {
           </Text>
           
           <View style={styles.inputSection}>
-            <Text style={[styles.header, {
-              color: theme.colors.text.primary,
-              fontSize: theme.typography.h2?.fontSize || 22,
-              fontWeight: theme.typography.h2?.fontWeight || 'bold',
-            }]}>
-              Başlangıç Tarihi Girin:
-            </Text>
             <Pressable
               onPress={openPicker}
               style={[styles.dateInputDisplay, { borderColor: theme.colors.button?.border || '#ccc' }]}>
@@ -185,7 +178,7 @@ export default function TimeCalculationScreen() {
           {calculated && (
             <View style={styles.resultsContainer}>
               <Text style={[styles.resultsHeader, { color: theme.colors.text.primary }]}>
-                Hesaplanan Tarihler:
+                Uyuşmazlık Türüne Göre Süreler:
               </Text>
               {disputeTypes.map(disputeType => (
                 <View key={disputeType.name} style={[styles.disputeTypeContainer, { backgroundColor: theme.colors.card?.background || (Array.isArray(theme.colors.background) ? theme.colors.background[1] : '#f9f9f9') }]}>
