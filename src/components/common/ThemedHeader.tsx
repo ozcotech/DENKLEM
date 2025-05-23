@@ -41,7 +41,7 @@ const ThemedHeader: React.FC<ThemedHeaderProps> = ({
       <View style={styles.rightSection}>
         {showHomeButton && (
           <TouchableOpacity 
-            onPress={() => navigation.navigate('Start')} 
+            onPress={() => navigation.navigate('Main')} 
             style={styles.homeButton}
           >
             <Image

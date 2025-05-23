@@ -6,7 +6,6 @@ import type { RouteProp } from '@react-navigation/native';
 import type { RootStackParamList } from '../navigation/AppNavigator';
 import ThemedBackground from '../components/common/ThemedBackground';
 import ThemedButton from '../components/common/ThemedButton';
-import ThemedHeader from '../components/common/ThemedHeader';
 import { ThemedCard } from '../components/common/ThemedCard';
 import { useTheme } from '../theme/ThemeContext';
 import { formatKurusToTlString } from '../utils/formatCurrency'; // Import formatKurusToTlString
@@ -39,7 +38,6 @@ const ResultScreen = () => {
 
   return (
     <ThemedBackground>
-      <ThemedHeader />
       <ScrollView
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
@@ -122,7 +120,7 @@ const ResultScreen = () => {
 
         <ThemedButton
           title="Ana Sayfa"
-          onPress={() => navigation.navigate('Start')}
+          onPress={() => navigation.navigate('Main')}
           style={styles.button}
           textStyle={styles.buttonText}
           icon={

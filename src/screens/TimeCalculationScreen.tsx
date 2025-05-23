@@ -1,20 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import {
   View,
   Text,
   StyleSheet,
-  ScrollView,
   Alert,
-  Platform,
   Pressable,
+  TouchableOpacity,
+  Image,
+  Platform,
 } from 'react-native';
 import DateTimePicker, {
   DateTimePickerEvent,
 } from '@react-native-community/datetimepicker';
 import ThemedBackground from '../components/common/ThemedBackground';
 import ThemedButton from '../components/common/ThemedButton';
-import ThemedHeader from '../components/common/ThemedHeader';
+import ScreenContainer from '../components/common/ScreenContainer';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import {
   calculateWeekDates,
   getDisputeTypes,
@@ -25,11 +27,7 @@ import { useTheme } from '../theme/ThemeContext';
 export default function TimeCalculationScreen() {
   const theme = useTheme();
   const navigation = useNavigation();
-  
-  // That method is commented out because it was not used in the original code
-  // const handleNavigateHome = () => {
-  //   navigation.navigate('Start' as never); 
-  // };
+  const insets = useSafeAreaInsets();
   
   const [startDate, setStartDate] = useState('');
   const [dateObject, setDateObject] = useState(new Date());
@@ -37,10 +35,30 @@ export default function TimeCalculationScreen() {
   const [weekDates, setWeekDates] = useState<{ [week: number]: Date }>({});
   const [calculated, setCalculated] = useState(false);
 
+  // Set today's date as default on component mount
+  useEffect(() => {
+    const today = new Date();
+    const day = today.getDate().toString().padStart(2, '0');
+    const month = (today.getMonth() + 1).toString().padStart(2, '0');
+    const year = today.getFullYear();
+    const formattedDate = `${day}.${month}.${year}`;
+    setStartDate(formattedDate);
+    setDateObject(today);
+  }, []);
+
   const disputeTypes = getDisputeTypes();
   const allWeeks = Array.from(
     new Set(disputeTypes.flatMap(d => d.weekIntervals)),
   ).sort((a, b) => a - b);
+
+  // Navigation handlers
+  const navigateToHome = () => {
+    navigation.navigate('Main' as never);
+  };
+
+  const navigateToAbout = () => {
+    navigation.navigate('About' as never);
+  };
 
   const openPicker = () => {
     // Set dateObject to current date if no startDate, otherwise parse from startDate
@@ -69,26 +87,28 @@ export default function TimeCalculationScreen() {
     event: DateTimePickerEvent,
     selectedDate?: Date,
   ) => {
-    // Always update the Date object if there's a selectedDate, 
-    // regardless of the event type (even when selecting the same date)
-    if (selectedDate) {
-      setDateObject(selectedDate);
-      
-      // Format and set the date string
-      const day = selectedDate.getDate().toString().padStart(2, '0');
-      const month = (selectedDate.getMonth() + 1).toString().padStart(2, '0');
-      const year = selectedDate.getFullYear();
-      const formattedDate = `${day}.${month}.${year}`;
-      
-      // Only update startDate if it's actually changed
-      // or if it's the first time setting (empty string)
-      if (startDate !== formattedDate || startDate === '') {
+    console.log('onDateChange triggered:', event.type, selectedDate);
+    
+    // Handle date selection - always process when user selects a date
+    if (event.type === 'set') {
+      if (selectedDate) {
+        setDateObject(selectedDate);
+        
+        // Format and set the date string
+        const day = selectedDate.getDate().toString().padStart(2, '0');
+        const month = (selectedDate.getMonth() + 1).toString().padStart(2, '0');
+        const year = selectedDate.getFullYear();
+        const formattedDate = `${day}.${month}.${year}`;
+        
         setStartDate(formattedDate);
       }
+      
+      // Always close picker when user taps a date (even if it's the same date)
+      setShowPicker(false);
     }
     
-    // Close picker on set or dismissed events
-    if (event.type === 'set' || event.type === 'dismissed') {
+    // Handle dismiss/cancel
+    if (event.type === 'dismissed') {
       setShowPicker(false);
     }
   };
@@ -119,100 +139,149 @@ export default function TimeCalculationScreen() {
 
   return (
     <ThemedBackground>
-      <ThemedHeader />
-      <ScrollView
-        contentContainerStyle={styles.scrollContent}
-        showsVerticalScrollIndicator={false}
-        style={styles.scrollView}
-      >
-        <View style={styles.pageContainer}>
-          <View style={styles.contentContainer}>
-            <View style={styles.inputSection}>
-              <Text style={[styles.header, {
-                color: theme.colors.text.primary,
-                fontSize: theme.typography.h2?.fontSize || 22,
-                fontWeight: theme.typography.h2?.fontWeight || 'bold',
-              }]}>
-                Başlangıç Tarihi Girin:
+      <ScreenContainer paddingTop={50} marginBottom={140}>
+        <View style={styles.centerContainer}>
+          <Text style={[styles.titleText, { color: theme.colors.text.primary, ...theme.typography.h1 }]}>
+            Süre Hesaplama
+          </Text>
+          
+          <View style={styles.inputSection}>
+            <Text style={[styles.header, {
+              color: theme.colors.text.primary,
+              fontSize: theme.typography.h2?.fontSize || 22,
+              fontWeight: theme.typography.h2?.fontWeight || 'bold',
+            }]}>
+              Başlangıç Tarihi Girin:
+            </Text>
+            <Pressable
+              onPress={openPicker}
+              style={[styles.dateInputDisplay, { borderColor: theme.colors.button?.border || '#ccc' }]}>
+              <Text style={[styles.dateInputText, { color: startDate ? theme.colors.text.primary : (theme.colors.text.secondary || '#888') }]}>
+                {startDate || 'Tarih Seçin'}
               </Text>
-              <Pressable
-                onPress={openPicker}
-                style={[styles.dateInputDisplay, { borderColor: theme.colors.button?.border || '#ccc' }]}>
-                <Text style={[styles.dateInputText, { color: startDate ? theme.colors.text.primary : (theme.colors.text.secondary || '#888') }]}>
-                  {startDate || 'Tarih Seçin'}
-                </Text>
-              </Pressable>
+            </Pressable>
 
-              {showPicker && (
-                <DateTimePicker
-                  value={dateObject}
-                  mode="date"
-                  display="default"
-                  onChange={onDateChange}
-                />
-              )}
-
-              <ThemedButton
-                title="Hesapla"
-                onPress={handleCalculate}
-                style={styles.calculateButton}
+            {showPicker && (
+              <DateTimePicker
+                key={`datepicker-${Date.now()}`} // Force re-render each time
+                value={dateObject}
+                mode="date"
+                display={Platform.OS === 'ios' ? 'compact' : 'default'}
+                onChange={onDateChange}
+                locale="tr-TR"
+                textColor={theme.colors.text.primary}
               />
-              {/* Home button is now provided by ThemedHeader */}
-            </View>
-
-            {calculated && (
-              <View style={styles.resultsContainer}>
-                <Text style={[styles.resultsHeader, { color: theme.colors.text.primary }]}>
-                  Hesaplanan Tarihler:
-                </Text>
-                {disputeTypes.map(disputeType => (
-                  <View key={disputeType.name} style={[styles.disputeTypeContainer, { backgroundColor: theme.colors.card?.background || (Array.isArray(theme.colors.background) ? theme.colors.background[1] : '#f9f9f9') }]}>
-                    <Text style={[styles.disputeTypeName, { color: theme.colors.text.primary }]}>
-                      {disputeType.name}
-                    </Text>
-                    {allWeeks.map(week => {
-                      if (shouldCalculate(disputeType.name, week) && weekDates[week]) {
-                        return (
-                          <Text key={week} style={[styles.dateText, { color: theme.colors.text.secondary || theme.colors.text.primary || '#555' }]}>
-                            {week}. Hafta: {formatDate(weekDates[week])}
-                          </Text>
-                        );
-                      }
-                      return null;
-                    })}
-                  </View>
-                ))}
-              </View>
             )}
+
+            <ThemedButton
+              title="Hesapla"
+              onPress={handleCalculate}
+              style={styles.calculateButton}
+            />
           </View>
+
+          {calculated && (
+            <View style={styles.resultsContainer}>
+              <Text style={[styles.resultsHeader, { color: theme.colors.text.primary }]}>
+                Hesaplanan Tarihler:
+              </Text>
+              {disputeTypes.map(disputeType => (
+                <View key={disputeType.name} style={[styles.disputeTypeContainer, { backgroundColor: theme.colors.card?.background || (Array.isArray(theme.colors.background) ? theme.colors.background[1] : '#f9f9f9') }]}>
+                  <Text style={[styles.disputeTypeName, { color: theme.colors.text.primary }]}>
+                    {disputeType.name}
+                  </Text>
+                  {allWeeks.map(week => {
+                    if (shouldCalculate(disputeType.name, week) && weekDates[week]) {
+                      return (
+                        <Text key={week} style={[styles.dateText, { color: theme.colors.text.secondary || theme.colors.text.primary || '#555' }]}>
+                          {week}. Hafta: {formatDate(weekDates[week])}
+                        </Text>
+                      );
+                    }
+                    return null;
+                  })}
+                </View>
+              ))}
+            </View>
+          )}
         </View>
-      </ScrollView>
+      </ScreenContainer>
+      
+      {/* Custom Tab Bar for TimeCalculationScreen */}
+      <View style={styles.tabBarWrapper}>
+        <View 
+          style={[
+            styles.tabBarContainer, 
+            { 
+              backgroundColor: theme.colors.card.background,
+              borderTopColor: theme.colors.button.border,
+              borderColor: theme.colors.button.border,
+            }
+          ]}
+        >
+          {/* Home Button */}
+          <TouchableOpacity 
+            style={[styles.tabButton]} 
+            onPress={navigateToHome}
+          >
+            <View style={styles.tabButtonInner}>
+              <Image
+                source={require('../../assets/images/home-icon.png')}
+                style={[styles.tabIcon, { tintColor: theme.colors.text.secondary }]}
+              />
+              <Text 
+                style={[
+                  styles.tabText, 
+                  { color: theme.colors.text.secondary }
+                ]}
+              >
+                Ana Sayfa
+              </Text>
+            </View>
+          </TouchableOpacity>
+
+          {/* Middle spacer - can be used for additional buttons */}
+          <View style={styles.middleSpacer} />
+
+          {/* Info Button (About Screen) */}
+          <TouchableOpacity 
+            style={[styles.tabButton]} 
+            onPress={navigateToAbout}
+          >
+            <View style={styles.tabButtonInner}>
+              <Image
+                source={require('../../assets/images/info-icon.png')}
+                style={[styles.tabIcon, { tintColor: theme.colors.text.secondary }]}
+              />
+              <Text 
+                style={[
+                  styles.tabText, 
+                  { color: theme.colors.text.secondary }
+                ]}
+              >
+                Hakkında
+              </Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+      </View>
     </ThemedBackground>
   );
 }
 
 const styles = StyleSheet.create({
-  scrollView: {
-    width: '100%',
-    marginTop: 70, // Adjust this value based on the height of your header
-  },
-  scrollContent: {
-    flexGrow: 1,
-    width: '100%',
-    minHeight: '100%',
-    paddingBottom: 250,
-    paddingTop: 10,
-  },
-  pageContainer: {
+  centerContainer: {
     flex: 1,
-  },
-  contentContainer: {
-    flex: 1,
-    padding: 20,
     justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+  },
+  titleText: {
+    textAlign: 'center',
+    marginBottom: 30,
   },
   inputSection: {
-    width: '100%', 
+    width: '85%', // Match TabBar width
     marginBottom: 20,
     alignItems: 'center',
     marginTop: 10,
@@ -227,7 +296,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     borderRadius: 18,
     marginBottom: 20,
-    width: '100%', 
+    width: '100%', // Full width of inputSection (which is now 85%)
     alignItems: 'center',
     backgroundColor: 'transparent',
   },
@@ -235,7 +304,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   calculateButton: {
-    width: '100%', 
+    width: '100%', // Full width of inputSection (which is now 85%)
     marginTop: 10,
   },
   resultsContainer: {
@@ -269,5 +338,63 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginLeft: 10, 
     lineHeight: 20, 
+  },
+  // Tab Bar Styles
+  tabBarWrapper: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 60, // moved up to leave space for footer
+    alignItems: 'center',
+    zIndex: 10,
+  },
+  tabBarContainer: {
+    flexDirection: 'row',
+    borderWidth: 0.5,
+    borderRadius: 25, // Rounded corners for tab bar
+    width: '85%',
+    alignSelf: 'center',
+    height: Platform.OS === 'ios' ? 70 : 65, // Adjusted height
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 15,
+    paddingVertical: 0, // Remove padding to allow button height control
+    backgroundColor: '#fff', // fallback, will be overridden by theme
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.12,
+    shadowRadius: 8,
+    elevation: 8,
+    marginBottom: 0,
+  },
+  tabButton: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 0,
+    borderRadius: 10,
+    height: '90%',
+    overflow: 'hidden', // Prevents content from overflowing
+  },
+  tabIcon: {
+    width: 24,
+    height: 24,
+    marginBottom: 4,
+    resizeMode: 'contain',
+  },
+  tabText: {
+    fontSize: 12,
+    fontWeight: '500',
+  },
+  tabButtonInner: {
+    height: '100%',
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    paddingVertical: 6,
+  },
+  middleSpacer: {
+    flex: 3, // This gives more space in the middle
   },
 });

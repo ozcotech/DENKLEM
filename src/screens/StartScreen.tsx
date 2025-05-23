@@ -5,7 +5,6 @@ import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../navigation/AppNavigator';
 import ThemedBackground from '../components/common/ThemedBackground';
 import ThemedButton from '../components/common/ThemedButton';
-import ThemedHeader from '../components/common/ThemedHeader';
 import { ThemedCard } from '../components/common/ThemedCard';
 import { useTheme } from '../theme/ThemeContext';
 
@@ -24,7 +23,6 @@ const StartScreen = () => {
 
   return (
     <ThemedBackground>
-      <ThemedHeader />
       <View style={styles.headerContainer}>
         <Text style={[styles.headerText, { color: theme.colors.text.primary, ...theme.typography.h2 }]}>
           Arabuluculuk Ücreti{'\n'}Hesaplama Programı
@@ -69,11 +67,10 @@ const StartScreen = () => {
             }
           />
         </View>
-        <Text style={[styles.footer, { color: theme.colors.text.secondary, ...theme.typography.body }]}>
-        © {new Date().getFullYear()} OZCO Studio. Tüm hakları saklıdır.
-        </Text>
       </View>
-      
+      <Text style={[styles.footer, { color: theme.colors.text.secondary, ...theme.typography.body }]}>
+        © {new Date().getFullYear()} OZCO Studio. Tüm hakları saklıdır.
+      </Text>
     </ThemedBackground>
   );
 };
@@ -84,6 +81,7 @@ const styles = StyleSheet.create({
     top: '15%', // Adjusted to position the header text
     alignItems: 'center',
     width: '100%',
+    paddingTop: 0, // Removed padding since we don't have the header anymore
   },
   headerText: {
     // fontSize and fontWeight removed, will be supplied by theme.typography.h2
@@ -150,14 +148,18 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: '100%',
     alignItems: 'center',
-    bottom: '15%',
+    bottom: '25%', // moved up further to make more space for tab bar and footer
     zIndex: 1,
   },
   footer: {
-    // fontSize removed, will be supplied by theme.typography.body
     textAlign: 'center',
     position: 'absolute',
-    bottom: '2%',
+    left: 0,
+    right: 0,
+    bottom: 10,
+    paddingBottom: 18,
+    zIndex: 20,
+    backgroundColor: 'transparent',
   },
   buttonText: {
     fontWeight: '600',

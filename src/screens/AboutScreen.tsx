@@ -1,15 +1,15 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Linking, Alert, Share, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Linking, Alert, Share, Image } from 'react-native';
 import Clipboard from '@react-native-clipboard/clipboard';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../navigation/AppNavigator';
 import { useTheme } from '../theme/ThemeContext';
 import ThemedBackground from '../components/common/ThemedBackground';
-import ThemedHeader from '../components/common/ThemedHeader';
 import { ThemedCard } from '../components/common/ThemedCard';
 import ThemedButton from '../components/common/ThemedButton';
 import { aboutData } from '../constants/aboutData';
+import ScreenContainer from '../components/common/ScreenContainer';
 
 const AboutScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -82,12 +82,7 @@ const AboutScreen = () => {
 
   return (
     <ThemedBackground>
-      <ThemedHeader showInfoButton={false} />
-      <ScrollView
-        contentContainerStyle={styles.scrollContent}
-        showsVerticalScrollIndicator={false}
-        style={styles.scrollView}
-      >
+      <ScreenContainer paddingTop={50} marginBottom={140}>
         <Text style={[styles.titleText, { color: theme.colors.text.primary, ...theme.typography.h1 }]}>
           Hakkımızda
         </Text>
@@ -159,7 +154,12 @@ const AboutScreen = () => {
         <View style={styles.feedbackContainer}>
           <ThemedButton 
             title="Uygulamayı Değerlendirin"
-            onPress={() => Linking.openURL('market://details?id=com.ozco.studio.medpay')}
+            onPress={() => {
+              Alert.alert(
+                'Bilgi',
+                'Uygulama henüz mağazada yayınlanmadı. Çok yakında değerlendirme yapabileceksiniz.'
+              );
+            }}
             style={styles.feedbackButton}
           />
           
@@ -169,24 +169,13 @@ const AboutScreen = () => {
             style={styles.feedbackButton}
           />
         </View>
-      </ScrollView>
+        <View style={{ height: 100 }} />
+      </ScreenContainer>
     </ThemedBackground>
   );
 };
 
 const styles = StyleSheet.create({
-  scrollView: {
-    width: '100%',
-    marginTop: 70, // Adjust this value based on the height of your header
-  },
-  scrollContent: {
-    flexGrow: 1,
-    alignItems: 'center',
-    paddingBottom: 180,
-    paddingTop: 20,
-    minHeight: '100%',
-    width: '100%',
-  },
   titleText: {
     textAlign: 'center',
     marginBottom: 25,

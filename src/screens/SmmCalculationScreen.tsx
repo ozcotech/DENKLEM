@@ -77,7 +77,7 @@ const SMMCalculationScreen: React.FC = () => {
 
   // Navigate back to home screen
   const handleGoHome = () => {
-    navigation.navigate('Start' as never);
+    navigation.navigate('Main' as never);
   };
   
   // Handle mediation fee input changes with formatting

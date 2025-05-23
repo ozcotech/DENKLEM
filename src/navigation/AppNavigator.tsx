@@ -1,5 +1,6 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import StartScreen from '../screens/StartScreen';
 import DisputeCategoryScreen from '../screens/DisputeCategoryScreen';
 import AgreementStatusScreen from '../screens/AgreementStatusScreen';
@@ -9,9 +10,11 @@ import ResultScreen from '../screens/ResultScreen';
 import TimeCalculationScreen from '../screens/TimeCalculationScreen';
 import SMMCalculationScreen from '../screens/SmmCalculationScreen';
 import AboutScreen from '../screens/AboutScreen';
+import CustomTabBar from '../components/common/CustomTabBar';
 
+// Stack navigator için tür tanımı
 export type RootStackParamList = {
-  Start: undefined;
+  Main: undefined; // Ana tab navigator route'u
   DisputeCategory: undefined;
   AgreementStatus: undefined;
   DisputeType: { isAgreement: boolean };
@@ -22,12 +25,35 @@ export type RootStackParamList = {
   About: undefined; // Added for AboutScreen
 };
 
+// Tab navigator için tür tanımı
+export type RootTabParamList = {
+  Start: undefined;
+  About: undefined;
+};
+
 const Stack = createNativeStackNavigator<RootStackParamList>();
+const Tab = createBottomTabNavigator<RootTabParamList>();
+
+// Main Tab Navigator that includes the custom tab bar
+const TabNavigator = () => {
+  return (
+    <Tab.Navigator
+      initialRouteName="Start"
+      tabBar={props => <CustomTabBar {...props} />}
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <Tab.Screen name="Start" component={StartScreen} />
+      <Tab.Screen name="About" component={AboutScreen} />
+    </Tab.Navigator>
+  );
+};
 
 const AppNavigator = () => {
   return (
     <Stack.Navigator
-      initialRouteName="Start"
+      initialRouteName="Main"
       screenOptions={{
         headerShown: false,
         gestureEnabled: true,
@@ -35,10 +61,14 @@ const AppNavigator = () => {
         fullScreenGestureEnabled: true // Enable full-screen gestures
       }}
     >
-      <Stack.Screen
-        name="Start"
-        component={StartScreen}
+      {/* Main Tab Navigator */}
+      <Stack.Screen 
+        name="Main" 
+        component={TabNavigator} 
+        options={{ headerShown: false }}
       />
+      
+      {/* Stack screens for the app flow */}
       <Stack.Screen
         name="DisputeCategory"
         component={DisputeCategoryScreen}
