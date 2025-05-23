@@ -70,7 +70,7 @@ const StartScreen = () => {
           />
         </View>
         <Text style={[styles.footer, { color: theme.colors.text.secondary, ...theme.typography.body }]}>
-        © {new Date().getFullYear()} Tüm hakları saklıdır
+        © {new Date().getFullYear()} OZCO Studio. Tüm hakları saklıdır.
         </Text>
       </View>
       

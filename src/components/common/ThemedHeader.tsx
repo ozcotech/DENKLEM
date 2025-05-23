@@ -7,9 +7,13 @@ import { useTheme } from '../../theme/ThemeContext';
 
 interface ThemedHeaderProps {
   showHomeButton?: boolean; // Optional prop to show/hide the Home button
+  showInfoButton?: boolean; // Optional prop to show/hide the Info button
 }
 
-const ThemedHeader: React.FC<ThemedHeaderProps> = ({ showHomeButton = true }) => {
+const ThemedHeader: React.FC<ThemedHeaderProps> = ({ 
+  showHomeButton = true,
+  showInfoButton = true
+}) => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const theme = useTheme();
 
@@ -18,8 +22,20 @@ const ThemedHeader: React.FC<ThemedHeaderProps> = ({ showHomeButton = true }) =>
       {/* Empty left section */}
       <View style={styles.leftSection} />
 
-      {/* Center section (for future titles, etc.) */}
-      <View style={styles.centerSection} />
+      {/* Center section (for Info button) */}
+      <View style={styles.centerSection}>
+        {showInfoButton && (
+          <TouchableOpacity 
+            onPress={() => navigation.navigate('About')} 
+            style={styles.infoButton}
+          >
+            <Image
+              source={require('../../../assets/images/info-icon.png')}
+              style={styles.infoIcon}
+            />
+          </TouchableOpacity>
+        )}
+      </View>
 
       {/* Right section (for Home button) */}
       <View style={styles.rightSection}>
@@ -79,6 +95,22 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(255, 255, 255, 0.6)', 
   },
   homeIcon: {
+    width: 24,
+    height: 24,
+    tintColor: undefined, 
+  },
+  infoButton: {
+    padding: 8,
+    backgroundColor: 'transparent', 
+    borderRadius: 50, 
+    width: 40,
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 0.5, 
+    borderColor: 'rgba(255, 255, 255, 0.6)', 
+  },
+  infoIcon: {
     width: 24,
     height: 24,
     tintColor: undefined, 

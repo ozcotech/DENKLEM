@@ -8,6 +8,7 @@ import InputScreen from '../screens/InputScreen';
 import ResultScreen from '../screens/ResultScreen';
 import TimeCalculationScreen from '../screens/TimeCalculationScreen';
 import SMMCalculationScreen from '../screens/SmmCalculationScreen';
+import AboutScreen from '../screens/AboutScreen';
 
 export type RootStackParamList = {
   Start: undefined;
@@ -18,6 +19,7 @@ export type RootStackParamList = {
   Result: { result: number; isAgreement: boolean; disputeType: string };
   TimeCalculation: undefined; // Added for TimeCalculationScreen
   SMMCalculation: undefined; // Added for SMMCalculationScreen
+  About: undefined; // Added for AboutScreen
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -66,6 +68,11 @@ const AppNavigator = () => {
         name="SMMCalculation"
         component={SMMCalculationScreen}
         options={{ title: 'SMM Hesaplama' }}
+      />
+      <Stack.Screen
+        name="About"
+        component={AboutScreen}
+        options={{ title: 'Hakkımızda' }}
       />
       {/* Additional screens can be added here */}
     </Stack.Navigator>
