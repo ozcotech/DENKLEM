@@ -139,6 +139,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
+    paddingHorizontal: '7.5%', // Adjusted for better spacing
   },
   title: {
     textAlign: 'center',
@@ -150,12 +151,12 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   rowButtonContainer: {
-    width: '100%',
+    width: '100%', 
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'stretch',
     marginBottom: 10,
-    marginHorizontal: -2, 
+    // marginHorizontal: -2, // Removed to avoid negative margin
   },
   halfButton: {
     flex: 1,

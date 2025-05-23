@@ -137,6 +137,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
+    paddingHorizontal: '7.5%', 
   },
   title: {
     textAlign: 'center',
@@ -144,14 +145,14 @@ const styles = StyleSheet.create({
   },
   row: {
     flexDirection: 'row',
-    width: '100%',
+    width: '100%', 
     justifyContent: 'center',
     marginBottom: 16,
   },
   button: {
-    width: Dimensions.get('window').width * 0.40,
+    width: Dimensions.get('window').width * 0.3778, 
     height: 90,
-    marginHorizontal: Dimensions.get('window').width * 0.025,
+    marginHorizontal: Dimensions.get('window').width * 0.0236, // New margin for spacing
     justifyContent: 'center',
     alignItems: 'center',
     paddingVertical: 8,

@@ -100,6 +100,7 @@ const InputScreen = () => {
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.keyboardAvoidingContainer}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? -100 : 0} 
       >
         <ScreenContainer paddingTop={50} marginBottom={140}>
           <View style={styles.centerContainer}>
@@ -211,7 +212,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
-    paddingHorizontal: 20,
+    paddingHorizontal: '7.5%', 
   },
   titleText: {
     textAlign: 'center',
@@ -232,13 +233,13 @@ const styles = StyleSheet.create({
     padding: 15,
     marginBottom: 20,
     fontSize: 16,
-    width: '90%',
+    width: '100%', 
     textAlign: 'center',
     borderWidth: 1,
   },
   button: {
     marginTop: 20,
-    width: '90%',
+    width: '100%',
   },
   // Tab Bar Styles
   tabBarWrapper: {

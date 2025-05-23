@@ -111,19 +111,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
+    paddingHorizontal: '7.5%', 
   },
   title: {
     textAlign: 'center',
     marginBottom: 24,
   },
   buttonContainer: {
-    width: '100%',
+    width: '100%', 
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'stretch',
     marginBottom: 20,
-    marginHorizontal: -2,
-    paddingHorizontal: 16,
   },
   button: {
     flex: 1,
