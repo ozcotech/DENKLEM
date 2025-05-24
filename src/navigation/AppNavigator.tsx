@@ -12,19 +12,19 @@ import SMMCalculationScreen from '../screens/SmmCalculationScreen';
 import AboutScreen from '../screens/AboutScreen';
 import CustomTabBar from '../components/common/CustomTabBar';
 
-// Stack navigator için tür tanımı
+// Type definition for the stack navigator
 export type RootStackParamList = {
-  Main: undefined; // Ana tab navigator route'u
+  MainTabs: undefined; // Start yerine MainTabs olarak değiştirildi
   DisputeCategory: undefined;
   AgreementStatus: undefined;
   DisputeType: { isAgreement: boolean };
   Input: { isAgreement: boolean; disputeType: string };
   Result: { result: number; isAgreement: boolean; disputeType: string };
-  TimeCalculation: undefined; // Added for TimeCalculationScreen
-  SMMCalculation: undefined; // Added for SMMCalculationScreen
+  TimeCalculation: undefined;
+  SMMCalculation: undefined;
 };
 
-// Tab navigator için tür tanımı
+// Type definition for the tab navigator
 export type RootTabParamList = {
   Start: undefined;
   About: undefined;
@@ -33,7 +33,7 @@ export type RootTabParamList = {
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator<RootTabParamList>();
 
-// Main Tab Navigator that includes the custom tab bar
+// Start Tab Navigator that includes the custom tab bar
 const TabNavigator = () => {
   return (
     <Tab.Navigator
@@ -52,17 +52,17 @@ const TabNavigator = () => {
 const AppNavigator = () => {
   return (
     <Stack.Navigator
-      initialRouteName="Main"
+      initialRouteName="MainTabs" 
       screenOptions={{
         headerShown: false,
         gestureEnabled: true,
         gestureDirection: 'horizontal',
-        fullScreenGestureEnabled: true // Enable full-screen gestures
+        fullScreenGestureEnabled: true
       }}
     >
       {/* Main Tab Navigator */}
       <Stack.Screen 
-        name="Main" 
+        name="MainTabs" 
         component={TabNavigator} 
         options={{ headerShown: false }}
       />

@@ -14,6 +14,8 @@ import {
   Image
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../navigation/AppNavigator';
 import { useTheme } from '../theme/ThemeContext';
 import ThemedBackground from '../components/common/ThemedBackground';
 import ThemedButton from '../components/common/ThemedButton';
@@ -30,7 +32,7 @@ import { formatKurusToTlString, normalizeToKurusString, convertKurusStringToTlNu
 
 const SMMCalculationScreen: React.FC = () => {
   const theme = useTheme();
-  const navigation = useNavigation();
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const scrollViewRef = useRef<ScrollView>(null);
   
   // State management
@@ -78,14 +80,13 @@ const SMMCalculationScreen: React.FC = () => {
 
   // Navigation handlers
   const navigateToHome = () => {
-    navigation.navigate('Main' as never);
+    navigation.navigate('MainTabs', { screen: 'Start' } as never);
   };
 
   const navigateToAbout = () => {
-    // @ts-ignore - type safety için ignore ediyoruz
-    navigation.navigate('Main', { screen: 'About' });
+    navigation.navigate('MainTabs', { screen: 'About' } as never);
   };
-  
+
   // Handle mediation fee input changes with formatting
   const handleMediationFeeChange = (text: string) => {
     // When text is input, we expect it to be the formatted TL string (e.g., "1.000,00")

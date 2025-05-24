@@ -14,11 +14,11 @@ const AgreementStatusScreen = () => {
 
   // Navigation handlers
   const navigateToHome = () => {
-    navigation.navigate('Main' as never);
+    navigation.navigate('MainTabs', { screen: 'Start' } as never);
   };
 
   const navigateToAbout = () => {
-    navigation.navigate('Main', { screen: 'About' } as never);
+    navigation.navigate('MainTabs', { screen: 'About' } as never);
   };
 
   return (
