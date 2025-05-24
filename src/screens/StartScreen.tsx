@@ -56,7 +56,7 @@ const StartScreen = () => {
         </View>
         <View style={styles.buttonWrapper}>
           <ThemedButton
-            title="Başla"
+            title="Giriş"
             onPress={() => navigation.navigate('DisputeCategory')}
             textStyle={styles.buttonText}
             icon={

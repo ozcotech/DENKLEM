@@ -34,7 +34,7 @@ const DisputeCategoryScreen = () => {
           </Text>
           <View style={styles.rowButtonContainer}>
             <ThemedButton
-              title="Konusu Para Olan Veya Para İle Değerlendirilebilen Uyuşmazlıklar"
+              title="Konusu Para Olan  Uyuşmazlıklar"
               onPress={() => navigation.navigate('AgreementStatus')}
               style={[
                 styles.halfButton,
@@ -46,7 +46,7 @@ const DisputeCategoryScreen = () => {
               textStyle={styles.smallButtonText}
             />
             <ThemedButton
-              title="Konusu Para Olmayan Veya Para İle Değerlendirilemeyen Uyuşmazlıklar"
+              title="Konusu Para Olmayan Uyuşmazlıklar"
               onPress={() => navigation.navigate('DisputeType', { isAgreement: false })}
               style={styles.halfButton}
               textStyle={styles.smallButtonText}

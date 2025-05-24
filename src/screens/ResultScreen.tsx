@@ -48,7 +48,7 @@ const ResultScreen = () => {
 
   return (
     <ThemedBackground>
-      <ScreenContainer paddingTop={50} marginBottom={140}>
+      <ScreenContainer paddingTop={20} marginBottom={140}>
         <ScrollView
           contentContainerStyle={styles.scrollContent}
           showsVerticalScrollIndicator={false}
@@ -268,7 +268,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingBottom: 180,
+    paddingBottom: 100,
     paddingTop: 10,
     paddingHorizontal: '7.5%', 
     minHeight: '100%',
@@ -276,7 +276,7 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     width: '100%',
-    marginTop: 70, // Adjust based on the height of the header
+    marginTop: 20,
   },
   // Tab Bar Styles
   tabBarWrapper: {
