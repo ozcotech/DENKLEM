@@ -1,4 +1,4 @@
-// filepath: /Users/ozkan/MEDPAY_react/src/utils/smmCalculator.ts
+// filepath: /Users/ozkan/DENKLEM/src/utils/smmCalculator.ts
 /**
  * Calculates detailed SMM (Serbest Meslek Makbuzu) breakdown for mediation fees,
  * for both legal and real persons, according to the selected calculation type.

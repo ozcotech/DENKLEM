@@ -1,4 +1,4 @@
-# 🧼 MEDPAY - React Native Kodlama Kuralları
+# 🧼 DENKLEM - React Native Kodlama Kuralları
 
 Bu projede yapay zekâ ya da geliştiriciler tarafından yazılacak tüm kodlarda aşağıdaki kurallar dikkate alınmalıdır.
 

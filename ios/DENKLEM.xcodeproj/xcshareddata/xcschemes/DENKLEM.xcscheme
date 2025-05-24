@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "MEDPAY.app"
-               BlueprintName = "MEDPAY"
-               ReferencedContainer = "container:MEDPAY.xcodeproj">
+               BuildableName = "DENKLEM.app"
+               BlueprintName = "DENKLEM"
+               ReferencedContainer = "container:DENKLEM.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "MEDPAYTests.xctest"
-               BlueprintName = "MEDPAYTests"
-               ReferencedContainer = "container:MEDPAY.xcodeproj">
+               BuildableName = "DENKLEMTests.xctest"
+               BlueprintName = "DENKLEMTests"
+               ReferencedContainer = "container:DENKLEM.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "MEDPAY.app"
-            BlueprintName = "MEDPAY"
-            ReferencedContainer = "container:MEDPAY.xcodeproj">
+            BuildableName = "DENKLEM.app"
+            BlueprintName = "DENKLEM"
+            ReferencedContainer = "container:DENKLEM.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "MEDPAY.app"
-            BlueprintName = "MEDPAY"
-            ReferencedContainer = "container:MEDPAY.xcodeproj">
+            BuildableName = "DENKLEM.app"
+            BlueprintName = "DENKLEM"
+            ReferencedContainer = "container:DENKLEM.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

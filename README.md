@@ -96,9 +96,9 @@ To learn more about React Native, take a look at the following resources:
 - [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
 - [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
 
-# 🧮 MEDPAY – Mediation Fee Calculator App
+# 🧮 DENKLEM – Mediation Fee Calculator App
 
-**MEDPAY** is a mobile application built with **React Native** to help users calculate mediation fees in accordance with Turkish law. It guides the user step-by-step through the mediation process, including:
+**DENKLEM** is a mobile application built with **React Native** to help users calculate mediation fees in accordance with Turkish law. It guides the user step-by-step through the mediation process, including:
 
 - Dispute category selection
 - Agreement status
@@ -158,8 +158,8 @@ To learn more about React Native, take a look at the following resources:
 
 ```bash
 # Clone the repo
-git clone https://github.com/yourusername/medpay-app.git
-cd medpay-app
+git clone https://github.com/yourusername/DENKLEM.git
+cd DENKLEM
 
 # Install dependencies
 npm install
