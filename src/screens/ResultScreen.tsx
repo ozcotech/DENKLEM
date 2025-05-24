@@ -7,6 +7,7 @@ import type { RootStackParamList } from '../navigation/AppNavigator';
 import ThemedBackground from '../components/common/ThemedBackground';
 import ThemedButton from '../components/common/ThemedButton';
 import { ThemedCard } from '../components/common/ThemedCard';
+import ScreenContainer from '../components/common/ScreenContainer';
 import { useTheme } from '../theme/ThemeContext';
 import { formatKurusToTlString } from '../utils/formatCurrency'; // Import formatKurusToTlString
 import { calculateSMM } from '../utils/smmCalculator';
@@ -47,11 +48,12 @@ const ResultScreen = () => {
 
   return (
     <ThemedBackground>
-      <ScrollView
-        contentContainerStyle={styles.scrollContent}
-        showsVerticalScrollIndicator={false}
-        style={styles.scrollView}
-      >
+      <ScreenContainer paddingTop={50} marginBottom={140}>
+        <ScrollView
+          contentContainerStyle={styles.scrollContent}
+          showsVerticalScrollIndicator={false}
+          style={styles.scrollView}
+        >
         <Text style={[styles.titleText, { color: theme.colors.text.primary, ...theme.typography.h1 }]}>Arabuluculuk Ücreti</Text>
         
         <ThemedCard style={styles.resultCard}>
@@ -127,6 +129,7 @@ const ResultScreen = () => {
           </ThemedCard>
         )}
       </ScrollView>
+      </ScreenContainer>
       
       {/* Custom Tab Bar for ResultScreen */}
       <View style={styles.tabBarWrapper}>

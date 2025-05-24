@@ -1,4 +1,3 @@
-// filepath: /Users/ozkan/MEDPAY_react/src/screens/SmmCalculationScreen.tsx
 import React, { useState, useRef } from 'react';
 import { 
   View, 
@@ -9,6 +8,7 @@ import {
   KeyboardAvoidingView, 
   Platform,
   TouchableWithoutFeedback,
+  TouchableOpacity,
   Keyboard,
   Alert,
   Image
@@ -18,6 +18,7 @@ import { useTheme } from '../theme/ThemeContext';
 import ThemedBackground from '../components/common/ThemedBackground';
 import ThemedButton from '../components/common/ThemedButton';
 import { ThemedCard } from '../components/common/ThemedCard';
+import ScreenContainer from '../components/common/ScreenContainer';
 import { calculateSMM } from '../utils/smmCalculator';
 import { 
   SMMCalculationType, 
@@ -75,9 +76,14 @@ const SMMCalculationScreen: React.FC = () => {
     }, 200); // Increased timeout for more reliable scrolling
   };
 
-  // Navigate back to home screen
-  const handleGoHome = () => {
+  // Navigation handlers
+  const navigateToHome = () => {
     navigation.navigate('Main' as never);
+  };
+
+  const navigateToAbout = () => {
+    // @ts-ignore - type safety için ignore ediyoruz
+    navigation.navigate('Main', { screen: 'About' });
   };
   
   // Handle mediation fee input changes with formatting
@@ -99,18 +105,19 @@ const SMMCalculationScreen: React.FC = () => {
 
   return (
     <ThemedBackground>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={styles.container}
-        keyboardVerticalOffset={Platform.OS === 'ios' ? 40 : 0}
-      >
+      <ScreenContainer paddingTop={50} marginBottom={140}>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          style={styles.container}
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 40 : 0}
+        >
         <View style={styles.container}>
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <ScrollView
               ref={scrollViewRef}
               contentContainerStyle={styles.scrollContent}
               keyboardShouldPersistTaps="handled"
-              showsVerticalScrollIndicator={true}
+              showsVerticalScrollIndicator={false}
             >
               <View style={[
                 styles.contentContainer, 
@@ -218,27 +225,72 @@ const SMMCalculationScreen: React.FC = () => {
                     </ThemedCard>
                   </View>
                 )}
-
-                {/* Home Button - added proper spacing with paddingTop */}
-                <View style={styles.homeButtonContainer}>
-                  <ThemedButton
-                    title="Ana Sayfa"
-                    onPress={handleGoHome}
-                    style={styles.homeButton}
-                    textStyle={styles.homeButtonText}
-                    icon={
-                      <Image
-                        source={require('../../assets/images/home-icon.png')}
-                        style={styles.homeIcon}
-                      />
-                    }
-                  />
-                </View>
               </View>
             </ScrollView>
           </TouchableWithoutFeedback>
         </View>
       </KeyboardAvoidingView>
+      </ScreenContainer>
+      
+      {/* Custom Tab Bar for SmmCalculationScreen */}
+      <View style={styles.tabBarWrapper}>
+        <View 
+          style={[
+            styles.tabBarContainer, 
+            { 
+              backgroundColor: theme.colors.card.background,
+              borderTopColor: theme.colors.button.border,
+              borderColor: theme.colors.button.border,
+            }
+          ]}
+        >
+          {/* Home Button */}
+          <TouchableOpacity 
+            style={[styles.tabButton]} 
+            onPress={navigateToHome}
+          >
+            <View style={styles.tabButtonInner}>
+              <Image
+                source={require('../../assets/images/home-icon.png')}
+                style={[styles.tabIcon, { tintColor: theme.colors.text.secondary }]}
+              />
+              <Text 
+                style={[
+                  styles.tabText, 
+                  { color: theme.colors.text.secondary }
+                ]}
+              >
+                Ana Sayfa
+              </Text>
+            </View>
+          </TouchableOpacity>
+
+          {/* Middle spacer - can be used for additional buttons */}
+          <View style={styles.middleSpacer} />
+
+          {/* Info Button (About Screen) */}
+          <TouchableOpacity 
+            style={[styles.tabButton]} 
+            onPress={navigateToAbout}
+          >
+            <View style={styles.tabButtonInner}>
+              <Image
+                source={require('../../assets/images/info-icon.png')}
+                style={[styles.tabIcon, { tintColor: theme.colors.text.secondary }]}
+              />
+              <Text 
+                style={[
+                  styles.tabText, 
+                  { color: theme.colors.text.secondary }
+                ]}
+              >
+                Hakkında
+              </Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+      </View>
+      
     </ThemedBackground>
   );
 };
@@ -251,7 +303,10 @@ const styles = StyleSheet.create({
   scrollContent: {
     flexGrow: 1,
     paddingTop: 70, // Increased top padding to avoid notch
-    paddingBottom: 60, // Bottom padding for more space
+    paddingBottom: 180, // Increased bottom padding for tab bar
+    paddingHorizontal: '7.5%', // Added to match tab bar width
+    minHeight: '100%',
+    width: '100%',
   },
   contentContainer: {
     flex: 1,
@@ -265,13 +320,12 @@ const styles = StyleSheet.create({
   },
   label: {
     alignSelf: 'flex-start',
-    marginLeft: '7.5%',
     marginBottom: 5,
     fontSize: 16,
     fontWeight: '600',
   },
   input: {
-    width: '85%',
+    width: '100%',
     height: 50,
     borderWidth: 1,
     borderRadius: 8,
@@ -280,7 +334,7 @@ const styles = StyleSheet.create({
     textAlign: 'center', 
   },
   pickerContainer: {
-    width: '85%',
+    width: '100%',
     borderWidth: 1,
     borderRadius: 8,
     marginBottom: 20,
@@ -291,7 +345,7 @@ const styles = StyleSheet.create({
   },
   calculateButton: {
     marginTop: 10, 
-    width: '85%',
+    width: '100%',
     paddingVertical: 12, 
   },
   calculateButtonText: {
@@ -304,6 +358,7 @@ const styles = StyleSheet.create({
     marginBottom: 20, // Increased margin for better separation
   },
   resultsCard: {
+    width: '100%', // Full width of the padded container
     padding: 8, 
     paddingTop: 10, 
     paddingBottom: 12, // Slightly more padding at the bottom 
@@ -337,25 +392,9 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     paddingRight: 5,
   },
-  homeButton: {
-    width: '85%',
-  },
-  homeButtonContainer: {
-    width: '100%',
-    alignItems: 'center',
-    marginTop: 20, // Add consistent space before the home button
-    paddingBottom: 20, // Additional bottom padding
-  },
-  homeButtonText: {
-    fontWeight: '600',
-  },
-  homeIcon: {
-    width: 20,
-    height: 20,
-    tintColor: '#ffffff',
-  },
+  
   optionsContainer: {
-    width: '85%',
+    width: '100%',
     flexDirection: 'row', // Horizontal alignment
     flexWrap: 'wrap', // Allows buttons to wrap to the next line if they don't fit
     justifyContent: 'space-between', // Equal space between buttons
@@ -379,6 +418,64 @@ const styles = StyleSheet.create({
   },
   selectedOptionText: {
     fontWeight: 'bold',
+  },
+  // Tab Bar Styles
+  tabBarWrapper: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 60, // moved up to leave space for footer
+    alignItems: 'center',
+    zIndex: 10,
+  },
+  tabBarContainer: {
+    flexDirection: 'row',
+    borderWidth: 0.5,
+    borderRadius: 25, // Rounded corners for tab bar
+    width: '85%',
+    alignSelf: 'center',
+    height: Platform.OS === 'ios' ? 70 : 65, // Adjusted height
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 15,
+    paddingVertical: 0, // Remove padding to allow button height control
+    backgroundColor: '#fff', // fallback, will be overridden by theme
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.12,
+    shadowRadius: 8,
+    elevation: 8,
+    marginBottom: 0,
+  },
+  tabButton: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 0,
+    borderRadius: 10,
+    height: '90%',
+    overflow: 'hidden', // Prevents content from overflowing
+  },
+  tabIcon: {
+    width: 24,
+    height: 24,
+    marginBottom: 4,
+    resizeMode: 'contain',
+  },
+  tabText: {
+    fontSize: 12,
+    fontWeight: '500',
+  },
+  tabButtonInner: {
+    height: '100%',
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    paddingVertical: 6,
+  },
+  middleSpacer: {
+    flex: 3, // This gives more space in the middle
   },
 });
 
