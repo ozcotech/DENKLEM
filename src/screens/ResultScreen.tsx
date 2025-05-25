@@ -1,30 +1,29 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity, Platform } from 'react-native';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RouteProp } from '@react-navigation/native';
 import type { RootStackParamList } from '../navigation/AppNavigator';
 import ThemedBackground from '../components/common/ThemedBackground';
-import ThemedButton from '../components/common/ThemedButton';
 import { ThemedCard } from '../components/common/ThemedCard';
 import ScreenContainer from '../components/common/ScreenContainer';
 import { useTheme } from '../theme/ThemeContext';
-import { formatKurusToTlString } from '../utils/formatCurrency'; // Import formatKurusToTlString
+import { formatKurusToTlString } from '../utils/formatCurrency';
 import { calculateSMM } from '../utils/smmCalculator';
 import { SMMCalculationType } from '../constants/smmOptions';
 
 const ResultScreen = () => {
+  // ✅ Stack navigation'a çevrildi
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const route = useRoute<RouteProp<RootStackParamList, 'Result'>>();
   const theme = useTheme();
-  const { result, isAgreement, disputeType } = route.params; // result is in TL, e.g., 6000
+  const { result, isAgreement, disputeType } = route.params;
 
   // Convert TL result to kurus string
-  const resultInKurusString = Math.round(result * 100).toString(); // "600000"
-  const formattedResult = formatKurusToTlString(resultInKurusString); // "6.000,00"
+  const resultInKurusString = Math.round(result * 100).toString();
+  const formattedResult = formatKurusToTlString(resultInKurusString);
 
-  // Calculate SMM details for non-agreement cases using the smmCalculator utility
-  // Using KDV_DAHIL_STOPAJ_VAR (KDV ve Stopaj Dahil) calculation type for Tüzel Kişi
+  // Calculate SMM details for non-agreement cases
   const smmResults = !isAgreement ? calculateSMM({
     mediationFee: result,
     calculationType: SMMCalculationType.KDV_DAHIL_STOPAJ_VAR
@@ -37,15 +36,6 @@ const ResultScreen = () => {
     return formatKurusToTlString(kurusString) + ' ₺';
   };
 
-  // Navigation handlers
-  const navigateToHome = () => {
-    navigation.navigate('MainTabs', { screen: 'Start' } as never);
-  };
-
-  const navigateToAbout = () => {
-    navigation.navigate('MainTabs', { screen: 'About' } as never);
-  };
-
   return (
     <ThemedBackground>
       <ScreenContainer paddingTop={20} marginBottom={140}>
@@ -54,157 +44,95 @@ const ResultScreen = () => {
           showsVerticalScrollIndicator={false}
           style={styles.scrollView}
         >
-        <Text style={[styles.titleText, { color: theme.colors.text.primary, ...theme.typography.h1 }]}>Arabuluculuk Ücreti</Text>
-        
-        <ThemedCard style={styles.resultCard}>
-          <>
-            <Text style={[styles.resultLabel, { color: theme.colors.text.secondary }]}>
-              Uyuşmazlık Türü
+          <Text style={[styles.titleText, { color: theme.colors.text.primary, ...theme.typography.h1 }]}>
+            Arabuluculuk Ücreti
+          </Text>
+          
+          <ThemedCard style={styles.resultCard}>
+            <>
+              <Text style={[styles.resultLabel, { color: theme.colors.text.secondary }]}>
+                Uyuşmazlık Türü
+              </Text>
+              <Text style={[styles.resultLabel, { color: theme.colors.text.secondary, fontWeight: 'bold' }]}>
+                {disputeType}
+              </Text>
+            </>
+            <Text style={[styles.resultText, { color: theme.colors.text.primary }]}>
+              {formattedResult} ₺
             </Text>
-            <Text style={[styles.resultLabel, { color: theme.colors.text.secondary, fontWeight: 'bold' }]}>
-              {disputeType}
-            </Text>
-          </>
-          <Text style={[styles.resultText, { color: theme.colors.text.primary }]}>{formattedResult} ₺</Text>
-          <Text style={[styles.resultLabel, { color: theme.colors.text.secondary }]}>{/* Sub Text */}</Text>
-        </ThemedCard>
-
-        {!isAgreement && smmResults && (
-          <ThemedCard style={styles.smmCard}>
-            <Text style={[styles.smmCardTitle, { color: theme.colors.text.primary, ...theme.typography.h2 }]}>
-              Serbest Meslek Makbuzu
-            </Text>
-            
-            <View style={styles.smmTableContainer}>
-              {/* Row 1: Brüt Ücret */}
-              <View style={styles.smmTableRow}>
-                <Text style={[styles.smmTableCell, styles.smmLabelCell, { color: theme.colors.text.secondary }]}>
-                  Brüt Ücret
-                </Text>
-                <Text style={[styles.smmTableCell, styles.smmValueCell, { color: theme.colors.text.primary }]}>
-                  {formatSmmValue(smmResults.rows[0].tuzelKisiAmount)}
-                </Text>
-              </View>
-              
-              {/* Row 2: Gelir Vergisi Stopajı */}
-              <View style={styles.smmTableRow}>
-                <Text style={[styles.smmTableCell, styles.smmLabelCell, { color: theme.colors.text.secondary }]}>
-                  Gelir Vergisi Stopajı (%20)
-                </Text>
-                <Text style={[styles.smmTableCell, styles.smmValueCell, { color: theme.colors.text.primary }]}>
-                  {formatSmmValue(smmResults.rows[1].tuzelKisiAmount)}
-                </Text>
-              </View>
-              
-              {/* Row 3: Net Ücret */}
-              <View style={styles.smmTableRow}>
-                <Text style={[styles.smmTableCell, styles.smmLabelCell, { color: theme.colors.text.secondary }]}>
-                  Net Ücret
-                </Text>
-                <Text style={[styles.smmTableCell, styles.smmValueCell, { color: theme.colors.text.primary }]}>
-                  {formatSmmValue(smmResults.rows[2].tuzelKisiAmount)}
-                </Text>
-              </View>
-              
-              {/* Row 4: KDV */}
-              <View style={styles.smmTableRow}>
-                <Text style={[styles.smmTableCell, styles.smmLabelCell, { color: theme.colors.text.secondary }]}>
-                  KDV (%20)
-                </Text>
-                <Text style={[styles.smmTableCell, styles.smmValueCell, { color: theme.colors.text.primary }]}>
-                  {formatSmmValue(smmResults.rows[3].tuzelKisiAmount)}
-                </Text>
-              </View>
-              
-              {/* Row 5: Tahsil Edilecek Tutar */}
-              <View style={styles.smmTableRow}>
-                <Text style={[styles.smmTableCell, styles.smmLabelCell, { color: theme.colors.text.secondary }]}>
-                  Tahsil Edilecek Tutar
-                </Text>
-                <Text style={[styles.smmTableCell, styles.smmValueCell, { color: theme.colors.text.primary, fontWeight: 'bold' }]}>
-                  {formatSmmValue(smmResults.rows[4].tuzelKisiAmount)}
-                </Text>
-              </View>
-            </View>
+            <Text style={[styles.resultLabel, { color: theme.colors.text.secondary }]}></Text>
           </ThemedCard>
-        )}
-      </ScrollView>
+
+          {!isAgreement && smmResults && (
+            <ThemedCard style={styles.smmCard}>
+              <Text style={[styles.smmCardTitle, { color: theme.colors.text.primary, ...theme.typography.h2 }]}>
+                Serbest Meslek Makbuzu
+              </Text>
+              
+              <View style={styles.smmTableContainer}>
+                {/* Row 1: Brüt Ücret */}
+                <View style={styles.smmTableRow}>
+                  <Text style={[styles.smmTableCell, styles.smmLabelCell, { color: theme.colors.text.secondary }]}>
+                    Brüt Ücret
+                  </Text>
+                  <Text style={[styles.smmTableCell, styles.smmValueCell, { color: theme.colors.text.primary }]}>
+                    {formatSmmValue(smmResults.rows[0].tuzelKisiAmount)}
+                  </Text>
+                </View>
+                
+                {/* Row 2: Gelir Vergisi Stopajı */}
+                <View style={styles.smmTableRow}>
+                  <Text style={[styles.smmTableCell, styles.smmLabelCell, { color: theme.colors.text.secondary }]}>
+                    Gelir Vergisi Stopajı (%20)
+                  </Text>
+                  <Text style={[styles.smmTableCell, styles.smmValueCell, { color: theme.colors.text.primary }]}>
+                    {formatSmmValue(smmResults.rows[1].tuzelKisiAmount)}
+                  </Text>
+                </View>
+                
+                {/* Row 3: Net Ücret */}
+                <View style={styles.smmTableRow}>
+                  <Text style={[styles.smmTableCell, styles.smmLabelCell, { color: theme.colors.text.secondary }]}>
+                    Net Ücret
+                  </Text>
+                  <Text style={[styles.smmTableCell, styles.smmValueCell, { color: theme.colors.text.primary }]}>
+                    {formatSmmValue(smmResults.rows[2].tuzelKisiAmount)}
+                  </Text>
+                </View>
+                
+                {/* Row 4: KDV */}
+                <View style={styles.smmTableRow}>
+                  <Text style={[styles.smmTableCell, styles.smmLabelCell, { color: theme.colors.text.secondary }]}>
+                    KDV (%20)
+                  </Text>
+                  <Text style={[styles.smmTableCell, styles.smmValueCell, { color: theme.colors.text.primary }]}>
+                    {formatSmmValue(smmResults.rows[3].tuzelKisiAmount)}
+                  </Text>
+                </View>
+                
+                {/* Row 5: Tahsil Edilecek Tutar */}
+                <View style={styles.smmTableRow}>
+                  <Text style={[styles.smmTableCell, styles.smmLabelCell, { color: theme.colors.text.secondary }]}>
+                    Tahsil Edilecek Tutar
+                  </Text>
+                  <Text style={[styles.smmTableCell, styles.smmValueCell, { color: theme.colors.text.primary, fontWeight: 'bold' }]}>
+                    {formatSmmValue(smmResults.rows[4].tuzelKisiAmount)}
+                  </Text>
+                </View>
+              </View>
+            </ThemedCard>
+          )}
+        </ScrollView>
+        
+        <Text style={[styles.footer, { color: theme.colors.text.secondary, ...theme.typography.body }]}>
+          info@ozco.studio
+        </Text>
       </ScreenContainer>
-      
-      {/* Custom Tab Bar for ResultScreen */}
-      <View style={styles.tabBarWrapper}>
-        <View 
-          style={[
-            styles.tabBarContainer, 
-            { 
-              backgroundColor: theme.colors.card.background,
-              borderTopColor: theme.colors.button.border,
-              borderColor: theme.colors.button.border,
-            }
-          ]}
-        >
-          {/* Home Button */}
-          <TouchableOpacity 
-            style={[styles.tabButton]} 
-            onPress={navigateToHome}
-          >
-            <View style={styles.tabButtonInner}>
-              <Image
-                source={require('../../assets/images/home-icon.png')}
-                style={[styles.tabIcon, { tintColor: theme.colors.text.secondary }]}
-              />
-              <Text 
-                style={[
-                  styles.tabText, 
-                  { color: theme.colors.text.secondary }
-                ]}
-              >
-                Ana Sayfa
-              </Text>
-            </View>
-          </TouchableOpacity>
-
-          {/* Middle spacer - can be used for additional buttons */}
-          <View style={styles.middleSpacer} />
-
-          {/* Info Button (About Screen) */}
-          <TouchableOpacity 
-            style={[styles.tabButton]} 
-            onPress={navigateToAbout}
-          >
-            <View style={styles.tabButtonInner}>
-              <Image
-                source={require('../../assets/images/info-icon.png')}
-                style={[styles.tabIcon, { tintColor: theme.colors.text.secondary }]}
-              />
-              <Text 
-                style={[
-                  styles.tabText, 
-                  { color: theme.colors.text.secondary }
-                ]}
-              >
-                Hakkında
-              </Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-      </View>
-      
-      <Text style={[styles.footer, { color: theme.colors.text.secondary, ...theme.typography.body }]}>
-        info@ozco.studio
-      </Text>
     </ThemedBackground>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-    width: '100%',
-  },
   titleText: {
     textAlign: 'center',
     marginBottom: 30,
@@ -277,64 +205,6 @@ const styles = StyleSheet.create({
   scrollView: {
     width: '100%',
     marginTop: 20,
-  },
-  // Tab Bar Styles
-  tabBarWrapper: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    bottom: 60, // moved up to leave space for footer
-    alignItems: 'center',
-    zIndex: 10,
-  },
-  tabBarContainer: {
-    flexDirection: 'row',
-    borderWidth: 0.5,
-    borderRadius: 25, // Rounded corners for tab bar
-    width: '85%',
-    alignSelf: 'center',
-    height: Platform.OS === 'ios' ? 70 : 65, // Adjusted height
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 15,
-    paddingVertical: 0, // Remove padding to allow button height control
-    backgroundColor: '#fff', // fallback, will be overridden by theme
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.12,
-    shadowRadius: 8,
-    elevation: 8,
-    marginBottom: 0,
-  },
-  tabButton: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 0,
-    borderRadius: 10,
-    height: '90%',
-    overflow: 'hidden', // Prevents content from overflowing
-  },
-  tabIcon: {
-    width: 24,
-    height: 24,
-    marginBottom: 4,
-    resizeMode: 'contain',
-  },
-  tabText: {
-    fontSize: 12,
-    fontWeight: '500',
-  },
-  tabButtonInner: {
-    height: '100%',
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'column',
-    paddingVertical: 6,
-  },
-  middleSpacer: {
-    flex: 3, // This gives more space in the middle
   },
 });
 

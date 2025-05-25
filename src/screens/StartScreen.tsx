@@ -1,8 +1,10 @@
 import React, { useRef, useEffect } from 'react';
 import { View, Text, StyleSheet, Image, Animated } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import type { CompositeNavigationProp } from '@react-navigation/native';
+import type { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import type { RootStackParamList } from '../navigation/AppNavigator';
+import type { RootTabParamList, RootStackParamList } from '../navigation/AppNavigator';
 import ThemedBackground from '../components/common/ThemedBackground';
 import ThemedButton from '../components/common/ThemedButton';
 import { ThemedCard } from '../components/common/ThemedCard';
@@ -11,7 +13,10 @@ import { useTheme } from '../theme/ThemeContext';
 const StartScreen = () => {
   const theme = useTheme();
   const logoOpacity = useRef(new Animated.Value(0)).current;
-  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const navigation = useNavigation<CompositeNavigationProp<
+    BottomTabNavigationProp<RootTabParamList, 'Start'>,
+    NativeStackNavigationProp<RootStackParamList>
+  >>();
 
   useEffect(() => {
     Animated.timing(logoOpacity, {
@@ -57,7 +62,7 @@ const StartScreen = () => {
         <View style={styles.buttonWrapper}>
           <ThemedButton
             title="Giriş"
-            onPress={() => navigation.navigate('DisputeCategory')}
+            onPress={() => navigation.navigate('DisputeCategory')} // DisputeCategory'e git
             textStyle={styles.buttonText}
             icon={
               <Image

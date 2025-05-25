@@ -12,6 +12,7 @@ import SMMCalculationScreen from '../screens/SmmCalculationScreen';
 import AboutScreen from '../screens/AboutScreen';
 import LegislationScreen from '../screens/LegislationScreen';
 import CustomTabBar from '../components/common/CustomTabBar';
+import ScreenWithTabBar from '../components/common/ScreenWithTabBar';
 
 // Type definition for the stack navigator
 export type RootStackParamList = {
@@ -28,8 +29,8 @@ export type RootStackParamList = {
 // Type definition for the tab navigator
 export type RootTabParamList = {
   Start: undefined;
-  About: undefined;
   Legislation: undefined;
+  About: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -73,34 +74,97 @@ const AppNavigator = () => {
       {/* Stack screens for the app flow */}
       <Stack.Screen
         name="DisputeCategory"
-        component={DisputeCategoryScreen}
-      />
+        options={{ 
+          headerShown: false,
+          presentation: 'card' 
+        }}
+      >
+        {() => (
+          <ScreenWithTabBar>
+            <DisputeCategoryScreen />
+          </ScreenWithTabBar>
+        )}
+      </Stack.Screen>
       <Stack.Screen
         name="AgreementStatus"
-        component={AgreementStatusScreen}
-      />
+        options={{ 
+          headerShown: false,
+          presentation: 'card' 
+        }}
+      >
+        {() => (
+          <ScreenWithTabBar>
+            <AgreementStatusScreen />
+          </ScreenWithTabBar>
+        )}
+      </Stack.Screen>
       <Stack.Screen
         name="DisputeType"
-        component={DisputeTypeScreen}
-      />
+        options={{ 
+          headerShown: false,
+          presentation: 'card' 
+        }}
+      >
+        {() => (
+          <ScreenWithTabBar>
+            <DisputeTypeScreen />
+          </ScreenWithTabBar>
+        )}
+      </Stack.Screen>
       <Stack.Screen
         name="Input"
-        component={InputScreen}
-      />
+        options={{ 
+          headerShown: false,
+          presentation: 'card' 
+        }}
+      >
+        {() => (
+          <ScreenWithTabBar>
+            <InputScreen />
+          </ScreenWithTabBar>
+        )}
+      </Stack.Screen>
       <Stack.Screen
         name="Result"
-        component={ResultScreen}
-      />
+        options={{ 
+          headerShown: false,
+          presentation: 'card' 
+        }}
+      >
+        {() => (
+          <ScreenWithTabBar>
+            <ResultScreen />
+          </ScreenWithTabBar>
+        )}
+      </Stack.Screen>
       <Stack.Screen
         name="TimeCalculation"
-        component={TimeCalculationScreen}
-        options={{ title: 'Süre Hesaplama' }}
-      />
+        options={{ 
+          title: 'Süre Hesaplama',
+          headerShown: false,
+          presentation: 'card' 
+        }}
+      >
+        {() => (
+          <ScreenWithTabBar>
+            <TimeCalculationScreen />
+          </ScreenWithTabBar>
+        )}
+      </Stack.Screen>
       <Stack.Screen
         name="SMMCalculation"
-        component={SMMCalculationScreen}
-        options={{ title: 'SMM Hesaplama' }}
-      />
+        options={{ 
+          title: 'SMM Hesaplama',
+          headerShown: false,
+          presentation: 'card' 
+        }}
+      >
+        {() => (
+          <ScreenWithTabBar>
+            <SMMCalculationScreen />
+          </ScreenWithTabBar>
+        )}
+      </Stack.Screen>
       {/* Additional screens can be added here */}
     </Stack.Navigator>
   );

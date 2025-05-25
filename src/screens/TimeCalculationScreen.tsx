@@ -8,8 +8,6 @@ import {
   StyleSheet,
   Alert,
   Pressable,
-  TouchableOpacity,
-  Image,
   Platform,
 } from 'react-native';
 import DateTimePicker, {
@@ -18,7 +16,6 @@ import DateTimePicker, {
 import ThemedBackground from '../components/common/ThemedBackground';
 import ThemedButton from '../components/common/ThemedButton';
 import ScreenContainer from '../components/common/ScreenContainer';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import {
   calculateWeekDates,
   getDisputeTypes,
@@ -29,7 +26,6 @@ import { useTheme } from '../theme/ThemeContext';
 export default function TimeCalculationScreen() {
   const theme = useTheme();
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-  const insets = useSafeAreaInsets();
   
   const [startDate, setStartDate] = useState('');
   const [dateObject, setDateObject] = useState(new Date());
@@ -52,15 +48,6 @@ export default function TimeCalculationScreen() {
   const allWeeks = Array.from(
     new Set(disputeTypes.flatMap(d => d.weekIntervals)),
   ).sort((a, b) => a - b);
-
-  // Navigation handlers
-  const navigateToHome = () => {
-    navigation.navigate('MainTabs', { screen: 'Start' } as never);
-  };
-
-  const navigateToAbout = () => {
-    navigation.navigate('MainTabs', { screen: 'About' } as never);
-  };
 
   const openPicker = () => {
     // Set dateObject to current date if no startDate, otherwise parse from startDate
@@ -201,65 +188,6 @@ export default function TimeCalculationScreen() {
           )}
         </View>
       </ScreenContainer>
-      
-      {/* Custom Tab Bar for TimeCalculationScreen */}
-      <View style={styles.tabBarWrapper}>
-        <View 
-          style={[
-            styles.tabBarContainer, 
-            { 
-              backgroundColor: theme.colors.card.background,
-              borderTopColor: theme.colors.button.border,
-              borderColor: theme.colors.button.border,
-            }
-          ]}
-        >
-          {/* Home Button */}
-          <TouchableOpacity 
-            style={[styles.tabButton]} 
-            onPress={navigateToHome}
-          >
-            <View style={styles.tabButtonInner}>
-              <Image
-                source={require('../../assets/images/home-icon.png')}
-                style={[styles.tabIcon, { tintColor: theme.colors.text.secondary }]}
-              />
-              <Text 
-                style={[
-                  styles.tabText, 
-                  { color: theme.colors.text.secondary }
-                ]}
-              >
-                Ana Sayfa
-              </Text>
-            </View>
-          </TouchableOpacity>
-
-          {/* Middle spacer - can be used for additional buttons */}
-          <View style={styles.middleSpacer} />
-
-          {/* Info Button (About Screen) */}
-          <TouchableOpacity 
-            style={[styles.tabButton]} 
-            onPress={navigateToAbout}
-          >
-            <View style={styles.tabButtonInner}>
-              <Image
-                source={require('../../assets/images/info-icon.png')}
-                style={[styles.tabIcon, { tintColor: theme.colors.text.secondary }]}
-              />
-              <Text 
-                style={[
-                  styles.tabText, 
-                  { color: theme.colors.text.secondary }
-                ]}
-              >
-                Hakkında
-              </Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-      </View>
     </ThemedBackground>
   );
 }
@@ -270,21 +198,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
-    paddingHorizontal: '7.5%', // Added to match tab bar width
+    paddingHorizontal: '7.5%',
   },
   titleText: {
     textAlign: 'center',
     marginBottom: 30,
   },
   inputSection: {
-    width: '100%', // Changed from 85% to 100% to fill container
+    width: '100%',
     marginBottom: 20,
     alignItems: 'center',
     marginTop: 10,
-  },
-  header: {
-    marginBottom: 15,
-    textAlign: 'center',
   },
   dateInputDisplay: {
     borderWidth: 1,
@@ -292,7 +216,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     borderRadius: 18,
     marginBottom: 20,
-    width: '100%', // Full width of inputSection (which is now 85%)
+    width: '100%',
     alignItems: 'center',
     backgroundColor: 'transparent',
   },
@@ -300,7 +224,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   calculateButton: {
-    width: '100%', // Full width of inputSection (which is now 85%)
+    width: '100%',
     marginTop: 10,
   },
   resultsContainer: {
@@ -314,7 +238,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   disputeTypeContainer: {
-    width: '100%', // Added to ensure consistent width
+    width: '100%',
     marginBottom: 15,
     padding: 15,
     borderRadius: 12,
@@ -335,63 +259,5 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginLeft: 10, 
     lineHeight: 20, 
-  },
-  // Tab Bar Styles
-  tabBarWrapper: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    bottom: 60, // moved up to leave space for footer
-    alignItems: 'center',
-    zIndex: 10,
-  },
-  tabBarContainer: {
-    flexDirection: 'row',
-    borderWidth: 0.5,
-    borderRadius: 25, // Rounded corners for tab bar
-    width: '85%',
-    alignSelf: 'center',
-    height: Platform.OS === 'ios' ? 70 : 65, // Adjusted height
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 15,
-    paddingVertical: 0, // Remove padding to allow button height control
-    backgroundColor: '#fff', // fallback, will be overridden by theme
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.12,
-    shadowRadius: 8,
-    elevation: 8,
-    marginBottom: 0,
-  },
-  tabButton: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 0,
-    borderRadius: 10,
-    height: '90%',
-    overflow: 'hidden', // Prevents content from overflowing
-  },
-  tabIcon: {
-    width: 24,
-    height: 24,
-    marginBottom: 4,
-    resizeMode: 'contain',
-  },
-  tabText: {
-    fontSize: 12,
-    fontWeight: '500',
-  },
-  tabButtonInner: {
-    height: '100%',
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'column',
-    paddingVertical: 6,
-  },
-  middleSpacer: {
-    flex: 3, // This gives more space in the middle
   },
 });

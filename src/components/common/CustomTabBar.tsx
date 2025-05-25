@@ -12,6 +12,9 @@ import { RootTabParamList } from '../../navigation/AppNavigator';
 const CustomTabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
   const theme = useTheme();
   const insets = useSafeAreaInsets();
+
+  // Determine if we're on the About screen to hide the info button
+  const isOnAboutScreen = state.routes[state.index].name === 'About';
   
   // Navigation handlers
   const navigateToHome = () => {
@@ -81,7 +84,7 @@ const CustomTabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => 
         </View>
       </TouchableOpacity>
 
-      {/* About Button */}
+      {/* Info Button (About Screen) */}
       <TouchableOpacity 
         style={[styles.tabButton, state.index === 2 && styles.activeTab]} 
         onPress={navigateToAbout}
@@ -163,6 +166,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flexDirection: 'column',
     paddingVertical: 6,
+  },
+  middleSpacer: {
+    // Removed as we now have 3 equal tabs
   },
 });
 
