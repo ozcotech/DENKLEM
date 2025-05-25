@@ -1,5 +1,7 @@
 const {getDefaultConfig, mergeConfig} = require('@react-native/metro-config');
-const path = require('path'); // Bu satırı ekleyin
+const path = require('path');
+
+const defaultConfig = getDefaultConfig(__dirname);
 
 /**
  * Metro configuration
@@ -9,22 +11,19 @@ const path = require('path'); // Bu satırı ekleyin
  */
 const config = {
   resolver: {
+    assetExts: [...defaultConfig.resolver.assetExts, 'pdf'],
     extraNodeModules: new Proxy(
       {},
       {
         get: (target, name) => {
-          // Bu, projenizin node_modules klasörüne doğru bir şekilde işaret eder
           return path.join(__dirname, `node_modules/${name}`);
         },
       },
     ),
   },
   watchFolders: [
-    path.resolve(__dirname), // Proje kök dizinini izle
-    // Eğer monorepo yapınız varsa veya dışarıdan linklenmiş paketleriniz varsa
-    // buraya ek yollar ekleyebilirsiniz. Örneğin:
-    // path.resolve(__dirname, '../another-package'),
+    path.resolve(__dirname),
   ],
 };
 
-module.exports = mergeConfig(getDefaultConfig(__dirname), config);
+module.exports = mergeConfig(defaultConfig, config);

@@ -12,13 +12,14 @@ import { RootTabParamList } from '../../navigation/AppNavigator';
 const CustomTabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
   const theme = useTheme();
   const insets = useSafeAreaInsets();
-
-  // Determine if we're on the About screen to hide the info button
-  const isOnAboutScreen = state.routes[state.index].name === 'About';
   
   // Navigation handlers
   const navigateToHome = () => {
     navigation.navigate('Start');
+  };
+
+  const navigateToLegislation = () => {
+    navigation.navigate('Legislation');
   };
 
   const navigateToAbout = () => {
@@ -59,31 +60,47 @@ const CustomTabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => 
         </View>
       </TouchableOpacity>
 
-      {/* Middle spacer - can be used for additional buttons */}
-      <View style={styles.middleSpacer} />
+      {/* Legislation Button */}
+      <TouchableOpacity 
+        style={[styles.tabButton, state.index === 1 && styles.activeTab]} 
+        onPress={navigateToLegislation}
+      >
+        <View style={styles.tabButtonInner}>
+          <Image
+            source={require('../../../assets/images/legislation-icon.png')}
+            style={[styles.tabIcon, { tintColor: state.index === 1 ? theme.colors.text.primary : theme.colors.text.secondary }]}
+          />
+          <Text 
+            style={[
+              styles.tabText, 
+              { color: state.index === 1 ? theme.colors.text.primary : theme.colors.text.secondary }
+            ]}
+          >
+            Mevzuat
+          </Text>
+        </View>
+      </TouchableOpacity>
 
-      {/* Info Button (About Screen) */}
-      {!isOnAboutScreen && (
-        <TouchableOpacity 
-          style={[styles.tabButton, state.index === state.routes.length - 1 && styles.activeTab]} 
-          onPress={navigateToAbout}
-        >
-          <View style={styles.tabButtonInner}>
-            <Image
-              source={require('../../../assets/images/info-icon.png')}
-              style={[styles.tabIcon, { tintColor: state.index === state.routes.length - 1 ? theme.colors.text.primary : theme.colors.text.secondary }]}
-            />
-            <Text 
-              style={[
-                styles.tabText, 
-                { color: state.index === state.routes.length - 1 ? theme.colors.text.primary : theme.colors.text.secondary }
-              ]}
-            >
-              Hakkında
-            </Text>
-          </View>
-        </TouchableOpacity>
-      )}
+      {/* About Button */}
+      <TouchableOpacity 
+        style={[styles.tabButton, state.index === 2 && styles.activeTab]} 
+        onPress={navigateToAbout}
+      >
+        <View style={styles.tabButtonInner}>
+          <Image
+            source={require('../../../assets/images/info-icon.png')}
+            style={[styles.tabIcon, { tintColor: state.index === 2 ? theme.colors.text.primary : theme.colors.text.secondary }]}
+          />
+          <Text 
+            style={[
+              styles.tabText, 
+              { color: state.index === 2 ? theme.colors.text.primary : theme.colors.text.secondary }
+            ]}
+          >
+            Hakkında
+          </Text>
+        </View>
+      </TouchableOpacity>
       </View>
     </View>
   );
@@ -146,9 +163,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flexDirection: 'column',
     paddingVertical: 6,
-  },
-  middleSpacer: {
-    flex: 3, // This gives more space in the middle
   },
 });
 

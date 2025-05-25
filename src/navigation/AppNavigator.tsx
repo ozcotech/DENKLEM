@@ -10,6 +10,7 @@ import ResultScreen from '../screens/ResultScreen';
 import TimeCalculationScreen from '../screens/TimeCalculationScreen';
 import SMMCalculationScreen from '../screens/SmmCalculationScreen';
 import AboutScreen from '../screens/AboutScreen';
+import LegislationScreen from '../screens/LegislationScreen';
 import CustomTabBar from '../components/common/CustomTabBar';
 
 // Type definition for the stack navigator
@@ -28,6 +29,7 @@ export type RootStackParamList = {
 export type RootTabParamList = {
   Start: undefined;
   About: undefined;
+  Legislation: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -44,6 +46,7 @@ const TabNavigator = () => {
       }}
     >
       <Tab.Screen name="Start" component={StartScreen} />
+      <Tab.Screen name="Legislation" component={LegislationScreen} />
       <Tab.Screen name="About" component={AboutScreen} />
     </Tab.Navigator>
   );
