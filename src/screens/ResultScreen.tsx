@@ -11,12 +11,14 @@ import { useTheme } from '../theme/ThemeContext';
 import { formatKurusToTlString } from '../utils/formatCurrency';
 import { calculateSMM } from '../utils/smmCalculator';
 import { SMMCalculationType } from '../constants/smmOptions';
+import { useSafeAreaInsets } from 'react-native-safe-area-context'; // Added import
 
 const ResultScreen = () => {
   // ✅ Stack navigation'a çevrildi
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const route = useRoute<RouteProp<RootStackParamList, 'Result'>>();
   const theme = useTheme();
+  const insets = useSafeAreaInsets(); // Added insets
   const { result, isAgreement, disputeType } = route.params;
 
   // Convert TL result to kurus string
@@ -38,15 +40,18 @@ const ResultScreen = () => {
 
   return (
     <ThemedBackground>
-      <ScreenContainer paddingTop={20} marginBottom={140}>
+      <View style={[styles.header, { marginTop: insets.top + 10 }]}>
+        <Text style={[styles.headerText, { color: theme.colors.text.primary }]}>
+          Arabuluculuk Ücreti
+        </Text>
+      </View>
+      <ScreenContainer paddingTop={10} marginBottom={140}> 
         <ScrollView
           contentContainerStyle={styles.scrollContent}
           showsVerticalScrollIndicator={false}
-          style={styles.scrollView}
+          style={styles.scrollView} 
         >
-          <Text style={[styles.titleText, { color: theme.colors.text.primary, ...theme.typography.h1 }]}>
-            Arabuluculuk Ücreti
-          </Text>
+          {/* The original title \"Arabuluculuk Ücreti\" was here. It has been moved to the new header view. */}
           
           <ThemedCard style={styles.resultCard}>
             <>
@@ -133,6 +138,21 @@ const ResultScreen = () => {
 };
 
 const styles = StyleSheet.create({
+  header: { // Added header style
+    padding: 15,
+    borderRadius: 10,
+    marginBottom: 10,
+    alignItems: 'center',
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    width: '85%',
+    alignSelf: 'center',
+  },
+  headerText: { // Added headerText style
+    textAlign: 'center',
+    marginBottom: 5,
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
   titleText: {
     textAlign: 'center',
     marginBottom: 30,
@@ -204,7 +224,7 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     width: '100%',
-    marginTop: 20,
+    // marginTop: 20, // Removed marginTop as spacing is handled by header and ScreenContainer paddingTop
   },
 });
 
