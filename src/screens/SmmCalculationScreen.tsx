@@ -27,11 +27,13 @@ import {
   PERSON_TYPE_TUZEL
 } from '../constants/smmOptions';
 import { formatKurusToTlString, normalizeToKurusString, convertKurusStringToTlNumber } from '../utils/formatCurrency';
+import { useSafeAreaInsets } from 'react-native-safe-area-context'; // Added import
 
 const SMMCalculationScreen: React.FC = () => {
   const theme = useTheme();
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const scrollViewRef = useRef<ScrollView>(null);
+  const insets = useSafeAreaInsets(); // Added insets
   
   // State management
   const [mediationFee, setMediationFee] = useState<string>('');
@@ -92,7 +94,12 @@ const SMMCalculationScreen: React.FC = () => {
 
   return (
     <ThemedBackground>
-      <ScreenContainer paddingTop={50} marginBottom={140}>
+      <View style={[styles.header, { marginTop: insets.top + 10 }]}>
+        <Text style={[styles.headerText, { color: theme.colors.text.primary }]}>
+          Makbuz Hesaplama
+        </Text>
+      </View>
+      <ScreenContainer paddingTop={10} marginBottom={140}> {/* Changed paddingTop from 50 to 10 */}
         <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
           style={styles.container}
@@ -110,7 +117,7 @@ const SMMCalculationScreen: React.FC = () => {
                   styles.contentContainer, 
                   { justifyContent: calculated ? 'flex-start' : 'center' }
                 ]}>
-                  {/* Input Section */}
+                  {/* Section for user inputs */}
                   <View style={styles.inputSection}>
                     <Text style={[styles.label, { color: theme.colors.text.primary }]}>
                       Arabuluculuk Ücreti:
@@ -170,7 +177,7 @@ const SMMCalculationScreen: React.FC = () => {
                     />
                   </View>
                   
-                  {/* Results Section */}
+                  {/* Section for displaying calculation results */}
                   {calculated && results && (
                     <View style={styles.resultsContainer}>
                       <ThemedCard style={styles.resultsCard}>
@@ -178,7 +185,7 @@ const SMMCalculationScreen: React.FC = () => {
                           SMM Hesaplama Sonuçları
                         </Text>
                         
-                        {/* Table Header */}
+                        {/* Header for the results table */}
                         <View style={styles.tableRow}>
                           <Text style={[styles.tableHeaderCell, styles.descriptionCell, { color: theme.colors.text.primary }]}>
                             Açıklama
@@ -191,7 +198,7 @@ const SMMCalculationScreen: React.FC = () => {
                           </Text>
                         </View>
                         
-                        {/* Table Rows */}
+                        {/* Rows of the results table */}
                         {results.rows.map((row: any, index: number) => (
                           <View key={index} style={[
                             styles.tableRow,
@@ -222,13 +229,28 @@ const SMMCalculationScreen: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
+  header: { // Added header style
+    padding: 15,
+    borderRadius: 10,
+    marginBottom: 10,
+    alignItems: 'center',
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    width: '85%',
+    alignSelf: 'center',
+  },
+  headerText: { // Added headerText style
+    textAlign: 'center',
+    marginBottom: 5,
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
   container: {
     flex: 1,
     width: '100%',
   },
   scrollContent: {
     flexGrow: 1,
-    paddingTop: 70,
+    paddingTop: 10, // Changed paddingTop from 70 to 10
     paddingBottom: 180,
     paddingHorizontal: '7.5%',
     minHeight: '100%',
