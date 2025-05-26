@@ -10,12 +10,14 @@ import ThemedButton from '../components/common/ThemedButton';
 import ScreenContainer from '../components/common/ScreenContainer';
 import { useTheme } from '../theme/ThemeContext';
 import { formatKurusToTlString, normalizeToKurusString, convertKurusStringToTlNumber } from '../utils/formatCurrency';
+import { useSafeAreaInsets } from 'react-native-safe-area-context'; // Added import
 
 const InputScreen = () => {
   // ✅ Stack navigation'a çevrildi
   const route = useRoute<RouteProp<RootStackParamList, 'Input'>>();
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const theme = useTheme();
+  const insets = useSafeAreaInsets(); // Added insets
   const isAgreement = route.params?.isAgreement ?? false;
   const disputeType = route.params?.disputeType ?? 'İşçi-İşveren';
   const [amount, setAmount] = useState('');
@@ -82,16 +84,19 @@ const InputScreen = () => {
 
   return (
     <ThemedBackground>
+      <View style={[styles.header, { marginTop: insets.top + 10 }]}>
+        <Text style={[styles.headerText, { color: theme.colors.text.primary }]}>
+          Bilgi Girişi
+        </Text>
+      </View>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.keyboardAvoidingContainer}
         keyboardVerticalOffset={Platform.OS === 'ios' ? -100 : 0} 
       >
-        <ScreenContainer paddingTop={50} marginBottom={140}>
+        <ScreenContainer paddingTop={10} marginBottom={140}>
           <View style={styles.centerContainer}>
-            <Text style={[styles.titleText, { color: theme.colors.text.primary, ...theme.typography.h1 }]}>
-              Uyuşmazlık Türü
-            </Text>
+            {/* The main title "Uyuşmazlık Türü" was previously here. It has been moved to the new header component above. */}
             <Text style={[styles.disputeTypeValue, { color: theme.colors.text.primary, fontWeight: 'bold' }]}>
               {disputeType}
             </Text>
@@ -127,6 +132,21 @@ const InputScreen = () => {
 };
 
 const styles = StyleSheet.create({
+  header: { // Added header style
+    padding: 15,
+    borderRadius: 10,
+    marginBottom: 10,
+    alignItems: 'center',
+    backgroundColor: 'rgba(255, 255, 255, 0.1)', 
+    width: '85%',
+    alignSelf: 'center',
+  },
+  headerText: { // Added headerText style
+    textAlign: 'center',
+    marginBottom: 5,
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
   keyboardAvoidingContainer: {
     flex: 1,
     width: '100%',
@@ -138,7 +158,7 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingHorizontal: '7.5%', 
   },
-  titleText: {
+  titleText: { // This style might be removed or repurposed if no longer used
     textAlign: 'center',
     marginBottom: 30,
   },
