@@ -205,7 +205,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     alignItems: 'center',
     backgroundColor: 'rgba(255, 255, 255, 0.1)',
-    width: '85%',
+    width: '90%', // Updated to match tabbar width
     alignSelf: 'center',
   },
   headerText: { // Added headerText style
@@ -219,7 +219,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
-    paddingHorizontal: '7.5%',
+    paddingHorizontal: '5%', // Reduced from 7.5% to match tabbar width
   },
   titleText: {
     textAlign: 'center',

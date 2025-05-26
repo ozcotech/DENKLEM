@@ -46,7 +46,7 @@ const DisputeTypeScreen = () => {
         </ThemedCard>
       </View>
 
-      <ScreenContainer paddingTop={10} marginBottom={140} scrollable={false}>
+      <ScreenContainer paddingTop={10} marginBottom={140} scrollable={true}>
         <View style={styles.centerContainer}>
           {rows.map((row, i) => (
             <View style={styles.rowButtonContainer} key={i}>
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     marginBottom: 10, 
   },
   headerCardContent: {
-    width: '85%',
+    width: '90%', // Updated to match tabbar width
     padding: 15,
     borderRadius: 10,
     alignItems: 'center',
@@ -87,11 +87,11 @@ const styles = StyleSheet.create({
   },
   centerContainer: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     width: '100%',
-    paddingHorizontal: '7.5%',
-    paddingTop: 90, 
+    paddingHorizontal: '5%', // Reduced from 7.5% to match tabbar width
+    paddingTop: 20, 
   },
   rowButtonContainer: {
     width: '100%',

@@ -79,7 +79,9 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginBottom: 10,
     alignItems: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 0.1)', // Background color direkt eklendi
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    width: '90%', // Updated to match tabbar width
+    alignSelf: 'center', // Added for centering
   },
   headerText: {
     textAlign: 'center',

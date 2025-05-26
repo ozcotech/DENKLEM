@@ -14,7 +14,7 @@ import { SMMCalculationType } from '../constants/smmOptions';
 import { useSafeAreaInsets } from 'react-native-safe-area-context'; // Added import
 
 const ResultScreen = () => {
-  // ✅ Stack navigation'a çevrildi
+  // ✅ Turned on stack navigation type checking
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const route = useRoute<RouteProp<RootStackParamList, 'Result'>>();
   const theme = useTheme();
@@ -128,10 +128,6 @@ const ResultScreen = () => {
             </ThemedCard>
           )}
         </ScrollView>
-        
-        <Text style={[styles.footer, { color: theme.colors.text.secondary, ...theme.typography.body }]}>
-          {`info@ozco.studio`}
-        </Text>
       </ScreenContainer>
     </ThemedBackground>
   );
@@ -144,7 +140,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     alignItems: 'center',
     backgroundColor: 'rgba(255, 255, 255, 0.1)',
-    width: '85%',
+    width: '90%', // Updated to match tabbar width
     alignSelf: 'center',
   },
   headerText: { // Added headerText style
@@ -207,18 +203,13 @@ const styles = StyleSheet.create({
     flex: 1,
     textAlign: 'right',
   },
-  footer: {
-    textAlign: 'center',
-    position: 'absolute',
-    bottom: '2%',
-  },
   scrollContent: {
     flexGrow: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingBottom: 100,
+    paddingBottom: 5,
     paddingTop: 10,
-    paddingHorizontal: '7.5%', 
+    paddingHorizontal: '5%', // Reduced from 7.5% to match tabbar width
     minHeight: '100%',
     width: '100%',
   },

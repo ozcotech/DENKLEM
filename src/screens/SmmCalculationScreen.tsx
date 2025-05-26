@@ -237,7 +237,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   headerCardContent: { // Added style
-    width: '85%',
+    width: '90%', // Updated to match tabbar width
     padding: 15,
     borderRadius: 10,
     alignItems: 'center',
@@ -253,9 +253,9 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     flexGrow: 1,
-    paddingTop: 70,
+    paddingTop: 20, // Reduced from 70 to 20
     paddingBottom: 0, // Changed from 20 to 0
-    paddingHorizontal: '7.5%',
+    paddingHorizontal: '5%', // Reduced from 7.5% to match tabbar width
     minHeight: '100%',
     width: '100%',
   },
@@ -267,7 +267,7 @@ const styles = StyleSheet.create({
   inputSection: {
     width: '100%',
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: 10, // Reduced from 20 to 10
   },
   label: {
     alignSelf: 'flex-start',
@@ -341,9 +341,9 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   optionButton: {
-    marginVertical: 3,
+    marginVertical: 4,
     width: '48%',
-    height: 60,
+    height: 75,
   },
   selectedOption: {
     backgroundColor: 'rgba(255,255,255,0.2)',
@@ -352,7 +352,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.4,
   },
   optionText: {
-    fontSize: 13,
+    fontSize: 18,
     textAlign: 'center',
     flexWrap: 'wrap',
   },

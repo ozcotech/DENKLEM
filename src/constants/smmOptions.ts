@@ -14,8 +14,8 @@ export enum SMMCalculationType {
 export const smmCalculationTypeOptions = [
   { label: 'KDV Dahil, Stopaj Hariç', value: SMMCalculationType.KDV_DAHIL_STOPAJ_YOK },
   { label: 'KDV Hariç, Stopaj Dahil', value: SMMCalculationType.KDV_HARIC_STOPAJ_VAR },
-  { label: 'KDV ve Stopaj Dahil', value: SMMCalculationType.KDV_DAHIL_STOPAJ_VAR },
-  { label: 'KDV ve Stopaj Hariç', value: SMMCalculationType.KDV_HARIC_STOPAJ_YOK },
+  { label: 'KDV Dahil, Stopaj Dahil', value: SMMCalculationType.KDV_DAHIL_STOPAJ_VAR },
+  { label: 'KDV Hariç, Stopaj Hariç', value: SMMCalculationType.KDV_HARIC_STOPAJ_YOK },
 ];
 
 export interface SMMInput {

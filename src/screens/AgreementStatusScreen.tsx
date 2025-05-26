@@ -10,7 +10,7 @@ import ScreenContainer from '../components/common/ScreenContainer';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const AgreementStatusScreen = () => {
-  // ✅ Stack navigation'a çevrildi
+  // ✅ Turned into a NativeStackNavigationProp for AgreementStatusScreen
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const theme = useTheme();
   const insets = useSafeAreaInsets();
@@ -24,19 +24,16 @@ const AgreementStatusScreen = () => {
       </View>
       <ScreenContainer paddingTop={10} marginBottom={140} scrollable={false}>
         <View style={styles.centerContainer}>
-          {/* <Text style={[styles.title, { color: theme.colors.text.primary, ...theme.typography.h1 }]}>
-            Anlaşma Durumu
-          </Text> */}
-          {/* Eski başlık yukarıdaki header'a taşındı. */}
+          
           <View style={styles.buttonContainer}>
             <ThemedButton
-              title={`Anlaşma\nYapıldı`}
+              title={`Anlaşma\n\n✅`}
               onPress={() => navigation.navigate('DisputeType', { isAgreement: true })}
               style={styles.button}
               textStyle={styles.buttonText} // Added textStyle
             />
             <ThemedButton
-              title={`Anlaşma\nYapılamadı`}
+              title={`Anlaşmama\n\n❌`}
               onPress={() => navigation.navigate('DisputeType', { isAgreement: false })}
               style={styles.button}
               textStyle={styles.buttonText} // Added textStyle
@@ -49,16 +46,16 @@ const AgreementStatusScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  header: { // Yeni stil
+  header: { // New header style
     padding: 15,
     borderRadius: 10,
     marginBottom: 10,
     alignItems: 'center',
     backgroundColor: 'rgba(255, 255, 255, 0.1)',
-    width: '85%',
+    width: '90%', // Updated to match tabbar width
     alignSelf: 'center',
   },
-  headerText: { // Yeni stil
+  headerText: { // New header text style
     textAlign: 'center',
     marginBottom: 5,
     fontSize: 20,
@@ -69,13 +66,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center', // Ensures vertical centering
     alignItems: 'center',
     width: '100%',
-    paddingHorizontal: '7.5%',
+    paddingHorizontal: '5%', // Reduced from 7.5% to match tabbar width
     paddingTop: 60, // Added to push content down
   },
   title: {
     textAlign: 'center',
     marginBottom: 24,
-    // Bu stil artık headerText tarafından yönetiliyor, isterseniz kaldırılabilir.
+    // This title style is not used in the current component, but can be used if needed
   },
   buttonContainer: {
     width: '100%', 
@@ -92,9 +89,10 @@ const styles = StyleSheet.create({
     minHeight: 100, // Adjusted minHeight
     justifyContent: 'center',
     alignItems: 'center', // Added for text centering
+    minWidth: 0, // Ensures buttons can shrink if needed
   },
   buttonText: { // Added new style for button text
-    fontSize: 21, // Changed from 21 to 18 for multi-line text
+    fontSize: 20, // Changed from 21 to 20 for multi-line text
     textAlign: 'center',
   },
 });

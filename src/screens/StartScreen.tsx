@@ -89,9 +89,6 @@ const StartScreen = () => {
           />
         </View>
       </View>
-      <Text style={[styles.footer, { color: theme.colors.text.secondary, ...theme.typography.body }]}>
-        {`© ${new Date().getFullYear()} OZCO Studio. Tüm hakları saklıdır.`}
-      </Text>
     </ThemedBackground>
   );
 };
@@ -109,12 +106,12 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     // marginBottom: 10, // Add if spacing is needed below the card
     alignItems: 'center',
-    width: '85%', // Consistent width with other headers
+    width: '90%', // Updated to match tabbar width
     // backgroundColor is handled by ThemedCard or can be overridden here
   },
   customButton: { // Added style for the Giriş button
     paddingVertical: 18, // Increased padding for a taller button
-    width: '85%', // Keep consistent width
+    width: '90%', // Updated to match tabbar width
   },
   headerContainer: { // Original headerContainer, may need adjustment or removal
     position: 'absolute',
@@ -194,18 +191,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: '100%',
     alignItems: 'center',
-    bottom: '25%', // moved up further to make more space for tab bar and footer
+    bottom: '24%', // moved up further to make more space for tab bar
     zIndex: 1,
-  },
-  footer: {
-    textAlign: 'center',
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    bottom: 10,
-    paddingBottom: 18,
-    zIndex: 20,
-    backgroundColor: 'transparent',
   },
   buttonText: {
     fontWeight: '600',

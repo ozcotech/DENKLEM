@@ -114,17 +114,17 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 0,
     right: 0,
-    bottom: 60, // moved up to leave space for footer
+    bottom: 20, // moved down for better positioning
     alignItems: 'center',
     zIndex: 10,
   },
   tabBarContainer: {
     flexDirection: 'row',
     borderWidth: 0.5,
-    borderRadius: 25, // Rounded corners for tab bar
-    width: '85%',
+    borderRadius: 28, // Slightly increased for better proportion
+    width: '90%', // Increased from 85% to 90% for better coverage
     alignSelf: 'center',
-    height: Platform.OS === 'ios' ? 70 : 65, // Adjusted height
+    height: Platform.OS === 'ios' ? 75 : 70, // Increased height for better touch targets
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 15,
@@ -166,9 +166,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flexDirection: 'column',
     paddingVertical: 6,
-  },
-  middleSpacer: {
-    // Removed as we now have 3 equal tabs
   },
 });
 
