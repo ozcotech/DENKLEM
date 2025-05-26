@@ -10,10 +10,12 @@ import { ThemedCard } from '../components/common/ThemedCard';
 import ThemedButton from '../components/common/ThemedButton';
 import { aboutData } from '../constants/aboutData';
 import ScreenContainer from '../components/common/ScreenContainer';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const AboutScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const theme = useTheme();
+  const insets = useSafeAreaInsets();
 
   const handleEmailPress = async () => {
     try {
@@ -82,100 +84,123 @@ const AboutScreen = () => {
 
   return (
     <ThemedBackground>
-      <ScreenContainer paddingTop={50} marginBottom={140}>
-        <Text style={[styles.titleText, { color: theme.colors.text.primary, ...theme.typography.h1 }]}>
+      <View style={[styles.header, { marginTop: insets.top + 10 }]}>
+        <Text style={[styles.headerText, { color: theme.colors.text.primary }]}>
           Hakkımızda
         </Text>
-        
-        {/* App Info Card */}
-        <ThemedCard style={styles.sectionCard}>
-          <View style={styles.appInfoHeader}>
-            <Image 
-              source={require('../../assets/images/first_screen_logo_transparent.png')}
-              style={styles.appLogo}
-              resizeMode="contain"
-            />
-            <Text style={[styles.cardTitle, { color: theme.colors.text.primary, ...theme.typography.h2 }]}>
-              {aboutData.appInfo.title}
-            </Text>
-          </View>
-          <Text style={[styles.cardText, { color: theme.colors.text.secondary }]}>
-            {aboutData.appInfo.description}
-          </Text>
-          <Text style={[styles.versionText, { color: theme.colors.text.secondary }]}>
-            Versiyon: {aboutData.appInfo.version}
-          </Text>
-        </ThemedCard>
-        
-        {/* Content Sections */}
-        {aboutData.sections.map((section, index) => (
-          <ThemedCard key={index} style={styles.sectionCard}>
-            <Text style={[styles.cardTitle, { color: theme.colors.text.primary, ...theme.typography.h2 }]}>
-              {section.title}
-            </Text>
+      </View>
+      <ScreenContainer paddingTop={10} marginBottom={140}>
+        <View style={styles.contentContainer}>
+          {/* App Info Card */}
+          <ThemedCard style={styles.sectionCard}>
+            <View style={styles.appInfoHeader}>
+              <Image 
+                source={require('../../assets/images/first_screen_logo_transparent.png')}
+                style={styles.appLogo}
+                resizeMode="contain"
+              />
+              <Text style={[styles.cardTitle, { color: theme.colors.text.primary, ...theme.typography.h2 }]}>
+                {aboutData.appInfo.title}
+              </Text>
+            </View>
             <Text style={[styles.cardText, { color: theme.colors.text.secondary }]}>
-              {section.content}
+              {aboutData.appInfo.description}
+            </Text>
+            <Text style={[styles.versionText, { color: theme.colors.text.secondary }]}>
+              Versiyon: {aboutData.appInfo.version}
             </Text>
           </ThemedCard>
-        ))}
-        
-        {/* Contact Card */}
-        <ThemedCard style={styles.sectionCard}>
-          <Text style={[styles.cardTitle, { color: theme.colors.text.primary, ...theme.typography.h2 }]}>
-            İletişim
+          
+          {/* Content Sections */}
+          {aboutData.sections.map((section, index) => (
+            <ThemedCard key={index} style={styles.sectionCard}>
+              <Text style={[styles.cardTitle, { color: theme.colors.text.primary, ...theme.typography.h2 }]}>
+                {section.title}
+              </Text>
+              <Text style={[styles.cardText, { color: theme.colors.text.secondary }]}>
+                {section.content}
+              </Text>
+            </ThemedCard>
+          ))}
+          
+          {/* Contact Card */}
+          <ThemedCard style={styles.sectionCard}>
+            <Text style={[styles.cardTitle, { color: theme.colors.text.primary, ...theme.typography.h2 }]}>
+              İletişim
+            </Text>
+            
+            <TouchableOpacity onPress={handleEmailPress} style={styles.contactItem}>
+              <Text style={[styles.contactLabel, { color: theme.colors.text.secondary }]}>E-posta:</Text>
+              <Text style={[styles.contactValue, { color: theme.colors.text.primary }]}>
+                {aboutData.contact.email}
+              </Text>
+            </TouchableOpacity>
+            
+            <TouchableOpacity onPress={handleWebsitePress} style={styles.contactItem}>
+              <Text style={[styles.contactLabel, { color: theme.colors.text.secondary }]}>Web Sitesi:</Text>
+              <Text style={[styles.contactValue, { color: theme.colors.text.primary }]}>
+                {aboutData.contact.website}
+              </Text>
+            </TouchableOpacity>
+            
+            <ThemedButton 
+              title="Uygulamayı Paylaş" 
+              onPress={handleShare} 
+              style={styles.shareButton}
+            />
+          </ThemedCard>
+          
+          <Text style={[styles.copyrightText, { color: theme.colors.text.secondary }]}>
+            {aboutData.contact.copyright}
           </Text>
           
-          <TouchableOpacity onPress={handleEmailPress} style={styles.contactItem}>
-            <Text style={[styles.contactLabel, { color: theme.colors.text.secondary }]}>E-posta:</Text>
-            <Text style={[styles.contactValue, { color: theme.colors.text.primary }]}>
-              {aboutData.contact.email}
-            </Text>
-          </TouchableOpacity>
-          
-          <TouchableOpacity onPress={handleWebsitePress} style={styles.contactItem}>
-            <Text style={[styles.contactLabel, { color: theme.colors.text.secondary }]}>Web Sitesi:</Text>
-            <Text style={[styles.contactValue, { color: theme.colors.text.primary }]}>
-              {aboutData.contact.website}
-            </Text>
-          </TouchableOpacity>
-          
-          <ThemedButton 
-            title="Uygulamayı Paylaş" 
-            onPress={handleShare} 
-            style={styles.shareButton}
-          />
-        </ThemedCard>
-        
-        <Text style={[styles.copyrightText, { color: theme.colors.text.secondary }]}>
-          {aboutData.contact.copyright}
-        </Text>
-        
-        {/* Feedback Section */}
-        <View style={styles.feedbackContainer}>
-          <ThemedButton 
-            title="Uygulamayı Değerlendirin"
-            onPress={() => {
-              Alert.alert(
-                'Bilgi',
-                'Uygulama henüz mağazada yayınlanmadı. Çok yakında değerlendirme yapabileceksiniz.'
-              );
-            }}
-            style={styles.feedbackButton}
-          />
-          
-          <ThemedButton 
-            title="Geri Bildirim Gönderin"
-            onPress={() => Linking.openURL(`mailto:${aboutData.contact.email}?subject=Arabuluculuk%20Ücreti%20Hesaplama%20-%20Geri%20Bildirim`)}
-            style={styles.feedbackButton}
-          />
+          {/* Feedback Section */}
+          <View style={styles.feedbackContainer}>
+            <ThemedButton 
+              title="Uygulamayı Değerlendirin"
+              onPress={() => {
+                Alert.alert(
+                  'Bilgi',
+                  'Uygulama henüz mağazada yayınlanmadı. Çok yakında değerlendirme yapabileceksiniz.'
+                );
+              }}
+              style={styles.feedbackButton}
+            />
+            
+            <ThemedButton 
+              title="Geri Bildirim Gönderin"
+              onPress={() => Linking.openURL(`mailto:${aboutData.contact.email}?subject=Arabuluculuk%20Ücreti%20Hesaplama%20-%20Geri%20Bildirim`)}
+              style={styles.feedbackButton}
+            />
+          </View>
+          <View style={{ height: 100 }} />
         </View>
-        <View style={{ height: 100 }} />
       </ScreenContainer>
     </ThemedBackground>
   );
 };
 
 const styles = StyleSheet.create({
+  header: {
+    padding: 15,
+    borderRadius: 10,
+    marginBottom: 10,
+    alignItems: 'center',
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    width: '90%',
+    alignSelf: 'center',
+  },
+  headerText: {
+    textAlign: 'center',
+    marginBottom: 5,
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  contentContainer: {
+    flex: 1,
+    alignItems: 'center',
+    width: '100%',
+  },
   titleText: {
     textAlign: 'center',
     marginBottom: 25,
