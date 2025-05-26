@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Alert } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native'; // Removed Alert
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../navigation/AppNavigator';
@@ -19,10 +19,6 @@ const DisputeCategoryScreen = () => {
   const theme = useTheme();
   const insets = useSafeAreaInsets(); // Eklendi
 
-  const handleNotImplemented = () => {
-    Alert.alert('Bilgi', 'Bu özellik henüz aktif değil. Daha sonra eklenecektir.');
-  };
-
   return (
     <ThemedBackground>
       <View style={[styles.header, { marginTop: insets.top + 10 }]}>
@@ -30,7 +26,7 @@ const DisputeCategoryScreen = () => {
           Uyuşmazlık Kategorisi
         </Text>
       </View>
-      <ScreenContainer paddingTop={10} marginBottom={140}>
+      <ScreenContainer paddingTop={10} marginBottom={140} scrollable={false}>
         <View style={styles.centerContainer}>
           {/* <Text style={[styles.title, { color: theme.colors.text.primary, ...theme.typography.h1 }]}>
             Uyuşmazlık Kategorisi
@@ -38,7 +34,7 @@ const DisputeCategoryScreen = () => {
           {/* Yukarıdaki Text başlık kısmına taşındı */}
           <View style={styles.rowButtonContainer}>
             <ThemedButton
-              title="Konusu Para Olan  Uyuşmazlıklar"
+              title={`Konusu Para\nOlan\nUyuşmazlıklar`}
               onPress={() => navigation.navigate('AgreementStatus')}
               style={[
                 styles.halfButton,
@@ -50,7 +46,7 @@ const DisputeCategoryScreen = () => {
               textStyle={styles.smallButtonText}
             />
             <ThemedButton
-              title="Konusu Para Olmayan Uyuşmazlıklar"
+              title={`Konusu Para\nOlmayan\nUyuşmazlıklar`}
               onPress={() => navigation.navigate('DisputeType', { isAgreement: false })}
               style={styles.halfButton}
               textStyle={styles.smallButtonText}
@@ -65,14 +61,16 @@ const DisputeCategoryScreen = () => {
 
           <View style={styles.rowButtonContainer}>
             <ThemedButton
-              title="Süre Hesaplama" 
+              title={`Süre\nHesaplama`}
               onPress={() => navigation.navigate('TimeCalculation')}
               style={styles.halfButton}
+              textStyle={styles.smallButtonText} // Added textStyle here
             />
             <ThemedButton
-              title="SMM Hesaplama"
+              title={`SMM\nHesaplama`}
               onPress={() => navigation.navigate('SMMCalculation')}
               style={styles.halfButton}
+              textStyle={styles.smallButtonText} // Added textStyle here
             />
           </View>
         </View>
@@ -84,7 +82,7 @@ const DisputeCategoryScreen = () => {
 const styles = StyleSheet.create({
   header: {
     padding: 15,
-    borderRadius: 10,
+    borderRadius: 10, // Changed from 20 back to 10
     marginBottom: 10,
     alignItems: 'center',
     backgroundColor: 'rgba(255, 255, 255, 0.1)',
@@ -103,6 +101,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     paddingHorizontal: '7.5%', // Adjusted for better spacing
+    paddingTop: 90, // Changed from 80 to 90 to push content further down
   },
   title: {
     textAlign: 'center',
@@ -113,7 +112,8 @@ const styles = StyleSheet.create({
     width: '100%', // Değiştirildi: 85% -> 100%
     // alignSelf: 'center', // Genişlik 100% olunca gereksizleşti
     marginTop: 30,
-    marginBottom: 16,
+    marginBottom: 50, // Changed from 24 to 50 for symmetry and more space
+    borderRadius: 10, // Added to override ThemedCard default
     // ThemedCard'ın varsayılan padding'i ve diğer stilleri uygulanır
   },
   subTitleText: { // Yeni stil
@@ -142,9 +142,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 3, 
     minHeight: 130,
     justifyContent: 'center',
+    alignItems: 'center', // Added for text centering
   },
   smallButtonText: {
-    fontSize: 14,
+    fontSize: 18, // Changed from 16 to 18
+    textAlign: 'center', // Ensure text is centered for multi-line
   },
 });
 

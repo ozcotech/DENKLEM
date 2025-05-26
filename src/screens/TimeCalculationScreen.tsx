@@ -108,8 +108,8 @@ export default function TimeCalculationScreen() {
     try {
       if (!/^\d{2}\.\d{2}\.\d{4}$/.test(startDate)) {
         Alert.alert(
-          'Giriş Hatası',
-          'Lütfen tarihi GG.AA.YYYY formatında girin',
+          `Giriş Hatası`,
+          `Lütfen tarihi GG.AA.YYYY formatında girin`,
         );
         return;
       }
@@ -117,7 +117,7 @@ export default function TimeCalculationScreen() {
       setWeekDates(dates);
       setCalculated(true);
     } catch (error) {
-      Alert.alert('Hesaplama Hatası', String(error));
+      Alert.alert(`Hesaplama Hatası`, String(error));
     }
   };
 
@@ -132,7 +132,7 @@ export default function TimeCalculationScreen() {
     <ThemedBackground>
       <View style={[styles.header, { marginTop: insets.top + 10 }]}>
         <Text style={[styles.headerText, { color: theme.colors.text.primary }]}>
-          Süre Hesaplama
+          {`Süre Hesaplama`}
         </Text>
       </View>
       <ScreenContainer paddingTop={10} marginBottom={140}> 
@@ -144,7 +144,7 @@ export default function TimeCalculationScreen() {
               onPress={openPicker}
               style={[styles.dateInputDisplay, { borderColor: theme.colors.button?.border || '#ccc' }]}>
               <Text style={[styles.dateInputText, { color: startDate ? theme.colors.text.primary : (theme.colors.text.secondary || '#888') }]}>
-                {startDate || 'Tarih Seçin'}
+                {startDate || `Tarih Seçin`}
               </Text>
             </Pressable>
 
@@ -155,22 +155,23 @@ export default function TimeCalculationScreen() {
                 mode="date"
                 display={Platform.OS === 'ios' ? 'compact' : 'default'}
                 onChange={onDateChange}
-                locale="tr-TR"
+                locale={`tr-TR`}
                 textColor={theme.colors.text.primary}
               />
             )}
 
             <ThemedButton
-              title="Hesapla"
+              title={`Hesapla`}
               onPress={handleCalculate}
               style={styles.calculateButton}
+              textStyle={styles.calculateButtonText} // Added textStyle prop
             />
           </View>
 
           {calculated && (
             <View style={styles.resultsContainer}>
               <Text style={[styles.resultsHeader, { color: theme.colors.text.primary }]}>
-                Uyuşmazlık Türüne Göre Süreler:
+                {`Uyuşmazlık Türüne Göre Süreler:`}
               </Text>
               {disputeTypes.map(disputeType => (
                 <View key={disputeType.name} style={[styles.disputeTypeContainer, { backgroundColor: theme.colors.card?.background || (Array.isArray(theme.colors.background) ? theme.colors.background[1] : '#f9f9f9') }]}>
@@ -181,7 +182,7 @@ export default function TimeCalculationScreen() {
                     if (shouldCalculate(disputeType.name, week) && weekDates[week]) {
                       return (
                         <Text key={week} style={[styles.dateText, { color: theme.colors.text.secondary || theme.colors.text.primary || '#555' }]}>
-                          {week}. Hafta: {formatDate(weekDates[week])}
+                          {`${week}. Hafta: ${formatDate(weekDates[week])}`}
                         </Text>
                       );
                     }
@@ -210,7 +211,7 @@ const styles = StyleSheet.create({
   headerText: { // Added headerText style
     textAlign: 'center',
     marginBottom: 5,
-    fontSize: 20,
+    fontSize: 22,
     fontWeight: 'bold',
   },
   centerContainer: {
@@ -242,18 +243,24 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   dateInputText: {
-    fontSize: 16,
+    fontSize: 22,
   },
   calculateButton: {
     width: '100%',
     marginTop: 10,
+    // Ensure button itself has enough padding if text becomes very large
+    paddingVertical: 12, // Example padding, adjust as needed
+  },
+  calculateButtonText: { // Added new style for button text
+    fontSize: 20, // Increased font size
+    fontWeight: 'bold', // Optional: make it bold
   },
   resultsContainer: {
     width: '100%',
     marginTop: 10,
   },
   resultsHeader: {
-    fontSize: 18,
+    fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 10,
     textAlign: 'center',
@@ -272,13 +279,13 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   disputeTypeName: {
-    fontSize: 16,
-    fontWeight: '600', 
+    fontSize: 20,
+    fontWeight: '600',
     marginBottom: 8,
   },
   dateText: {
-    fontSize: 14,
-    marginLeft: 10, 
-    lineHeight: 20, 
+    fontSize: 20,
+    marginLeft: 10,
+    lineHeight: 22,
   },
 });

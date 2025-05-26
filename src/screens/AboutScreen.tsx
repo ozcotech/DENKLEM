@@ -21,12 +21,12 @@ const AboutScreen = () => {
     try {
       await Clipboard.setString(aboutData.contact.email);
       Alert.alert(
-        'Bilgi', 
-        'E-posta adresi panoya kopyalandı.', 
-        [{ text: 'Tamam', style: 'default' }]
+        `Bilgi`, 
+        `E-posta adresi panoya kopyalandı.`, 
+        [{ text: `Tamam`, style: 'default' }]
       );
     } catch (error) {
-      Alert.alert('Hata', 'E-posta adresi kopyalanamadı.');
+      Alert.alert(`Hata`, `E-posta adresi kopyalanamadı.`);
     }
   };
 
@@ -34,24 +34,24 @@ const AboutScreen = () => {
     try {
       const canOpen = await Linking.canOpenURL(aboutData.contact.website);
       if (!canOpen) {
-        Alert.alert('Hata', 'Bu web sitesi açılamadı.');
+        Alert.alert(`Hata`, `Bu web sitesi açılamadı.`);
         return;
       }
       
       Alert.alert(
-        'Bilgi', 
-        'Web sitesi tarayıcıda açılacak. Devam etmek istiyor musunuz?',
+        `Bilgi`, 
+        `Web sitesi tarayıcıda açılacak. Devam etmek istiyor musunuz?`,
         [
-          { text: 'İptal', style: 'cancel' },
+          { text: `İptal`, style: 'cancel' },
           { 
-            text: 'Aç', 
+            text: `Aç`, 
             style: 'default', 
             onPress: () => Linking.openURL(aboutData.contact.website) 
           }
         ]
       );
     } catch (error) {
-      Alert.alert('Hata', 'Web sitesi açılamadı.');
+      Alert.alert(`Hata`, `Web sitesi açılamadı.`);
     }
   };
 
@@ -78,7 +78,7 @@ const AboutScreen = () => {
         console.log('Share dismissed');
       }
     } catch (error) {
-      Alert.alert('Hata', 'Paylaşım yapılamadı.');
+      Alert.alert(`Hata`, `Paylaşım yapılamadı.`);
     }
   };
 
@@ -86,7 +86,7 @@ const AboutScreen = () => {
     <ThemedBackground>
       <View style={[styles.header, { marginTop: insets.top + 10 }]}>
         <Text style={[styles.headerText, { color: theme.colors.text.primary }]}>
-          Hakkımızda
+          {`Hakkımızda`}
         </Text>
       </View>
       <ScreenContainer paddingTop={10} marginBottom={140}>
@@ -107,7 +107,7 @@ const AboutScreen = () => {
               {aboutData.appInfo.description}
             </Text>
             <Text style={[styles.versionText, { color: theme.colors.text.secondary }]}>
-              Versiyon: {aboutData.appInfo.version}
+              {`Versiyon: ${aboutData.appInfo.version}`}
             </Text>
           </ThemedCard>
           
@@ -126,25 +126,25 @@ const AboutScreen = () => {
           {/* Contact Card */}
           <ThemedCard style={styles.sectionCard}>
             <Text style={[styles.cardTitle, { color: theme.colors.text.primary, ...theme.typography.h2 }]}>
-              İletişim
+              {`İletişim`}
             </Text>
             
             <TouchableOpacity onPress={handleEmailPress} style={styles.contactItem}>
-              <Text style={[styles.contactLabel, { color: theme.colors.text.secondary }]}>E-posta:</Text>
+              <Text style={[styles.contactLabel, { color: theme.colors.text.secondary }]}>{`E-posta:`}</Text>
               <Text style={[styles.contactValue, { color: theme.colors.text.primary }]}>
                 {aboutData.contact.email}
               </Text>
             </TouchableOpacity>
             
             <TouchableOpacity onPress={handleWebsitePress} style={styles.contactItem}>
-              <Text style={[styles.contactLabel, { color: theme.colors.text.secondary }]}>Web Sitesi:</Text>
+              <Text style={[styles.contactLabel, { color: theme.colors.text.secondary }]}>{`Web Sitesi:`}</Text>
               <Text style={[styles.contactValue, { color: theme.colors.text.primary }]}>
                 {aboutData.contact.website}
               </Text>
             </TouchableOpacity>
             
             <ThemedButton 
-              title="Uygulamayı Paylaş" 
+              title={`Uygulamayı Paylaş`} 
               onPress={handleShare} 
               style={styles.shareButton}
             />
@@ -157,18 +157,18 @@ const AboutScreen = () => {
           {/* Feedback Section */}
           <View style={styles.feedbackContainer}>
             <ThemedButton 
-              title="Uygulamayı Değerlendirin"
+              title={`Uygulamayı Değerlendirin`}
               onPress={() => {
                 Alert.alert(
-                  'Bilgi',
-                  'Uygulama henüz mağazada yayınlanmadı. Çok yakında değerlendirme yapabileceksiniz.'
+                  `Bilgi`,
+                  `Uygulama henüz mağazada yayınlanmadı. Çok yakında değerlendirme yapabileceksiniz.`
                 );
               }}
               style={styles.feedbackButton}
             />
             
             <ThemedButton 
-              title="Geri Bildirim Gönderin"
+              title={`Geri Bildirim Gönderin`}
               onPress={() => Linking.openURL(`mailto:${aboutData.contact.email}?subject=Arabuluculuk%20Ücreti%20Hesaplama%20-%20Geri%20Bildirim`)}
               style={styles.feedbackButton}
             />

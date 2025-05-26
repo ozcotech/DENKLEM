@@ -34,7 +34,7 @@ const SMMCalculationScreen: React.FC = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const scrollViewRef = useRef<ScrollView>(null);
   const insets = useSafeAreaInsets(); // Added insets
-  
+
   // State management
   const [mediationFee, setMediationFee] = useState<string>('');
   const [calculationType, setCalculationType] = useState<SMMCalculationType>(
@@ -46,19 +46,19 @@ const SMMCalculationScreen: React.FC = () => {
   // Calculate SMM results based on inputs
   const handleCalculate = () => {
     if (!mediationFee || mediationFee.trim() === '') {
-      Alert.alert('Uyarı', 'Lütfen arabuluculuk ücretini boş bırakmayınız.');
+      Alert.alert(`Uyarı`, `Lütfen arabuluculuk ücretini boş bırakmayınız.`);
       return;
     }
     
     const tlMediationFee = convertKurusStringToTlNumber(mediationFee);
 
     if (isNaN(tlMediationFee)) {
-      Alert.alert('Uyarı', 'Lütfen arabuluculuk ücreti için geçerli bir sayısal değer giriniz.');
+      Alert.alert(`Uyarı`, `Lütfen arabuluculuk ücreti için geçerli bir sayısal değer giriniz.`);
       return;
     }
 
     if (tlMediationFee <= 0) {
-      Alert.alert('Uyarı', 'Arabuluculuk ücreti pozitif bir değer olmalıdır.');
+      Alert.alert(`Uyarı`, `Arabuluculuk ücreti pozitif bir değer olmalıdır.`);
       return;
     }
 
@@ -94,12 +94,14 @@ const SMMCalculationScreen: React.FC = () => {
 
   return (
     <ThemedBackground>
-      <View style={[styles.header, { marginTop: insets.top + 10 }]}>
-        <Text style={[styles.headerText, { color: theme.colors.text.primary }]}>
-          Makbuz Hesaplama
-        </Text>
+      <View style={[styles.headerContainerForCard, { marginTop: insets.top + 10 }]}>
+        <ThemedCard style={styles.headerCardContent}>
+          <Text style={[styles.headerText, { color: theme.colors.text.primary }]}>
+            SMM Hesaplama
+          </Text>
+        </ThemedCard>
       </View>
-      <ScreenContainer paddingTop={10} marginBottom={140}> {/* Changed paddingTop from 50 to 10 */}
+      <ScreenContainer paddingTop={10} marginBottom={140} scrollEndPadding={20}>
         <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
           style={styles.container}
@@ -117,10 +119,10 @@ const SMMCalculationScreen: React.FC = () => {
                   styles.contentContainer, 
                   { justifyContent: calculated ? 'flex-start' : 'center' }
                 ]}>
-                  {/* Section for user inputs */}
+                  {/* Input Section */}
                   <View style={styles.inputSection}>
                     <Text style={[styles.label, { color: theme.colors.text.primary }]}>
-                      Arabuluculuk Ücreti:
+                      {'Arabuluculuk Ücreti:'}
                     </Text>
                     <TextInput
                       style={[
@@ -134,7 +136,7 @@ const SMMCalculationScreen: React.FC = () => {
                       ]}
                       value={mediationFee === '' ? '' : formatKurusToTlString(mediationFee)}
                       onChangeText={handleMediationFeeChange}
-                      placeholder="Arabuluculuk Ücretini Girin"
+                      placeholder={`Arabuluculuk Ücretini Girin`}
                       placeholderTextColor={theme.colors.text.secondary || '#666666'}
                       keyboardType="numeric"
                       maxLength={18}
@@ -142,7 +144,7 @@ const SMMCalculationScreen: React.FC = () => {
                     />
                     
                     <Text style={[styles.label, { color: theme.colors.text.primary, marginTop: 15 }]}>
-                      Hesaplama Türü:
+                      {'Hesaplama Türü:'}
                     </Text>
                     <View style={styles.optionsContainer}>
                       {smmCalculationTypeOptions.map((option) => {
@@ -170,25 +172,25 @@ const SMMCalculationScreen: React.FC = () => {
                     </View>
 
                     <ThemedButton
-                      title="Hesapla"
+                      title={`Hesapla`}
                       onPress={handleCalculate}
                       style={styles.calculateButton}
                       textStyle={styles.calculateButtonText}
                     />
                   </View>
                   
-                  {/* Section for displaying calculation results */}
+                  {/* Results Section */}
                   {calculated && results && (
                     <View style={styles.resultsContainer}>
                       <ThemedCard style={styles.resultsCard}>
                         <Text style={[styles.resultsTitle, { color: theme.colors.text.primary }]}>
-                          SMM Hesaplama Sonuçları
+                          {'SMM Hesaplama Sonuçları'}
                         </Text>
                         
-                        {/* Header for the results table */}
+                        {/* Table Header */}
                         <View style={styles.tableRow}>
                           <Text style={[styles.tableHeaderCell, styles.descriptionCell, { color: theme.colors.text.primary }]}>
-                            Açıklama
+                            {'Açıklama'}
                           </Text>
                           <Text style={[styles.tableHeaderCell, styles.amountCell, { color: theme.colors.text.primary }]}>
                             {PERSON_TYPE_TUZEL}
@@ -198,7 +200,7 @@ const SMMCalculationScreen: React.FC = () => {
                           </Text>
                         </View>
                         
-                        {/* Rows of the results table */}
+                        {/* Table Rows */}
                         {results.rows.map((row: any, index: number) => (
                           <View key={index} style={[
                             styles.tableRow,
@@ -229,18 +231,19 @@ const SMMCalculationScreen: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
-  header: { // Added header style
+  headerContainerForCard: { // Added style
+    width: '100%',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  headerCardContent: { // Added style
+    width: '85%',
     padding: 15,
     borderRadius: 10,
-    marginBottom: 10,
     alignItems: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-    width: '85%',
-    alignSelf: 'center',
   },
-  headerText: { // Added headerText style
+  headerText: { // Added style
     textAlign: 'center',
-    marginBottom: 5,
     fontSize: 20,
     fontWeight: 'bold',
   },
@@ -250,8 +253,8 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     flexGrow: 1,
-    paddingTop: 10, // Changed paddingTop from 70 to 10
-    paddingBottom: 180,
+    paddingTop: 70,
+    paddingBottom: 0, // Changed from 20 to 0
     paddingHorizontal: '7.5%',
     minHeight: '100%',
     width: '100%',
@@ -293,7 +296,7 @@ const styles = StyleSheet.create({
   resultsContainer: {
     width: '100%',
     marginTop: 1,
-    marginBottom: 20,
+    marginBottom: 0, // Changed from 20 to 0
   },
   resultsCard: {
     width: '100%',

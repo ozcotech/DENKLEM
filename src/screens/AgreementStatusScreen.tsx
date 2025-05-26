@@ -22,7 +22,7 @@ const AgreementStatusScreen = () => {
           Anlaşma Durumu
         </Text>
       </View>
-      <ScreenContainer paddingTop={10} marginBottom={140}>
+      <ScreenContainer paddingTop={10} marginBottom={140} scrollable={false}>
         <View style={styles.centerContainer}>
           {/* <Text style={[styles.title, { color: theme.colors.text.primary, ...theme.typography.h1 }]}>
             Anlaşma Durumu
@@ -30,14 +30,16 @@ const AgreementStatusScreen = () => {
           {/* Eski başlık yukarıdaki header'a taşındı. */}
           <View style={styles.buttonContainer}>
             <ThemedButton
-              title="Anlaşma"
+              title={`Anlaşma\nYapıldı`}
               onPress={() => navigation.navigate('DisputeType', { isAgreement: true })}
               style={styles.button}
+              textStyle={styles.buttonText} // Added textStyle
             />
             <ThemedButton
-              title="Anlaşmama"
+              title={`Anlaşma\nYapılamadı`}
               onPress={() => navigation.navigate('DisputeType', { isAgreement: false })}
-              style={styles.button} 
+              style={styles.button}
+              textStyle={styles.buttonText} // Added textStyle
             />
           </View>
         </View>
@@ -64,10 +66,11 @@ const styles = StyleSheet.create({
   },
   centerContainer: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'center', // Ensures vertical centering
     alignItems: 'center',
     width: '100%',
-    paddingHorizontal: '7.5%', 
+    paddingHorizontal: '7.5%',
+    paddingTop: 60, // Added to push content down
   },
   title: {
     textAlign: 'center',
@@ -84,10 +87,15 @@ const styles = StyleSheet.create({
   button: {
     flex: 1,
     margin: 5,
-    padding: 5,
-    height: 100,
-    minHeight: 80,
+    padding: 0, // Reduced padding from 5 to 0
+    height: 140, // Increased height to match DisputeCategoryScreen's halfButton
+    minHeight: 100, // Adjusted minHeight
     justifyContent: 'center',
+    alignItems: 'center', // Added for text centering
+  },
+  buttonText: { // Added new style for button text
+    fontSize: 21, // Changed from 21 to 18 for multi-line text
+    textAlign: 'center',
   },
 });
 

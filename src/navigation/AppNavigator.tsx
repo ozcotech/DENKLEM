@@ -140,7 +140,7 @@ const AppNavigator = () => {
       <Stack.Screen
         name="TimeCalculation"
         options={{ 
-          title: 'Süre Hesaplama',
+          title: `Süre Hesaplama`,
           headerShown: false,
           presentation: 'card' 
         }}
@@ -154,7 +154,7 @@ const AppNavigator = () => {
       <Stack.Screen
         name="SMMCalculation"
         options={{ 
-          title: 'SMM Hesaplama',
+          title: `SMM Hesaplama`,
           headerShown: false,
           presentation: 'card' 
         }}

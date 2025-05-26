@@ -33,16 +33,16 @@ const ResultScreen = () => {
 
   // Format SMM values for display
   const formatSmmValue = (value: number | null) => {
-    if (value === null) return '0,00 ₺';
+    if (value === null) return `0,00 ₺`;
     const kurusString = Math.round(value * 100).toString();
-    return formatKurusToTlString(kurusString) + ' ₺';
+    return `${formatKurusToTlString(kurusString)} ₺`;
   };
 
   return (
     <ThemedBackground>
       <View style={[styles.header, { marginTop: insets.top + 10 }]}>
         <Text style={[styles.headerText, { color: theme.colors.text.primary }]}>
-          Arabuluculuk Ücreti
+          {`Arabuluculuk Ücreti`}
         </Text>
       </View>
       <ScreenContainer paddingTop={10} marginBottom={140}> 
@@ -56,29 +56,29 @@ const ResultScreen = () => {
           <ThemedCard style={styles.resultCard}>
             <>
               <Text style={[styles.resultLabel, { color: theme.colors.text.secondary }]}>
-                Uyuşmazlık Türü
+                {`Uyuşmazlık Türü`}
               </Text>
               <Text style={[styles.resultLabel, { color: theme.colors.text.secondary, fontWeight: 'bold' }]}>
-                {disputeType}
+                {disputeType} 
               </Text>
             </>
             <Text style={[styles.resultText, { color: theme.colors.text.primary }]}>
-              {formattedResult} ₺
+              {`${formattedResult} ₺`}
             </Text>
-            <Text style={[styles.resultLabel, { color: theme.colors.text.secondary }]}></Text>
+            <Text style={[styles.resultLabel, { color: theme.colors.text.secondary }]}>{` `}</Text>
           </ThemedCard>
 
           {!isAgreement && smmResults && (
             <ThemedCard style={styles.smmCard}>
               <Text style={[styles.smmCardTitle, { color: theme.colors.text.primary, ...theme.typography.h2 }]}>
-                Serbest Meslek Makbuzu
+                {`Serbest Meslek Makbuzu`}
               </Text>
               
               <View style={styles.smmTableContainer}>
                 {/* Row 1: Brüt Ücret */}
                 <View style={styles.smmTableRow}>
                   <Text style={[styles.smmTableCell, styles.smmLabelCell, { color: theme.colors.text.secondary }]}>
-                    Brüt Ücret
+                    {`Brüt Ücret`}
                   </Text>
                   <Text style={[styles.smmTableCell, styles.smmValueCell, { color: theme.colors.text.primary }]}>
                     {formatSmmValue(smmResults.rows[0].tuzelKisiAmount)}
@@ -88,7 +88,7 @@ const ResultScreen = () => {
                 {/* Row 2: Gelir Vergisi Stopajı */}
                 <View style={styles.smmTableRow}>
                   <Text style={[styles.smmTableCell, styles.smmLabelCell, { color: theme.colors.text.secondary }]}>
-                    Gelir Vergisi Stopajı (%20)
+                    {`Gelir Vergisi Stopajı (%20)`}
                   </Text>
                   <Text style={[styles.smmTableCell, styles.smmValueCell, { color: theme.colors.text.primary }]}>
                     {formatSmmValue(smmResults.rows[1].tuzelKisiAmount)}
@@ -98,7 +98,7 @@ const ResultScreen = () => {
                 {/* Row 3: Net Ücret */}
                 <View style={styles.smmTableRow}>
                   <Text style={[styles.smmTableCell, styles.smmLabelCell, { color: theme.colors.text.secondary }]}>
-                    Net Ücret
+                    {`Net Ücret`}
                   </Text>
                   <Text style={[styles.smmTableCell, styles.smmValueCell, { color: theme.colors.text.primary }]}>
                     {formatSmmValue(smmResults.rows[2].tuzelKisiAmount)}
@@ -108,7 +108,7 @@ const ResultScreen = () => {
                 {/* Row 4: KDV */}
                 <View style={styles.smmTableRow}>
                   <Text style={[styles.smmTableCell, styles.smmLabelCell, { color: theme.colors.text.secondary }]}>
-                    KDV (%20)
+                    {`KDV (%20)`}
                   </Text>
                   <Text style={[styles.smmTableCell, styles.smmValueCell, { color: theme.colors.text.primary }]}>
                     {formatSmmValue(smmResults.rows[3].tuzelKisiAmount)}
@@ -118,7 +118,7 @@ const ResultScreen = () => {
                 {/* Row 5: Tahsil Edilecek Tutar */}
                 <View style={styles.smmTableRow}>
                   <Text style={[styles.smmTableCell, styles.smmLabelCell, { color: theme.colors.text.secondary }]}>
-                    Tahsil Edilecek Tutar
+                    {`Tahsil Edilecek Tutar`}
                   </Text>
                   <Text style={[styles.smmTableCell, styles.smmValueCell, { color: theme.colors.text.primary, fontWeight: 'bold' }]}>
                     {formatSmmValue(smmResults.rows[4].tuzelKisiAmount)}
@@ -130,7 +130,7 @@ const ResultScreen = () => {
         </ScrollView>
         
         <Text style={[styles.footer, { color: theme.colors.text.secondary, ...theme.typography.body }]}>
-          info@ozco.studio
+          {`info@ozco.studio`}
         </Text>
       </ScreenContainer>
     </ThemedBackground>
@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
   headerText: { // Added headerText style
     textAlign: 'center',
     marginBottom: 5,
-    fontSize: 20,
+    fontSize: 22,
     fontWeight: 'bold',
   },
   titleText: {

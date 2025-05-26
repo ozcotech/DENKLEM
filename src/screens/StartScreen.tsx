@@ -34,7 +34,7 @@ const StartScreen = () => {
       <View style={[styles.newHeaderCardContainer, { marginTop: insets.top + 10 }]}>
         <ThemedCard style={styles.newHeaderCard}>
           <Text style={[styles.headerText, { color: theme.colors.text.primary, ...theme.typography.h2 }]}>
-            Arabuluculuk Ücreti{'\n'}Hesaplama Programı
+            {`Arabuluculuk Ücreti\n Hesaplama Programı`}
           </Text>
         </ThemedCard>
       </View>
@@ -76,7 +76,7 @@ const StartScreen = () => {
         </View>
         <View style={styles.buttonWrapper}>
           <ThemedButton
-            title="Giriş"
+            title={`Giriş`}
             onPress={() => navigation.navigate('DisputeCategory')} // DisputeCategory'e git
             style={styles.customButton} // Added custom style for button height
             textStyle={styles.buttonText} // Will be modified for larger text
@@ -90,7 +90,7 @@ const StartScreen = () => {
         </View>
       </View>
       <Text style={[styles.footer, { color: theme.colors.text.secondary, ...theme.typography.body }]}>
-        © {new Date().getFullYear()} OZCO Studio. Tüm hakları saklıdır.
+        {`© ${new Date().getFullYear()} OZCO Studio. Tüm hakları saklıdır.`}
       </Text>
     </ThemedBackground>
   );

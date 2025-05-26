@@ -19,7 +19,7 @@ const InputScreen = () => {
   const theme = useTheme();
   const insets = useSafeAreaInsets(); // Added insets
   const isAgreement = route.params?.isAgreement ?? false;
-  const disputeType = route.params?.disputeType ?? 'İşçi-İşveren';
+  const disputeType = route.params?.disputeType ?? `İşçi-İşveren`;
   const [amount, setAmount] = useState('');
   const [partyCount, setPartyCount] = useState('');
 
@@ -30,24 +30,24 @@ const InputScreen = () => {
 
   const handleCalculate = () => {
     if (!partyCount.trim()) {
-      Alert.alert('Uyarı', 'Lütfen taraf sayısını boş bırakmayınız.');
+      Alert.alert(`Uyarı`, `Lütfen taraf sayısını boş bırakmayınız.`);
       return;
     }
 
     const numPartyCount = Number(partyCount);
 
     if (isNaN(numPartyCount)) {
-      Alert.alert('Uyarı', 'Lütfen taraf sayısı için geçerli bir sayısal değer giriniz.');
+      Alert.alert(`Uyarı`, `Lütfen taraf sayısı için geçerli bir sayısal değer giriniz.`);
       return;
     }
 
     if (numPartyCount <= 0) {
-      Alert.alert('Uyarı', 'Taraf sayısı pozitif bir tam sayı olmalıdır.');
+      Alert.alert(`Uyarı`, `Taraf sayısı pozitif bir tam sayı olmalıdır.`);
       return;
     }
 
     if (!Number.isInteger(numPartyCount)) {
-      Alert.alert('Uyarı', 'Taraf sayısı ondalıklı bir değer olamaz, lütfen tam sayı giriniz.');
+      Alert.alert(`Uyarı`, `Taraf sayısı ondalıklı bir değer olamaz, lütfen tam sayı giriniz.`);
       return;
     }
 
@@ -55,18 +55,18 @@ const InputScreen = () => {
 
     if (isAgreement) {
       if (!amount.trim()) {
-        Alert.alert('Uyarı', 'Lütfen anlaşma tutarını boş bırakmayınız.');
+        Alert.alert(`Uyarı`, `Lütfen anlaşma tutarını boş bırakmayınız.`);
         return;
       }
       
       tlAmountForCalc = convertKurusStringToTlNumber(amount);
 
       if (isNaN(tlAmountForCalc)) {
-        Alert.alert('Uyarı', 'Lütfen anlaşma tutarı için geçerli bir sayısal değer giriniz.');
+        Alert.alert(`Uyarı`, `Lütfen anlaşma tutarı için geçerli bir sayısal değer giriniz.`);
         return;
       }
       if (tlAmountForCalc < 0) {
-         Alert.alert('Uyarı', 'Anlaşma tutarı negatif bir değer olamaz.');
+         Alert.alert(`Uyarı`, `Anlaşma tutarı negatif bir değer olamaz.`);
          return;
       }
     }
@@ -86,15 +86,15 @@ const InputScreen = () => {
     <ThemedBackground>
       <View style={[styles.header, { marginTop: insets.top + 10 }]}>
         <Text style={[styles.headerText, { color: theme.colors.text.primary }]}>
-          Bilgi Girişi
+          {`Uyuşmazlık Bilgileri`}
         </Text>
       </View>
       <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        behavior={Platform.OS === `ios` ? `padding` : `height`}
         style={styles.keyboardAvoidingContainer}
-        keyboardVerticalOffset={Platform.OS === 'ios' ? -100 : 0} 
+        keyboardVerticalOffset={Platform.OS === `ios` ? -100 : 0} 
       >
-        <ScreenContainer paddingTop={10} marginBottom={140}>
+        <ScreenContainer paddingTop={10} marginBottom={140} scrollable={false}>
           <View style={styles.centerContainer}>
             {/* The main title "Uyuşmazlık Türü" was previously here. It has been moved to the new header component above. */}
             <Text style={[styles.disputeTypeValue, { color: theme.colors.text.primary, fontWeight: 'bold' }]}>
@@ -104,7 +104,7 @@ const InputScreen = () => {
               <TextInput
                 style={[styles.input, { color: theme.colors.text.primary, backgroundColor: theme.colors.card.background, borderColor: theme.colors.button.border }]}
                 keyboardType="numeric"
-                placeholder="Anlaşma Tutarı (TL)"
+                placeholder={`Anlaşma Tutarı (TL)`}
                 placeholderTextColor={theme.colors.text.secondary}
                 value={amount === '' ? '' : formatKurusToTlString(amount)}
                 onChangeText={handleAmountChange}
@@ -114,15 +114,16 @@ const InputScreen = () => {
             <TextInput
               style={[styles.input, { color: theme.colors.text.primary, backgroundColor: theme.colors.card.background, borderColor: theme.colors.button.border }]}
               keyboardType="numeric"
-              placeholder="Taraf Sayısı"
+              placeholder={`Taraf Sayısı`}
               placeholderTextColor={theme.colors.text.secondary}
               value={partyCount}
               onChangeText={setPartyCount}
             />
             <ThemedButton
-              title="Hesapla"
+              title={`Hesapla`}
               onPress={handleCalculate}
               style={styles.button}
+              textStyle={styles.buttonText} // Added textStyle
             />
           </View>
         </ScreenContainer>
@@ -144,7 +145,7 @@ const styles = StyleSheet.create({
   headerText: { // Added headerText style
     textAlign: 'center',
     marginBottom: 5,
-    fontSize: 20,
+    fontSize: 22,
     fontWeight: 'bold',
   },
   keyboardAvoidingContainer: {
@@ -165,13 +166,13 @@ const styles = StyleSheet.create({
   disputeTypeValue: {
     textAlign: 'center',
     marginBottom: 30,
-    fontSize: 20,
+    fontSize: 20, // Kept as is, assuming this is for the {disputeType} text
   },
   input: {
     borderRadius: 8,
-    padding: 15,
+    padding: 18, // Increased padding
     marginBottom: 20,
-    fontSize: 16,
+    fontSize: 18, // Increased font size
     width: '100%', 
     textAlign: 'center',
     borderWidth: 1,
@@ -179,6 +180,11 @@ const styles = StyleSheet.create({
   button: {
     marginTop: 20,
     width: '100%',
+    paddingVertical: 18, // Added for button height
+  },
+  buttonText: { // Added new style for button text
+    fontSize: 20,
+    fontWeight: 'bold',
   },
 });
 

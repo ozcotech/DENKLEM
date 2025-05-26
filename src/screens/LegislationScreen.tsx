@@ -23,11 +23,11 @@ const LegislationScreen = () => {
   };
 
   const onError = (error: any) => {
-    console.log('PDF yükleme hatası:', error);
+    console.log(`PDF yükleme hatası:`, error);
     Alert.alert(
-      'Hata',
-      'PDF dosyası yüklenemedi. Lütfen daha sonra tekrar deneyin.',
-      [{ text: 'Tamam' }]
+      `Hata`,
+      `PDF dosyası yüklenemedi. Lütfen daha sonra tekrar deneyin.`,
+      [{ text: `Tamam` }]
     );
   };
 
@@ -36,10 +36,10 @@ const LegislationScreen = () => {
       <ScreenContainer paddingTop={60} marginBottom={140}>
         <View style={styles.header}>
           <Text style={[styles.headerText, { color: theme.colors.text.primary }]}>
-            Arabuluculuk Tarifesi 2025
+            {'Arabuluculuk Tarifesi 2025'}
           </Text>
           <Text style={[styles.subtitle, { color: theme.colors.text.secondary }]}>
-            Resmi tarife ve ücret çizelgesi
+            {'Resmi tarife ve ücret çizelgesi'}
           </Text>
         </View>
 
@@ -55,14 +55,14 @@ const LegislationScreen = () => {
             enableAnnotationRendering={true}
             horizontal={false}
             spacing={10}
-            password=""
+            password={``}
             scale={1.0}
             minScale={0.5}
             maxScale={3.0}
             renderActivityIndicator={() => (
               <View style={styles.loadingContainer}>
                 <Text style={[styles.loadingText, { color: theme.colors.text.secondary }]}>
-                  PDF yükleniyor...
+                  {'PDF yükleniyor...'}
                 </Text>
               </View>
             )}
