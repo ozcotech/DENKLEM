@@ -2,31 +2,39 @@ import React from 'react';
 import { View, Text, StyleSheet, Dimensions, Alert } from 'react-native';
 import Pdf from 'react-native-pdf';
 import ThemedBackground from '../components/common/ThemedBackground';
+import ScreenContainer from '../components/common/ScreenContainer';
 import { useTheme } from '../theme/ThemeContext';
 
 const LegislationScreen = () => {
   const theme = useTheme();
   const { width, height } = Dimensions.get('window');
 
-  // iOS için bundle-assets formatı
-  const source = { 
+  const source = {
     uri: 'bundle-assets://arabuluculuk-tarifesi-2025.pdf',
-    cache: true 
+    cache: true,
   };
 
-  const onLoadComplete = (numberOfPages: number) => {
+  const onLoadComplete = (numberOfPages: number, filePath: string) => {
     console.log(`PDF yüklendi: ${numberOfPages} sayfa`);
   };
 
+  const onPageChanged = (page: number, numberOfPages: number) => {
+    console.log(`Sayfa ${page}/${numberOfPages}`);
+  };
+
   const onError = (error: any) => {
-    console.log('PDF Error:', error);
-    Alert.alert('Hata', 'PDF dosyası yüklenemedi. Lütfen daha sonra tekrar deneyin.');
+    console.log('PDF yükleme hatası:', error);
+    Alert.alert(
+      'Hata',
+      'PDF dosyası yüklenemedi. Lütfen daha sonra tekrar deneyin.',
+      [{ text: 'Tamam' }]
+    );
   };
 
   return (
     <ThemedBackground>
-      <View style={styles.container}>
-        <View style={[styles.header, { backgroundColor: theme.colors.card.background }]}>
+      <ScreenContainer paddingTop={60} marginBottom={140}>
+        <View style={styles.header}>
           <Text style={[styles.headerText, { color: theme.colors.text.primary }]}>
             Arabuluculuk Tarifesi 2025
           </Text>
@@ -34,54 +42,70 @@ const LegislationScreen = () => {
             Resmi tarife ve ücret çizelgesi
           </Text>
         </View>
-        
+
         <View style={styles.pdfContainer}>
           <Pdf
             source={source}
             onLoadComplete={onLoadComplete}
+            onPageChanged={onPageChanged}
             onError={onError}
-            style={[styles.pdf, { width: width - 20, height: height - 180 }]}
+            style={[styles.pdf, { width: width - 20, height: height - 280 }]}
             enablePaging={true}
+            enableRTL={false}
+            enableAnnotationRendering={true}
+            horizontal={false}
             spacing={10}
+            password=""
             scale={1.0}
             minScale={0.5}
             maxScale={3.0}
+            renderActivityIndicator={() => (
+              <View style={styles.loadingContainer}>
+                <Text style={[styles.loadingText, { color: theme.colors.text.secondary }]}>
+                  PDF yükleniyor...
+                </Text>
+              </View>
+            )}
           />
         </View>
-      </View>
+      </ScreenContainer>
     </ThemedBackground>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 10,
-  },
   header: {
     padding: 15,
     borderRadius: 10,
     marginBottom: 10,
     alignItems: 'center',
+    backgroundColor: 'rgba(255, 255, 255, 0.1)', // Background color direkt eklendi
   },
   headerText: {
-    fontSize: 20,
-    fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: 5,
+    fontSize: 20,
+    fontWeight: 'bold',
   },
   subtitle: {
-    fontSize: 14,
     textAlign: 'center',
+    fontSize: 14,
     fontStyle: 'italic',
   },
   pdfContainer: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
   },
   pdf: {
     backgroundColor: 'transparent',
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  loadingText: {
+    fontSize: 16,
   },
 });
 
