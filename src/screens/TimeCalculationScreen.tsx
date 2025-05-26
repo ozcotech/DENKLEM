@@ -22,10 +22,12 @@ import {
   shouldCalculate,
 } from '../utils/mediationTimeCalc';
 import { useTheme } from '../theme/ThemeContext';
+import { useSafeAreaInsets } from 'react-native-safe-area-context'; // Added import
 
 export default function TimeCalculationScreen() {
   const theme = useTheme();
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const insets = useSafeAreaInsets(); // Added insets
   
   const [startDate, setStartDate] = useState('');
   const [dateObject, setDateObject] = useState(new Date());
@@ -128,11 +130,14 @@ export default function TimeCalculationScreen() {
 
   return (
     <ThemedBackground>
-      <ScreenContainer paddingTop={50} marginBottom={140}>
+      <View style={[styles.header, { marginTop: insets.top + 10 }]}>
+        <Text style={[styles.headerText, { color: theme.colors.text.primary }]}>
+          Süre Hesaplama
+        </Text>
+      </View>
+      <ScreenContainer paddingTop={10} marginBottom={140}> 
         <View style={styles.centerContainer}>
-          <Text style={[styles.titleText, { color: theme.colors.text.primary, ...theme.typography.h1 }]}>
-            Süre Hesaplama
-          </Text>
+          {/* The original title \"Süre Hesaplama\" was here. It has been moved to the new header view. */}
           
           <View style={styles.inputSection}>
             <Pressable
@@ -193,6 +198,21 @@ export default function TimeCalculationScreen() {
 }
 
 const styles = StyleSheet.create({
+  header: { // Added header style
+    padding: 15,
+    borderRadius: 10,
+    marginBottom: 10,
+    alignItems: 'center',
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    width: '85%',
+    alignSelf: 'center',
+  },
+  headerText: { // Added headerText style
+    textAlign: 'center',
+    marginBottom: 5,
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
   centerContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -203,6 +223,7 @@ const styles = StyleSheet.create({
   titleText: {
     textAlign: 'center',
     marginBottom: 30,
+    // This style might be removed or repurposed if the original title is no longer used within ScreenContainer
   },
   inputSection: {
     width: '100%',
