@@ -9,6 +9,7 @@ import ThemedBackground from '../components/common/ThemedBackground';
 import ThemedButton from '../components/common/ThemedButton';
 import { ThemedCard } from '../components/common/ThemedCard';
 import { useTheme } from '../theme/ThemeContext';
+import { useSafeAreaInsets } from 'react-native-safe-area-context'; // Added import
 
 const StartScreen = () => {
   const theme = useTheme();
@@ -17,6 +18,7 @@ const StartScreen = () => {
     BottomTabNavigationProp<RootTabParamList, 'Start'>,
     NativeStackNavigationProp<RootStackParamList>
   >>();
+  const insets = useSafeAreaInsets(); // Added insets
 
   useEffect(() => {
     Animated.timing(logoOpacity, {
@@ -28,11 +30,24 @@ const StartScreen = () => {
 
   return (
     <ThemedBackground>
+      {/* New Header Card */}
+      <View style={[styles.newHeaderCardContainer, { marginTop: insets.top + 10 }]}>
+        <ThemedCard style={styles.newHeaderCard}>
+          <Text style={[styles.headerText, { color: theme.colors.text.primary, ...theme.typography.h2 }]}>
+            Arabuluculuk Ücreti{'\n'}Hesaplama Programı
+          </Text>
+        </ThemedCard>
+      </View>
+      
+      {/* Original headerContainer View is removed or repurposed if its styling is no longer needed */}
+      {/* 
       <View style={styles.headerContainer}>
         <Text style={[styles.headerText, { color: theme.colors.text.primary, ...theme.typography.h2 }]}>
-          Arabuluculuk Ücreti{'\n'}Hesaplama Programı
+          Arabuluculuk Ücreti{\\'\\n'}Hesaplama Programı
         </Text>
-      </View>
+      </View> 
+      */}
+
       <View style={styles.contentContainer}>
         <View style={styles.logoWrapper}>
           {/* Halo View: Positioned behind the main logo */}
@@ -63,11 +78,12 @@ const StartScreen = () => {
           <ThemedButton
             title="Giriş"
             onPress={() => navigation.navigate('DisputeCategory')} // DisputeCategory'e git
-            textStyle={styles.buttonText}
+            style={styles.customButton} // Added custom style for button height
+            textStyle={styles.buttonText} // Will be modified for larger text
             icon={
               <Image
                 source={require('../../assets/images/start-icon.png')}
-                style={styles.startIcon}
+                style={styles.startIcon} // Will be modified for larger icon
               />
             }
           />
@@ -81,12 +97,36 @@ const StartScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  headerContainer: {
+  newHeaderCardContainer: { // Style for the container of the new header card
+    width: '100%',
+    alignItems: 'center', // Center the card
+    position: 'absolute', // Keep it at the top
+    top: 0, // Start from the very top before insets are applied
+    zIndex: 10, // Ensure it's above other content if necessary
+  },
+  newHeaderCard: { // Style for the new header card itself
+    padding: 12, // Reduced padding from 15 to 12
+    borderRadius: 10,
+    // marginBottom: 10, // Add if spacing is needed below the card
+    alignItems: 'center',
+    width: '85%', // Consistent width with other headers
+    // backgroundColor is handled by ThemedCard or can be overridden here
+  },
+  customButton: { // Added style for the Giriş button
+    paddingVertical: 18, // Increased padding for a taller button
+    width: '85%', // Keep consistent width
+  },
+  headerContainer: { // Original headerContainer, may need adjustment or removal
     position: 'absolute',
-    top: '15%', // Adjusted to position the header text
+    // top: '15%', // This might be too low now or conflict
     alignItems: 'center',
     width: '100%',
-    paddingTop: 0, // Removed padding since we don't have the header anymore
+    // paddingTop: 0, // Original comment: Removed padding since we don't have the header anymore - this comment might be misleading now
+    // This container might be removed if the new card container replaces its functionality.
+    // If kept, its 'top' and 'paddingTop' need to be re-evaluated.
+    // For now, let's assume it's effectively replaced by newHeaderCardContainer for positioning the title.
+    // If it's still used for other layout purposes, its styling needs to be carefully reviewed.
+    // To avoid issues, we can comment it out from the JSX and see the layout.
   },
   headerText: {
     // fontSize and fontWeight removed, will be supplied by theme.typography.h2
@@ -99,12 +139,13 @@ const styles = StyleSheet.create({
     height: '100%',
     alignItems: 'center',
     justifyContent: 'center',
+    // paddingTop: '15%', // Adjust this if the new header card takes up space and pushes content down
   },
   logoWrapper: {
     position: 'absolute',
     alignItems: 'center',
     justifyContent: 'center',
-    top: '25%', // Positions the top of the square logo area
+    top: '25%', // This might need to be pushed down if the new header card is tall
     zIndex: 0,
     width: '70%', // Defines the width of the square area for the logo
     aspectRatio: 1, // Ensures the height matches the width, creating a square
@@ -168,10 +209,11 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontWeight: '600',
+    fontSize: 26, // Increased font size further
   },
   startIcon: {
-    width: 20,
-    height: 20,
+    width: 32, // Increased icon width further
+    height: 32, // Increased icon height further
     tintColor: '#ffffff',
   },
 });
