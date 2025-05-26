@@ -7,6 +7,8 @@ import { useTheme } from '../theme/ThemeContext';
 import ThemedBackground from '../components/common/ThemedBackground';
 import ThemedButton from '../components/common/ThemedButton';
 import ScreenContainer from '../components/common/ScreenContainer';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { ThemedCard } from '../components/common/ThemedCard'; // Eklendi
 
 // ✅ Stack navigation type - DisputeCategory Stack'te olduğu için
 type DisputeCategoryScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'DisputeCategory'>;
@@ -15,6 +17,7 @@ const DisputeCategoryScreen = () => {
   // ✅ Stack navigation kullan
   const navigation = useNavigation<DisputeCategoryScreenNavigationProp>();
   const theme = useTheme();
+  const insets = useSafeAreaInsets(); // Eklendi
 
   const handleNotImplemented = () => {
     Alert.alert('Bilgi', 'Bu özellik henüz aktif değil. Daha sonra eklenecektir.');
@@ -22,11 +25,17 @@ const DisputeCategoryScreen = () => {
 
   return (
     <ThemedBackground>
-      <ScreenContainer paddingTop={50} marginBottom={140}>
+      <View style={[styles.header, { marginTop: insets.top + 10 }]}>
+        <Text style={[styles.headerText, { color: theme.colors.text.primary }]}>
+          Uyuşmazlık Kategorisi
+        </Text>
+      </View>
+      <ScreenContainer paddingTop={10} marginBottom={140}>
         <View style={styles.centerContainer}>
-          <Text style={[styles.title, { color: theme.colors.text.primary, ...theme.typography.h1 }]}>
+          {/* <Text style={[styles.title, { color: theme.colors.text.primary, ...theme.typography.h1 }]}>
             Uyuşmazlık Kategorisi
-          </Text>
+          </Text> */}
+          {/* Yukarıdaki Text başlık kısmına taşındı */}
           <View style={styles.rowButtonContainer}>
             <ThemedButton
               title="Konusu Para Olan  Uyuşmazlıklar"
@@ -48,9 +57,12 @@ const DisputeCategoryScreen = () => {
             />
           </View>
           
-          <Text style={[styles.subTitle, { color: theme.colors.text.primary, ...theme.typography.h2 }]}>
-            Diğer Hesaplamalar
-          </Text>
+          <ThemedCard style={styles.subTitleCard}> 
+            <Text style={[styles.subTitleText, { color: theme.colors.text.primary, ...theme.typography.h2 }]}>
+              Diğer Hesaplamalar
+            </Text>
+          </ThemedCard>
+
           <View style={styles.rowButtonContainer}>
             <ThemedButton
               title="Süre Hesaplama" 
@@ -70,6 +82,21 @@ const DisputeCategoryScreen = () => {
 };
 
 const styles = StyleSheet.create({
+  header: {
+    padding: 15,
+    borderRadius: 10,
+    marginBottom: 10,
+    alignItems: 'center',
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    width: '85%', // Değiştirildi: 90% -> 85%
+    alignSelf: 'center',
+  },
+  headerText: {
+    textAlign: 'center',
+    marginBottom: 5,
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
   centerContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -80,12 +107,25 @@ const styles = StyleSheet.create({
   title: {
     textAlign: 'center',
     marginBottom: 16,
+    // Bu stil artık headerText tarafından yönetiliyor, isterseniz kaldırılabilir veya farklı bir amaç için saklanabilir.
   },
+  subTitleCard: {
+    width: '100%', // Değiştirildi: 85% -> 100%
+    // alignSelf: 'center', // Genişlik 100% olunca gereksizleşti
+    marginTop: 30,
+    marginBottom: 16,
+    // ThemedCard'ın varsayılan padding'i ve diğer stilleri uygulanır
+  },
+  subTitleText: { // Yeni stil
+    textAlign: 'center',
+  },
+  /* // Eski subTitle stili, artık kullanılmıyor
   subTitle: {
     textAlign: 'center',
     marginTop: 30,
     marginBottom: 16,
   },
+  */
   rowButtonContainer: {
     width: '100%', 
     flexDirection: 'row',
