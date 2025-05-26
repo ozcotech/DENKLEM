@@ -7,6 +7,7 @@ import { useTheme } from '../theme/ThemeContext';
 import ThemedBackground from '../components/common/ThemedBackground';
 import ThemedButton from '../components/common/ThemedButton';
 import ScreenContainer from '../components/common/ScreenContainer';
+import { useSafeAreaInsets } from 'react-native-safe-area-context'; // Added import
 
 const disputeTypes = [
   'İşçi-İşveren',
@@ -24,6 +25,7 @@ const DisputeTypeScreen = () => {
   const route = useRoute();
   const { isAgreement } = route.params as { isAgreement: boolean };
   const theme = useTheme();
+  const insets = useSafeAreaInsets(); // Added insets
 
   // Function to split the dispute types into rows of two
   const getRows = () => {
@@ -38,11 +40,16 @@ const DisputeTypeScreen = () => {
 
   return (
     <ThemedBackground>
-      <ScreenContainer paddingTop={50} marginBottom={140}>
+      <View style={[styles.header, { marginTop: insets.top + 10 }]}>
+        <Text style={[styles.headerText, { color: theme.colors.text.primary }]}>
+          Uyuşmazlık Türü
+        </Text>
+      </View>
+      <ScreenContainer paddingTop={10} marginBottom={140}>
         <View style={styles.centerContainer}>
-          <Text style={[styles.title, { color: theme.colors.text.primary, ...theme.typography.h1 }]}>
+          {/* <Text style={[styles.title, { color: theme.colors.text.primary, ...theme.typography.h1 }]}>
             Uyuşmazlık Türü
-          </Text>
+          </Text> */}
           
           {rows.map((row, i) => (
             <View style={styles.row} key={i}>
@@ -65,6 +72,21 @@ const DisputeTypeScreen = () => {
 };
 
 const styles = StyleSheet.create({
+  header: { // Added header style
+    padding: 15,
+    borderRadius: 10,
+    marginBottom: 10,
+    alignItems: 'center',
+    backgroundColor: 'rgba(255, 255, 255, 0.1)', // Example background, adjust as needed
+    width: '85%',
+    alignSelf: 'center',
+  },
+  headerText: { // Added headerText style
+    textAlign: 'center',
+    marginBottom: 5,
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
   centerContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -75,6 +97,7 @@ const styles = StyleSheet.create({
   title: {
     textAlign: 'center',
     marginBottom: 24,
+    // Bu stil artık headerText tarafından yönetiliyor, isterseniz kaldırılabilir.
   },
   row: {
     flexDirection: 'row',
