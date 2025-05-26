@@ -29,16 +29,18 @@ const StartScreen = () => {
   }, []);
 
   return (
-    <ThemedBackground>
+    <ThemedBackground showOverlayImage>
       {/* New Header Card */}
+      {/* 
       <View style={[styles.newHeaderCardContainer, { marginTop: insets.top + 10 }]}>
         <ThemedCard style={styles.newHeaderCard}>
           <Text style={[styles.headerText, { color: theme.colors.text.primary, ...theme.typography.h2 }]}>
-            {`Arabuluculuk Ücreti\n Hesaplama Programı`}
+            {`DENKLEM`}
           </Text>
         </ThemedCard>
       </View>
-      
+      */}
+
       {/* Original headerContainer View is removed or repurposed if its styling is no longer needed */}
       {/* 
       <View style={styles.headerContainer}>
@@ -142,9 +144,9 @@ const styles = StyleSheet.create({
     position: 'absolute',
     alignItems: 'center',
     justifyContent: 'center',
-    top: '25%', // This might need to be pushed down if the new header card is tall
+    top: '15%', // This might need to be pushed down if the new header card is tall
     zIndex: 0,
-    width: '70%', // Defines the width of the square area for the logo
+    width: '55%', // Defines the width of the square area for the logo
     aspectRatio: 1, // Ensures the height matches the width, creating a square
   },
   haloEffect: {
@@ -191,7 +193,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: '100%',
     alignItems: 'center',
-    bottom: '24%', // moved up further to make more space for tab bar
+    bottom: '35%', // moved up further to make more space for tab bar
     zIndex: 1,
   },
   buttonText: {
