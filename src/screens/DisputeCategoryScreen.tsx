@@ -54,7 +54,7 @@ const DisputeCategoryScreen = () => {
           </View>
           
           <ThemedCard style={styles.subTitleCard}> 
-            <Text style={[styles.subTitleText, { color: theme.colors.text.primary, ...theme.typography.h2 }]}>
+            <Text style={[styles.subTitleText, { color: theme.colors.text.primary, fontSize: 21, fontWeight: '500' }]}>
               Diğer Hesaplamalar
             </Text>
           </ThemedCard>
