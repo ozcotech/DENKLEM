@@ -8,14 +8,13 @@ import { useTheme } from '../theme/ThemeContext';
 import ThemedBackground from '../components/common/ThemedBackground';
 import { ThemedCard } from '../components/common/ThemedCard';
 import ThemedButton from '../components/common/ThemedButton';
+import ScreenHeader from '../components/common/ScreenHeader';
 import { aboutData } from '../constants/aboutData';
 import ScreenContainer from '../components/common/ScreenContainer';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const AboutScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const theme = useTheme();
-  const insets = useSafeAreaInsets();
 
   const handleEmailPress = async () => {
     try {
@@ -84,11 +83,9 @@ const AboutScreen = () => {
 
   return (
     <ThemedBackground>
-      <View style={[styles.header, { marginTop: insets.top + 10 }]}>
-        <Text style={[styles.headerText, { color: theme.colors.text.primary }]}>
-          {`Hakkımızda`}
-        </Text>
-      </View>
+      {/* Header with ScreenHeader component */}
+      <ScreenHeader title="Hakkımızda" />
+      
       <ScreenContainer paddingTop={10} marginBottom={140}>
         <View style={styles.contentContainer}>
           {/* App Info Card */}
@@ -169,7 +166,7 @@ const AboutScreen = () => {
             
             <ThemedButton 
               title={`Geri Bildirim Gönderin`}
-              onPress={() => Linking.openURL(`mailto:${aboutData.contact.email}?subject=Arabuluculuk%20Ücreti%20Hesaplama%20-%20Geri%20Bildirim`)}
+              onPress={() => Linking.openURL(`mailto:${aboutData.contact.email}?subject=Arabuluculuk Ücreti Hesaplama  Geri Bildirim`)}
               style={styles.feedbackButton}
             />
           </View>
@@ -181,21 +178,6 @@ const AboutScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  header: {
-    padding: 15,
-    borderRadius: 10,
-    marginBottom: 10,
-    alignItems: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-    width: '90%',
-    alignSelf: 'center',
-  },
-  headerText: {
-    textAlign: 'center',
-    marginBottom: 5,
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
   contentContainer: {
     flex: 1,
     alignItems: 'center',
