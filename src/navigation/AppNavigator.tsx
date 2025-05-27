@@ -16,7 +16,7 @@ import ScreenWithTabBar from '../components/common/ScreenWithTabBar';
 
 // Type definition for the stack navigator
 export type RootStackParamList = {
-  MainTabs: undefined; // Start yerine MainTabs olarak değiştirildi
+  MainTabs: undefined; // Main tab navigator
   DisputeCategory: undefined;
   AgreementStatus: undefined;
   DisputeType: { isAgreement: boolean };

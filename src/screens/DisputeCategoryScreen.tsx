@@ -8,7 +8,7 @@ import ThemedBackground from '../components/common/ThemedBackground';
 import ThemedButton from '../components/common/ThemedButton';
 import ScreenContainer from '../components/common/ScreenContainer';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { ThemedCard } from '../components/common/ThemedCard'; // Eklendi
+import { ThemedCard } from '../components/common/ThemedCard'; // Added
 
 // ✅ Stack navigation type - Because it is at DisputeCategory Stack
 type DisputeCategoryScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'DisputeCategory'>;
@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
   },
   subTitleCard: {
     width: '100%', // Back to 100% to match button container
-    // alignSelf: 'center', // Not needed when width is 100%
+    // Not needed when width is 100%
     marginTop: 30,
     marginBottom: 50, // Changed from 24 to 50 for symmetry and more space
     borderRadius: 10, // Added to override ThemedCard default
@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'stretch',
     marginBottom: 10,
-    // marginHorizontal: -2, // Removed to avoid negative margin
+    // Removed to avoid negative margin
   },
   halfButton: {
     flex: 1,

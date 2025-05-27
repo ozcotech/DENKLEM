@@ -56,7 +56,7 @@ const StartScreen = () => {
         <View style={styles.buttonWrapper}>
           <ThemedButton
             title={`Giriş`}
-            onPress={() => navigation.navigate('DisputeCategory')} // DisputeCategory'e git
+            onPress={() => navigation.navigate('DisputeCategory')} 
             style={styles.customButton} // Added custom style for button height
             textStyle={styles.buttonText} // Will be modified for larger text
             icon={
