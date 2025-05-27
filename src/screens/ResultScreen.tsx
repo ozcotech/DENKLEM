@@ -7,18 +7,17 @@ import type { RootStackParamList } from '../navigation/AppNavigator';
 import ThemedBackground from '../components/common/ThemedBackground';
 import { ThemedCard } from '../components/common/ThemedCard';
 import ScreenContainer from '../components/common/ScreenContainer';
+import ScreenHeader from '../components/common/ScreenHeader';
 import { useTheme } from '../theme/ThemeContext';
 import { formatKurusToTlString } from '../utils/formatCurrency';
 import { calculateSMM } from '../utils/smmCalculator';
 import { SMMCalculationType } from '../constants/smmOptions';
-import { useSafeAreaInsets } from 'react-native-safe-area-context'; // Added import
 
 const ResultScreen = () => {
   // ✅ Turned on stack navigation type checking
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const route = useRoute<RouteProp<RootStackParamList, 'Result'>>();
   const theme = useTheme();
-  const insets = useSafeAreaInsets(); // Added insets
   const { result, isAgreement, disputeType } = route.params;
 
   // Convert TL result to kurus string
@@ -40,12 +39,8 @@ const ResultScreen = () => {
 
   return (
     <ThemedBackground>
-      <View style={[styles.header, { marginTop: insets.top + 10 }]}>
-        <Text style={[styles.headerText, { color: theme.colors.text.primary }]}>
-          {`Arabuluculuk Ücreti`}
-        </Text>
-      </View>
-      <ScreenContainer paddingTop={10} marginBottom={140}> 
+      <ScreenHeader title="Arabuluculuk Ücreti" isScrollable={true} marginBottom={20} />
+      <ScreenContainer paddingTop={10} marginBottom={120}> 
         <ScrollView
           contentContainerStyle={styles.scrollContent}
           showsVerticalScrollIndicator={false}
@@ -134,21 +129,6 @@ const ResultScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  header: { // Added header style
-    padding: 15,
-    borderRadius: 10,
-    marginBottom: 10,
-    alignItems: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-    width: '90%', // Updated to match tabbar width
-    alignSelf: 'center',
-  },
-  headerText: { // Added headerText style
-    textAlign: 'center',
-    marginBottom: 5,
-    fontSize: 22,
-    fontWeight: 'bold',
-  },
   titleText: {
     textAlign: 'center',
     marginBottom: 30,
