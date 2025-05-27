@@ -7,7 +7,7 @@ import { useTheme } from '../theme/ThemeContext';
 import ThemedBackground from '../components/common/ThemedBackground';
 import ThemedButton from '../components/common/ThemedButton';
 import ScreenContainer from '../components/common/ScreenContainer';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import ScreenHeader from '../components/common/ScreenHeader';
 import { ThemedCard } from '../components/common/ThemedCard'; // Added
 
 // ✅ Stack navigation type - Because it is at DisputeCategory Stack
@@ -17,15 +17,10 @@ const DisputeCategoryScreen = () => {
   // ✅ Use navigation with type checking
   const navigation = useNavigation<DisputeCategoryScreenNavigationProp>();
   const theme = useTheme();
-  const insets = useSafeAreaInsets(); 
 
   return (
     <ThemedBackground>
-      <View style={[styles.header, { marginTop: insets.top + 10 }]}>
-        <Text style={[styles.headerText, { color: theme.colors.text.primary }]}>
-          Uyuşmazlık Kategorisi
-        </Text>
-      </View>
+      <ScreenHeader title="Uyuşmazlık Kategorisi" />
       <ScreenContainer paddingTop={10} marginBottom={140} scrollable={false}>
         <View style={styles.centerContainer}>
           {/* <Text style={[styles.title, { color: theme.colors.text.primary, ...theme.typography.h1 }]}>
@@ -54,7 +49,7 @@ const DisputeCategoryScreen = () => {
           </View>
           
           <ThemedCard style={styles.subTitleCard}> 
-            <Text style={[styles.subTitleText, { color: theme.colors.text.primary, fontSize: 21, fontWeight: '500' }]}>
+            <Text style={[styles.subTitleText, { color: theme.colors.text.primary, fontSize: 20, fontWeight: 'bold' }]}>
               Diğer Hesaplamalar
             </Text>
           </ThemedCard>
@@ -80,21 +75,6 @@ const DisputeCategoryScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  header: {
-    padding: 15,
-    borderRadius: 10, // Changed from 20 back to 10
-    marginBottom: 10,
-    alignItems: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-    width: '90%', // Updated to match tabbar width
-    alignSelf: 'center',
-  },
-  headerText: {
-    textAlign: 'center',
-    marginBottom: 5,
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
   centerContainer: {
     flex: 1,
     justifyContent: 'center',
