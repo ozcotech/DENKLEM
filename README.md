@@ -98,49 +98,175 @@ To learn more about React Native, take a look at the following resources:
 
 # 🧮 DENKLEM – Mediation Fee Calculator App
 
-**DENKLEM** is a mobile application built with **React Native** to help users calculate mediation fees in accordance with Turkish law. It guides the user step-by-step through the mediation process, including:
+**DENKLEM** (meaning "equation" in Turkish, from Latin "aequare" = "to equalize") is a comprehensive mobile application built with **React Native** that calculates mediation fees according to Turkish law. The app is based on the 2025 mediation fee tariff and currently supports calculations specifically for the year 2025, with future updates planned for 2026, 2027, and beyond.
 
-- Dispute category selection
-- Agreement status
-- Dispute type
-- Number of parties or dispute amount
-- Automated fee calculation
+The name "DENKLEM" derives from the concept of creating equality and balance between parties, which aligns perfectly with the mediation process - establishing equilibrium and fair resolution between disputing parties.
 
 ---
 
-## 🚀 Features
+## 🚀 Key Features
 
-- Clean and modern UI
-- Step-by-step user interaction flow
-- Handles both monetary and non-monetary disputes
-- Supports agreement and non-agreement scenarios
-- Dynamic fee calculation based on official tariff
-- Built-in navigation and gesture support
-- Swipe gesture navigation enabled for backward screen transitions
-- Turkish language UI
-- Lightweight and mobile-friendly
+### 💰 **Main Functionality - Fee Calculation**
+- **2025 Official Tariff**: Based on current Turkish mediation fee regulations
+- **Smart Calculation Engine**: Handles both monetary and non-monetary disputes
+- **Dual Scenario Support**: Different calculations for agreement vs. non-agreement cases
+- **Automatic Tax Calculations**: Includes withholding tax and freelance receipt calculations
+
+### 📱 **User Experience**
+- **Intuitive Step-by-Step Flow**: Guided process from start to finish
+- **Gesture Navigation**: Swipe right from any screen edge to go back
+- **Persistent Tab Bar**: Quick access to home, legislation, and about sections
+- **Turkish Language Interface**: Fully localized for Turkish users
+- **Clean Modern Design**: Professional and user-friendly interface
+
+### 🧮 **Additional Calculators**
+- **Time Calculation**: Calculate mediation process durations
+- **Freelance Receipt Calculator (SMM)**: Generate receipt calculations with tax deductions
+- **Comprehensive Results**: Detailed breakdowns with tax implications
+
+### 🔧 **Technical Features**
+- **iOS Platform**: Currently optimized for iOS (Android support planned)
+- **Offline Capability**: No internet required for calculations
+- **Real-time Updates**: Instant calculation results
+- **Responsive Design**: Optimized for various screen sizes
 
 ---
 
-## 📱 Screens Overview
+## 📱 User Journey & Screens
 
-1. **StartScreen**  
-   Welcome message and entry point
+### **1. StartScreen**
+Welcome screen with main entry point to begin fee calculation
 
-2. **DisputeCategoryScreen**  
-   Select whether the dispute is monetary or non-monetary
+### **2. DisputeCategoryScreen** 
+- **Primary Options**: Select dispute category (monetary disputes prominently featured)
+- **Additional Calculations Section**: 
+  - Time Calculation for mediation process duration
+  - Freelance Receipt (SMM) Calculator
 
-3. **AgreementStatusScreen**  
-   Choose whether the parties reached an agreement
+### **3. AgreementStatusScreen**
+Choose whether parties reached an agreement during mediation:
+- **Agreement**: Leads to different calculation method
+- **No Agreement**: Alternative calculation approach
 
-4. **DisputeTypeScreen**  
-   Select the type of dispute (e.g., labor, commercial, family, etc.)
+### **4. DisputeTypeScreen**
+Select specific dispute type (labor, commercial, family, etc.) based on previous selections
 
-5. **InputScreen**  
-   Enter the number of parties or agreement amount
+### **5. InputScreen**
+Enter required information:
+- **For Agreements**: Agreement amount + number of parties
+- **For Non-Agreements**: Only number of parties needed
 
-6. **ResultScreen**  
-   Displays the calculated mediation fee with the option to recalculate or return to home
+### **6. ResultScreen**
+Comprehensive results display:
+- **Main Fee**: Calculated mediation fee
+- **Tax Information**: Withholding tax calculations when applicable
+- **Freelance Receipt Details**: Complete SMM breakdown for professional invoicing
+
+### **7. Additional Screens**
+- **TimeCalculationScreen**: Calculate mediation process durations
+- **SmmCalculationScreen**: Detailed freelance receipt calculations
+- **LegislationScreen**: Access current mediation regulations
+- **AboutScreen**: App information and contact details
+
+---
+
+## 📸 Screenshots
+
+<div align="center">
+
+### Main Flow Screenshots
+
+<table>
+  <tr>
+    <td align="center" width="25%">
+      <img src="assets/images/screenshots/ios/home-screen.png" width="200" alt="Home Screen">
+      <br><strong>Home Screen</strong>
+    </td>
+    <td align="center" width="25%">
+      <img src="assets/images/screenshots/ios/dispute-category.png" width="200" alt="Dispute Category">
+      <br><strong>Dispute Category</strong>
+    </td>
+    <td align="center" width="25%">
+      <img src="assets/images/screenshots/ios/agreement-status.png" width="200" alt="Agreement Status">
+      <br><strong>Agreement Status</strong>
+    </td>
+    <td align="center" width="25%">
+      <img src="assets/images/screenshots/ios/dispute-type.png" width="200" alt="Dispute Type">
+      <br><strong>Dispute Type</strong>
+    </td>
+  </tr>
+</table>
+
+### Input & Results Screenshots
+
+<table>
+  <tr>
+    <td align="center" width="50%">
+      <img src="assets/images/screenshots/ios/input-screen-2.png" width="200" alt="Input Screen">
+      <br><strong>Input Screen</strong>
+    </td>
+    <td align="center" width="50%">
+      <img src="assets/images/screenshots/ios/result-screen-2.png" width="200" alt="Result Screen">
+      <br><strong>Result Screen</strong>
+    </td>
+  </tr>
+</table>
+
+### Additional Calculators Screenshots
+
+<table>
+  <tr>
+    <td align="center" width="50%">
+      <img src="assets/images/screenshots/ios/time-calculation.png" width="200" alt="Time Calculation">
+      <br><strong>Time Calculation</strong>
+    </td>
+    <td align="center" width="50%">
+      <img src="assets/images/screenshots/ios/smm-calculation-2.png" width="200" alt="SMM Calculation">
+      <br><strong>SMM Calculation</strong>
+    </td>
+  </tr>
+</table>
+
+</div>
+
+---
+
+## 🎯 How It Works
+
+### **Monetary Dispute with Agreement:**
+1. Select "Monetary Disputes" → "Agreement" → Choose dispute type
+2. Enter agreement amount and number of parties
+3. Get calculated mediation fee + optional SMM receipt calculation
+
+### **Non-Monetary or No Agreement:**
+1. Select category → "No Agreement" 
+2. Enter only number of parties
+3. Receive fee calculation with automatic tax deductions
+
+### **Additional Features:**
+- **Tab Bar Navigation**: Always accessible home, legislation, and about sections
+- **Gesture Controls**: Swipe right from screen edge to navigate back
+- **Quick Access**: Direct links to time and SMM calculators
+
+---
+
+## 🛠️ Tech Stack
+
+- **React Native** with TypeScript
+- **React Navigation** for seamless screen transitions
+- **Custom Theme System** for consistent UI
+- **Gesture Handler** for intuitive navigation
+- **Platform-specific Optimizations** for iOS
+
+---
+
+## 📅 Version Information
+
+- **Current Version**: 2025.1.0
+- **Supported Year**: 2025 mediation tariff
+- **Platform**: iOS (Android coming soon)
+- **Language**: Turkish
+- **Last Updated**: Based on 2025 official mediation fee regulations
 
 ---
 
