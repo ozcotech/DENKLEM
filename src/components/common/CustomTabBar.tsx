@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     height: Platform.OS === 'ios' ? 75 : 70, // Increased height for better touch targets
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     paddingHorizontal: 15,
     paddingVertical: 0, // Remove padding to allow button height control
     backgroundColor: '#fff', // fallback, will be overridden by theme
@@ -138,13 +138,13 @@ const styles = StyleSheet.create({
     marginBottom: 0,
   },
   tabButton: {
-    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 0,
-    borderRadius: 10,
-    height: '90%',
-    overflow: 'hidden', // Prevents content from overflowing
+    width: 75,           
+    height: 75,          
+    borderRadius: 40,    
+    overflow: 'hidden',
+    marginHorizontal: 15, 
   },
   activeTab: {
     backgroundColor: 'rgba(0, 0, 0, 0.05)',
