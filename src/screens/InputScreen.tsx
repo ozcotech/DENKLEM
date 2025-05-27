@@ -8,16 +8,15 @@ import { calculateMediationFee } from '../models/tariffModel';
 import ThemedBackground from '../components/common/ThemedBackground';
 import ThemedButton from '../components/common/ThemedButton';
 import ScreenContainer from '../components/common/ScreenContainer';
+import ScreenHeader from '../components/common/ScreenHeader';
 import { useTheme } from '../theme/ThemeContext';
 import { formatKurusToTlString, normalizeToKurusString, convertKurusStringToTlNumber } from '../utils/formatCurrency';
-import { useSafeAreaInsets } from 'react-native-safe-area-context'; // Added import
 
 const InputScreen = () => {
   // ✅ Turned on stack navigation type checking
   const route = useRoute<RouteProp<RootStackParamList, 'Input'>>();
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const theme = useTheme();
-  const insets = useSafeAreaInsets(); // Added insets
   const isAgreement = route.params?.isAgreement ?? false;
   const disputeType = route.params?.disputeType ?? `İşçi-İşveren`;
   const [amount, setAmount] = useState('');
@@ -84,11 +83,7 @@ const InputScreen = () => {
 
   return (
     <ThemedBackground>
-      <View style={[styles.header, { marginTop: insets.top + 10 }]}>
-        <Text style={[styles.headerText, { color: theme.colors.text.primary }]}>
-          {`Uyuşmazlık Bilgileri`}
-        </Text>
-      </View>
+      <ScreenHeader title="Uyuşmazlık Bilgileri" marginBottom={15} />
       <KeyboardAvoidingView
         behavior={Platform.OS === `ios` ? `padding` : `height`}
         style={styles.keyboardAvoidingContainer}
@@ -133,21 +128,6 @@ const InputScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  header: { // Added header style
-    padding: 15,
-    borderRadius: 10,
-    marginBottom: 10,
-    alignItems: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 0.1)', 
-    width: '90%', // Updated to match tabbar width
-    alignSelf: 'center',
-  },
-  headerText: { // Added headerText style
-    textAlign: 'center',
-    marginBottom: 5,
-    fontSize: 22,
-    fontWeight: 'bold',
-  },
   keyboardAvoidingContainer: {
     flex: 1,
     width: '100%',
