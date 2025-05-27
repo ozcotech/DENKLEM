@@ -16,18 +16,17 @@ import DateTimePicker, {
 import ThemedBackground from '../components/common/ThemedBackground';
 import ThemedButton from '../components/common/ThemedButton';
 import ScreenContainer from '../components/common/ScreenContainer';
+import ScreenHeader from '../components/common/ScreenHeader';
 import {
   calculateWeekDates,
   getDisputeTypes,
   shouldCalculate,
 } from '../utils/mediationTimeCalc';
 import { useTheme } from '../theme/ThemeContext';
-import { useSafeAreaInsets } from 'react-native-safe-area-context'; // Added import
 
 export default function TimeCalculationScreen() {
   const theme = useTheme();
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-  const insets = useSafeAreaInsets(); // Added insets
   
   const [startDate, setStartDate] = useState('');
   const [dateObject, setDateObject] = useState(new Date());
@@ -130,12 +129,8 @@ export default function TimeCalculationScreen() {
 
   return (
     <ThemedBackground>
-      <View style={[styles.header, { marginTop: insets.top + 10 }]}>
-        <Text style={[styles.headerText, { color: theme.colors.text.primary }]}>
-          {`Süre Hesaplama`}
-        </Text>
-      </View>
-      <ScreenContainer paddingTop={10} marginBottom={140}> 
+      <ScreenHeader title="Süre Hesaplama" marginBottom={15} />
+      <ScreenContainer paddingTop={10} marginBottom={110}> 
         <View style={styles.centerContainer}>
           {/* The original title \"Süre Hesaplama\" was here. It has been moved to the new header view. */}
           
@@ -199,21 +194,6 @@ export default function TimeCalculationScreen() {
 }
 
 const styles = StyleSheet.create({
-  header: { // Added header style
-    padding: 15,
-    borderRadius: 10,
-    marginBottom: 10,
-    alignItems: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-    width: '90%', // Updated to match tabbar width
-    alignSelf: 'center',
-  },
-  headerText: { // Added headerText style
-    textAlign: 'center',
-    marginBottom: 5,
-    fontSize: 22,
-    fontWeight: 'bold',
-  },
   centerContainer: {
     flex: 1,
     justifyContent: 'center',
