@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Dimensions, Alert } from 'react-native';
 import Pdf from 'react-native-pdf';
 import ThemedBackground from '../components/common/ThemedBackground';
 import ScreenContainer from '../components/common/ScreenContainer';
+import ScreenHeader from '../components/common/ScreenHeader';
 import { useTheme } from '../theme/ThemeContext';
 
 const LegislationScreen = () => {
@@ -33,16 +34,13 @@ const LegislationScreen = () => {
 
   return (
     <ThemedBackground>
-      <ScreenContainer paddingTop={60} marginBottom={140}>
-        <View style={styles.header}>
-          <Text style={[styles.headerText, { color: theme.colors.text.primary }]}>
-            {'Arabuluculuk Tarifesi 2025'}
-          </Text>
-          <Text style={[styles.subtitle, { color: theme.colors.text.secondary }]}>
-            {'Resmi tarife ve ücret çizelgesi'}
-          </Text>
-        </View>
-
+      {/* Header with ScreenHeader component */}
+      <ScreenHeader 
+        title="Arabuluculuk Tarifesi 2025"
+        subtitle="Resmi tarife ve ücret çizelgesi"
+      />
+      
+      <ScreenContainer paddingTop={10} marginBottom={140}>
         <View style={styles.pdfContainer}>
           <Pdf
             source={source}
@@ -74,26 +72,6 @@ const LegislationScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  header: {
-    padding: 15,
-    borderRadius: 10,
-    marginBottom: 10,
-    alignItems: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-    width: '90%', // Updated to match tabbar width
-    alignSelf: 'center', // Added for centering
-  },
-  headerText: {
-    textAlign: 'center',
-    marginBottom: 5,
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  subtitle: {
-    textAlign: 'center',
-    fontSize: 14,
-    fontStyle: 'italic',
-  },
   pdfContainer: {
     flex: 1,
     alignItems: 'center',
