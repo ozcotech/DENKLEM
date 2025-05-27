@@ -7,21 +7,16 @@ import { useTheme } from '../theme/ThemeContext';
 import ThemedBackground from '../components/common/ThemedBackground';
 import ThemedButton from '../components/common/ThemedButton';
 import ScreenContainer from '../components/common/ScreenContainer';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import ScreenHeader from '../components/common/ScreenHeader';
 
 const AgreementStatusScreen = () => {
   // ✅ Turned into a NativeStackNavigationProp for AgreementStatusScreen
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const theme = useTheme();
-  const insets = useSafeAreaInsets();
 
   return (
     <ThemedBackground>
-      <View style={[styles.header, { marginTop: insets.top + 10 }]}>
-        <Text style={[styles.headerText, { color: theme.colors.text.primary }]}>
-          Anlaşma Durumu
-        </Text>
-      </View>
+      <ScreenHeader title="Anlaşma Durumu" />
       <ScreenContainer paddingTop={10} marginBottom={140} scrollable={false}>
         <View style={styles.centerContainer}>
           
@@ -46,21 +41,6 @@ const AgreementStatusScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  header: { // New header style
-    padding: 15,
-    borderRadius: 10,
-    marginBottom: 10,
-    alignItems: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-    width: '90%', // Updated to match tabbar width
-    alignSelf: 'center',
-  },
-  headerText: { // New header text style
-    textAlign: 'center',
-    marginBottom: 5,
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
   centerContainer: {
     flex: 1,
     justifyContent: 'center', // Ensures vertical centering
