@@ -7,8 +7,7 @@ import { useTheme } from '../theme/ThemeContext';
 import ThemedBackground from '../components/common/ThemedBackground';
 import ThemedButton from '../components/common/ThemedButton';
 import ScreenContainer from '../components/common/ScreenContainer';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { ThemedCard } from '../components/common/ThemedCard';
+import ScreenHeader from '../components/common/ScreenHeader';
 
 const disputeTypes = [
   `İşçi-İşveren`,
@@ -25,7 +24,6 @@ const DisputeTypeScreen = () => {
   const route = useRoute();
   const { isAgreement } = route.params as { isAgreement: boolean };
   const theme = useTheme();
-  const insets = useSafeAreaInsets();
 
   const getRows = () => {
     let rows: string[][] = [];
@@ -38,15 +36,14 @@ const DisputeTypeScreen = () => {
 
   return (
     <ThemedBackground>
-      <View style={[styles.headerContainerForCard, { marginTop: insets.top + 10 }]}>
-        <ThemedCard style={styles.headerCardContent}>
-          <Text style={[styles.headerText, { color: theme.colors.text.primary }]}>
-            Uyuşmazlık Türü
-          </Text>
-        </ThemedCard>
-      </View>
+      <ScreenHeader 
+        title="Uyuşmazlık Türü" 
+        useCard={true} 
+        isScrollable={true} 
+        marginBottom={20} 
+      />
 
-      <ScreenContainer paddingTop={10} marginBottom={140} scrollable={true}>
+      <ScreenContainer paddingTop={10} marginBottom={120} scrollable={true}>
         <View style={styles.centerContainer}>
           {rows.map((row, i) => (
             <View style={styles.rowButtonContainer} key={i}>
@@ -69,22 +66,6 @@ const DisputeTypeScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  headerContainerForCard: {
-    width: '100%',
-    alignItems: 'center',
-    marginBottom: 10, 
-  },
-  headerCardContent: {
-    width: '90%', // Updated to match tabbar width
-    padding: 15,
-    borderRadius: 10,
-    alignItems: 'center',
-  },
-  headerText: {
-    textAlign: 'center',
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
   centerContainer: {
     flex: 1,
     justifyContent: 'flex-start',

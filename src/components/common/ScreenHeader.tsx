@@ -8,12 +8,16 @@ interface ScreenHeaderProps {
   title: string;
   subtitle?: string;
   useCard?: boolean; // Use ThemedCard for StartScreen
+  isScrollable?: boolean; // For screens with scroll content
+  marginBottom?: number; // Custom margin bottom
 }
 
 const ScreenHeader: React.FC<ScreenHeaderProps> = ({ 
   title, 
   subtitle, 
-  useCard = false // Default to normal header
+  useCard = false, // Default to normal header
+  isScrollable = false, // Default to non-scrollable
+  marginBottom = 10 // Default margin bottom
 }) => {
   const theme = useTheme();
   const insets = useSafeAreaInsets();
@@ -35,8 +39,8 @@ const ScreenHeader: React.FC<ScreenHeaderProps> = ({
     return (
       <View style={[
         styles.headerContainer, 
-        { marginTop: insets.top + 10 },
-        styles.absolutePosition // Absolute positioning for StartScreen
+        { marginTop: insets.top + 10, marginBottom: marginBottom },
+        !isScrollable && styles.absolutePosition // Only absolute for non-scrollable (StartScreen)
       ]}>
         <ThemedCard style={styles.headerCard}>
           {content}
@@ -46,7 +50,7 @@ const ScreenHeader: React.FC<ScreenHeaderProps> = ({
   }
 
   return (
-    <View style={[styles.header, { marginTop: insets.top + 10 }]}>
+    <View style={[styles.header, { marginTop: insets.top + 10, marginBottom: marginBottom }]}>
       {content}
     </View>
   );
