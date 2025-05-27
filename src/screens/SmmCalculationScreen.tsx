@@ -103,7 +103,7 @@ const SMMCalculationScreen: React.FC = () => {
         <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
           style={styles.container}
-          keyboardVerticalOffset={Platform.OS === 'ios' ? 40 : 0}
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 60 : 0}
         >
           <View style={styles.container}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
