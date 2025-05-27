@@ -179,19 +179,19 @@ Comprehensive results display:
 <table>
   <tr>
     <td align="center" width="25%">
-      <img src="assets/images/screenshots/ios/home-screen.png" width="200" alt="Home Screen">
+      <img src="https://raw.githubusercontent.com/ozcotech/DENKLEM-screenshots/master/ios/home-screen.png" width="200" alt="Home Screen">
       <br><strong>Home Screen</strong>
     </td>
     <td align="center" width="25%">
-      <img src="assets/images/screenshots/ios/dispute-category.png" width="200" alt="Dispute Category">
+      <img src="https://raw.githubusercontent.com/ozcotech/DENKLEM-screenshots/master/ios/dispute-category.png" width="200" alt="Dispute Category">
       <br><strong>Dispute Category</strong>
     </td>
     <td align="center" width="25%">
-      <img src="assets/images/screenshots/ios/agreement-status.png" width="200" alt="Agreement Status">
+      <img src="https://raw.githubusercontent.com/ozcotech/DENKLEM-screenshots/master/ios/agreement-status.png" width="200" alt="Agreement Status">
       <br><strong>Agreement Status</strong>
     </td>
     <td align="center" width="25%">
-      <img src="assets/images/screenshots/ios/dispute-type.png" width="200" alt="Dispute Type">
+      <img src="https://raw.githubusercontent.com/ozcotech/DENKLEM-screenshots/master/ios/dispute-type.png" width="200" alt="Dispute Type">
       <br><strong>Dispute Type</strong>
     </td>
   </tr>
@@ -202,11 +202,11 @@ Comprehensive results display:
 <table>
   <tr>
     <td align="center" width="50%">
-      <img src="assets/images/screenshots/ios/input-screen-2.png" width="200" alt="Input Screen">
+      <img src="https://raw.githubusercontent.com/ozcotech/DENKLEM-screenshots/master/ios/input-screen-2.png" width="200" alt="Input Screen">
       <br><strong>Input Screen</strong>
     </td>
     <td align="center" width="50%">
-      <img src="assets/images/screenshots/ios/result-screen-2.png" width="200" alt="Result Screen">
+      <img src="https://raw.githubusercontent.com/ozcotech/DENKLEM-screenshots/master/ios/result-screen-2.png" width="200" alt="Result Screen">
       <br><strong>Result Screen</strong>
     </td>
   </tr>
@@ -217,17 +217,19 @@ Comprehensive results display:
 <table>
   <tr>
     <td align="center" width="50%">
-      <img src="assets/images/screenshots/ios/time-calculation.png" width="200" alt="Time Calculation">
+      <img src="https://raw.githubusercontent.com/ozcotech/DENKLEM-screenshots/master/ios/time-calculation.png" width="200" alt="Time Calculation">
       <br><strong>Time Calculation</strong>
     </td>
     <td align="center" width="50%">
-      <img src="assets/images/screenshots/ios/smm-calculation-2.png" width="200" alt="SMM Calculation">
+      <img src="https://raw.githubusercontent.com/ozcotech/DENKLEM-screenshots/master/ios/smm-calculation-2.png" width="200" alt="SMM Calculation">
       <br><strong>SMM Calculation</strong>
     </td>
   </tr>
 </table>
 
 </div>
+
+> 📸 **More Screenshots**: View all screenshots and app flow in the [DENKLEM Screenshots Repository](https://github.com/ozcotech/DENKLEM-screenshots)
 
 ---
 
