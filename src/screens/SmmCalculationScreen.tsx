@@ -27,13 +27,12 @@ import {
   PERSON_TYPE_TUZEL
 } from '../constants/smmOptions';
 import { formatKurusToTlString, normalizeToKurusString, convertKurusStringToTlNumber } from '../utils/formatCurrency';
-import { useSafeAreaInsets } from 'react-native-safe-area-context'; // Added import
+import ScreenHeader from '../components/common/ScreenHeader';
 
 const SMMCalculationScreen: React.FC = () => {
   const theme = useTheme();
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const scrollViewRef = useRef<ScrollView>(null);
-  const insets = useSafeAreaInsets(); // Added insets
 
   // State management
   const [mediationFee, setMediationFee] = useState<string>('');
@@ -94,14 +93,13 @@ const SMMCalculationScreen: React.FC = () => {
 
   return (
     <ThemedBackground>
-      <View style={[styles.headerContainerForCard, { marginTop: insets.top + 10 }]}>
-        <ThemedCard style={styles.headerCardContent}>
-          <Text style={[styles.headerText, { color: theme.colors.text.primary }]}>
-            SMM Hesaplama
-          </Text>
-        </ThemedCard>
-      </View>
-      <ScreenContainer paddingTop={10} marginBottom={140} scrollEndPadding={20}>
+      <ScreenHeader 
+        title="SMM Hesaplama" 
+        useCard={true} 
+        isScrollable={true} 
+        marginBottom={0} 
+      />
+      <ScreenContainer paddingTop={10} marginBottom={110} scrollEndPadding={20}>
         <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
           style={styles.container}
@@ -231,22 +229,6 @@ const SMMCalculationScreen: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
-  headerContainerForCard: { // Added style
-    width: '100%',
-    alignItems: 'center',
-    marginBottom: 10,
-  },
-  headerCardContent: { // Added style
-    width: '90%', // Updated to match tabbar width
-    padding: 15,
-    borderRadius: 10,
-    alignItems: 'center',
-  },
-  headerText: { // Added style
-    textAlign: 'center',
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
   container: {
     flex: 1,
     width: '100%',

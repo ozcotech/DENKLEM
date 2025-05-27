@@ -17,7 +17,7 @@ const AgreementStatusScreen = () => {
   return (
     <ThemedBackground>
       <ScreenHeader title="Anlaşma Durumu" />
-      <ScreenContainer paddingTop={10} marginBottom={140} scrollable={false}>
+      <ScreenContainer paddingTop={10} marginBottom={110} scrollable={false}>
         <View style={styles.centerContainer}>
           
           <View style={styles.buttonContainer}>

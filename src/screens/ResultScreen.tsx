@@ -40,7 +40,7 @@ const ResultScreen = () => {
   return (
     <ThemedBackground>
       <ScreenHeader title="Arabuluculuk Ücreti" isScrollable={true} marginBottom={20} />
-      <ScreenContainer paddingTop={10} marginBottom={120}> 
+      <ScreenContainer paddingTop={10} marginBottom={110}> 
         <ScrollView
           contentContainerStyle={styles.scrollContent}
           showsVerticalScrollIndicator={false}

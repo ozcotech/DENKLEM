@@ -40,7 +40,7 @@ const LegislationScreen = () => {
         subtitle="Resmi tarife ve ücret çizelgesi"
       />
       
-      <ScreenContainer paddingTop={10} marginBottom={140}>
+      <ScreenContainer paddingTop={10} marginBottom={110}>
         <View style={styles.pdfContainer}>
           <Pdf
             source={source}

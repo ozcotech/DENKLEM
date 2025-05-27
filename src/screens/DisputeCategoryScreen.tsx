@@ -21,7 +21,7 @@ const DisputeCategoryScreen = () => {
   return (
     <ThemedBackground>
       <ScreenHeader title="Uyuşmazlık Kategorisi" />
-      <ScreenContainer paddingTop={10} marginBottom={140} scrollable={false}>
+      <ScreenContainer paddingTop={10} marginBottom={110} scrollable={false}>
         <View style={styles.centerContainer}>
           {/* <Text style={[styles.title, { color: theme.colors.text.primary, ...theme.typography.h1 }]}>
             Uyuşmazlık Kategorisi

@@ -43,7 +43,7 @@ const DisputeTypeScreen = () => {
         marginBottom={20} 
       />
 
-      <ScreenContainer paddingTop={10} marginBottom={120} scrollable={true}>
+      <ScreenContainer paddingTop={10} marginBottom={110} scrollable={true}>
         <View style={styles.centerContainer}>
           {rows.map((row, i) => (
             <View style={styles.rowButtonContainer} key={i}>

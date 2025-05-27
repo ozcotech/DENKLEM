@@ -86,7 +86,7 @@ const AboutScreen = () => {
       {/* Header with ScreenHeader component */}
       <ScreenHeader title="Hakkımızda" />
       
-      <ScreenContainer paddingTop={10} marginBottom={140}>
+      <ScreenContainer paddingTop={10} marginBottom={110}>
         <View style={styles.contentContainer}>
           {/* App Info Card */}
           <ThemedCard style={styles.sectionCard}>

@@ -89,7 +89,7 @@ const InputScreen = () => {
         style={styles.keyboardAvoidingContainer}
         keyboardVerticalOffset={Platform.OS === `ios` ? -100 : 0} 
       >
-        <ScreenContainer paddingTop={10} marginBottom={140} scrollable={false}>
+        <ScreenContainer paddingTop={10} marginBottom={110} scrollable={false}>
           <View style={styles.centerContainer}>
             {/* The main title "Uyuşmazlık Türü" was previously here. It has been moved to the new header component above. */}
             <Text style={[styles.disputeTypeValue, { color: theme.colors.text.primary, fontWeight: 'bold' }]}>
