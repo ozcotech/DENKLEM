@@ -7,9 +7,8 @@ import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootTabParamList, RootStackParamList } from '../navigation/AppNavigator';
 import ThemedBackground from '../components/common/ThemedBackground';
 import ThemedButton from '../components/common/ThemedButton';
-import { ThemedCard } from '../components/common/ThemedCard';
+import ScreenHeader from '../components/common/ScreenHeader';
 import { useTheme } from '../theme/ThemeContext';
-import { useSafeAreaInsets } from 'react-native-safe-area-context'; // Added import
 
 const StartScreen = () => {
   const theme = useTheme();
@@ -18,7 +17,6 @@ const StartScreen = () => {
     BottomTabNavigationProp<RootTabParamList, 'Start'>,
     NativeStackNavigationProp<RootStackParamList>
   >>();
-  const insets = useSafeAreaInsets(); // Added insets
 
   useEffect(() => {
     Animated.timing(logoOpacity, {
@@ -30,14 +28,11 @@ const StartScreen = () => {
 
   return (
     <ThemedBackground showOverlayImage>
-      {/* Header Card with DENKLEM Title */}
-      <View style={[styles.headerCardContainer, { marginTop: insets.top + 10 }]}>
-        <ThemedCard style={styles.headerCard}>
-          <Text style={[styles.headerText, { color: theme.colors.text.primary, ...theme.typography.h2 }]}>
-            DENKLEM
-          </Text>
-        </ThemedCard>
-      </View>
+      {/* Header with ScreenHeader component */}
+      <ScreenHeader 
+        title="DENKLEM" 
+        useCard={true} 
+      />
 
       <View style={styles.contentContainer}>
         <View style={styles.logoWrapper}>
@@ -73,26 +68,9 @@ const StartScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  headerCardContainer: {
-    width: '100%',
-    alignItems: 'center',
-    position: 'absolute',
-    top: 0,
-    zIndex: 10,
-  },
-  headerCard: {
-    padding: 12,
-    borderRadius: 10,
-    alignItems: 'center',
-    width: '90%',
-  },
   customButton: {
     paddingVertical: 18,
     width: '90%',
-  },
-  headerText: {
-    textAlign: 'center',
-    letterSpacing: 0.5,
   },
   contentContainer: {
     position: 'absolute',
@@ -100,7 +78,6 @@ const styles = StyleSheet.create({
     height: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    // paddingTop: '15%', // Adjust this if the new header card takes up space and pushes content down
   },
   logoWrapper: {
     position: 'absolute',
