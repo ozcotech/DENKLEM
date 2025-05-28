@@ -9,7 +9,8 @@ import {
   Platform,
   TouchableWithoutFeedback,
   Keyboard,
-  Alert
+  Alert,
+  Dimensions
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -28,11 +29,16 @@ import {
 } from '../constants/smmOptions';
 import { formatKurusToTlString, normalizeToKurusString, convertKurusStringToTlNumber } from '../utils/formatCurrency';
 import ScreenHeader from '../components/common/ScreenHeader';
+import { getDynamicKeyboardPadding, RESPONSIVE_DESIGN } from '../constants/dimensions';
 
 const SMMCalculationScreen: React.FC = () => {
   const theme = useTheme();
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const scrollViewRef = useRef<ScrollView>(null);
+  const inputRef = useRef<TextInput>(null);
+
+  // Get screen dimensions for responsive design
+  const { height: screenHeight } = Dimensions.get('window');
 
   // State management
   const [mediationFee, setMediationFee] = useState<string>('');
@@ -82,6 +88,20 @@ const SMMCalculationScreen: React.FC = () => {
     setMediationFee(rawDigits);
   };
 
+  // Handle input focus to scroll up when keyboard appears
+  const handleInputFocus = () => {
+    // Scroll to the input field when it is focused
+    setTimeout(() => {
+      if (inputRef.current && scrollViewRef.current) {
+        inputRef.current.measure((x, y, width, height, pageX, pageY) => {
+          // Calculate the scroll position to bring the input into view
+          const scrollToY = Math.max(0, pageY - RESPONSIVE_DESIGN.INPUT_FOCUS_SCROLL.TOP_OFFSET);
+          scrollViewRef.current?.scrollTo({ y: scrollToY, animated: true });
+        });
+      }
+    }, RESPONSIVE_DESIGN.INPUT_FOCUS_SCROLL.SCROLL_DELAY);
+  };
+
   // Format currency for display
   const formatCurrency = (amount: number | null): string => {
     if (amount === null) return '-';
@@ -100,11 +120,11 @@ const SMMCalculationScreen: React.FC = () => {
         isScrollable={true} 
         marginBottom={0} 
       />
-      <ScreenContainer paddingTop={10} marginBottom={110} scrollEndPadding={20}>
+      <ScreenContainer paddingTop={10} marginBottom={110} scrollEndPadding={getDynamicKeyboardPadding(screenHeight)}>
         <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
           style={styles.container}
-          keyboardVerticalOffset={Platform.OS === 'ios' ? 60 : 0}
+          keyboardVerticalOffset={0}
         >
           <View style={styles.container}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -124,6 +144,7 @@ const SMMCalculationScreen: React.FC = () => {
                       {'Hesaplanacak Ücret:'}
                     </Text>
                     <TextInput
+                      ref={inputRef}
                       style={[
                         styles.input,
                         { 
@@ -135,6 +156,7 @@ const SMMCalculationScreen: React.FC = () => {
                       ]}
                       value={mediationFee === '' ? '' : formatKurusToTlString(mediationFee)}
                       onChangeText={handleMediationFeeChange}
+                      onFocus={handleInputFocus}
                       placeholder={`Hesaplanacak Ücreti Girin`}
                       placeholderTextColor={theme.colors.text.secondary || '#666666'}
                       keyboardType="numeric"
@@ -237,7 +259,7 @@ const styles = StyleSheet.create({
   scrollContent: {
     flexGrow: 1,
     paddingTop: 20, // Reduced from 70 to 20
-    paddingBottom: 0, // Changed from 20 to 0
+    paddingBottom: 30, // Increased to provide scroll space
     paddingHorizontal: '5%', // Reduced from 7.5% to match tabbar width
     minHeight: '100%',
     width: '100%',

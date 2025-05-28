@@ -151,3 +151,38 @@ export const DISPUTE_TYPE_KEYWORDS = {
   RENT: 'Kira',
   PARTNERSHIP: 'Ortaklık',
 } as const;
+
+// Responsive design constants
+export const RESPONSIVE_DESIGN = {
+  // Screen height breakpoints for different device sizes
+  SCREEN_HEIGHT_BREAKPOINTS: {
+    SMALL: 700,   // iPhone SE and similar small devices
+    MEDIUM: 800,  // iPhone 8, X, 11, 12, 13, 14
+    // LARGE: 800+ // iPhone Plus, Pro Max and larger devices
+  },
+  
+  // Dynamic padding values for keyboard avoidance
+  KEYBOARD_AVOIDANCE_PADDING: {
+    SMALL_SCREEN: 70,   // For screens < 700px height
+    MEDIUM_SCREEN: 50,  // For screens 700-800px height  
+    LARGE_SCREEN: 30,   // For screens > 800px height
+  },
+  
+  // Scroll offset constants for input focus
+  INPUT_FOCUS_SCROLL: {
+    TOP_OFFSET: 150,        // Pixels from top when scrolling to focused input
+    SCROLL_DELAY: 100,      // Milliseconds delay before scrolling
+    ANIMATION_DURATION: 300, // Scroll animation duration
+  },
+} as const;
+
+// Utility function to get dynamic padding based on screen height
+export const getDynamicKeyboardPadding = (screenHeight: number): number => {
+  if (screenHeight < RESPONSIVE_DESIGN.SCREEN_HEIGHT_BREAKPOINTS.SMALL) {
+    return RESPONSIVE_DESIGN.KEYBOARD_AVOIDANCE_PADDING.SMALL_SCREEN;
+  } else if (screenHeight < RESPONSIVE_DESIGN.SCREEN_HEIGHT_BREAKPOINTS.MEDIUM) {
+    return RESPONSIVE_DESIGN.KEYBOARD_AVOIDANCE_PADDING.MEDIUM_SCREEN;
+  } else {
+    return RESPONSIVE_DESIGN.KEYBOARD_AVOIDANCE_PADDING.LARGE_SCREEN;
+  }
+};
