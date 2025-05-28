@@ -1,9 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Linking, Alert, Share, Image } from 'react-native';
 import Clipboard from '@react-native-clipboard/clipboard';
-import { useNavigation } from '@react-navigation/native';
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import type { RootStackParamList } from '../navigation/AppNavigator';
 import { useTheme } from '../theme/ThemeContext';
 import ThemedBackground from '../components/common/ThemedBackground';
 import { ThemedCard } from '../components/common/ThemedCard';
@@ -11,9 +8,9 @@ import ThemedButton from '../components/common/ThemedButton';
 import ScreenHeader from '../components/common/ScreenHeader';
 import { aboutData } from '../constants/aboutData';
 import ScreenContainer from '../components/common/ScreenContainer';
+import { LAYOUT_CONSTANTS } from '../constants/dimensions';
 
 const AboutScreen = () => {
-  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const theme = useTheme();
 
   const handleEmailPress = async () => {
@@ -54,31 +51,11 @@ const AboutScreen = () => {
     }
   };
 
-  const handleShare = async () => {
-    try {
-      const shareOptions = {
-        message: `${aboutData.appInfo.title} - ${aboutData.appInfo.description}\n\nBize ulaşın: ${aboutData.contact.email}`,
-        url: aboutData.contact.website,
-        title: aboutData.appInfo.title
-      };
-      
-      const result = await Share.share(shareOptions);
-      
-      if (result.action === Share.sharedAction) {
-        if (result.activityType) {
-          // Shared with activity type
-          console.log(`Shared via: ${result.activityType}`);
-        } else {
-          // Shared
-          console.log('Shared successfully');
-        }
-      } else if (result.action === Share.dismissedAction) {
-        // Dismissed
-        console.log('Share dismissed');
-      }
-    } catch (error) {
-      Alert.alert(`Hata`, `Paylaşım yapılamadı.`);
-    }
+  const handleShare = () => {
+    Alert.alert(
+      `Bilgi`,
+      `Uygulama henüz mağazada yayınlanmadı. Çok yakında paylaşabileceksiniz.`
+    );
   };
 
   return (
@@ -86,7 +63,7 @@ const AboutScreen = () => {
       {/* Header with ScreenHeader component */}
       <ScreenHeader title="Hakkımızda" />
       
-      <ScreenContainer paddingTop={10} marginBottom={110}>
+      <ScreenContainer paddingTop={LAYOUT_CONSTANTS.SCREEN_CONTAINER.DEFAULT_PADDING_TOP} marginBottom={LAYOUT_CONSTANTS.SCREEN_CONTAINER.DEFAULT_MARGIN_BOTTOM}>
         <View style={styles.contentContainer}>
           {/* App Info Card */}
           <ThemedCard style={styles.sectionCard}>
@@ -170,7 +147,7 @@ const AboutScreen = () => {
               style={styles.feedbackButton}
             />
           </View>
-          <View style={{ height: 100 }} />
+          <View style={{ height: LAYOUT_CONSTANTS.ABOUT_SCREEN.SPACER_HEIGHT }} />
         </View>
       </ScreenContainer>
     </ThemedBackground>
@@ -185,79 +162,79 @@ const styles = StyleSheet.create({
   },
   titleText: {
     textAlign: 'center',
-    marginBottom: 25,
+    marginBottom: LAYOUT_CONSTANTS.ABOUT_SCREEN.TITLE_MARGIN_BOTTOM,
   },
   sectionCard: {
-    width: '90%',
-    padding: 20,
-    marginBottom: 25,
-    borderRadius: 10,
-    elevation: 3,
+    width: LAYOUT_CONSTANTS.ABOUT_SCREEN.SECTION_CARD.WIDTH,
+    padding: LAYOUT_CONSTANTS.ABOUT_SCREEN.SECTION_CARD.PADDING,
+    marginBottom: LAYOUT_CONSTANTS.ABOUT_SCREEN.SECTION_CARD.MARGIN_BOTTOM,
+    borderRadius: LAYOUT_CONSTANTS.ABOUT_SCREEN.SECTION_CARD.BORDER_RADIUS,
+    elevation: LAYOUT_CONSTANTS.ABOUT_SCREEN.SECTION_CARD.ELEVATION,
   },
   cardTitle: {
-    marginBottom: 15,
-    fontSize: 18,
+    marginBottom: LAYOUT_CONSTANTS.SPACING.MD,
+    fontSize: LAYOUT_CONSTANTS.FONT_SIZES.X_LARGE,
     fontWeight: '600',
   },
   cardText: {
-    fontSize: 16,
-    lineHeight: 24,
-    marginBottom: 10,
+    fontSize: LAYOUT_CONSTANTS.FONT_SIZES.LARGE,
+    lineHeight: LAYOUT_CONSTANTS.ABOUT_SCREEN.LINE_HEIGHT,
+    marginBottom: LAYOUT_CONSTANTS.SPACING.MD,
     textAlign: 'justify',
-    paddingHorizontal: 5,
+    paddingHorizontal: LAYOUT_CONSTANTS.ABOUT_SCREEN.TEXT_PADDING_HORIZONTAL,
   },
   versionText: {
-    fontSize: 14,
+    fontSize: LAYOUT_CONSTANTS.FONT_SIZES.MEDIUM,
     fontStyle: 'italic',
-    marginTop: 10,
+    marginTop: LAYOUT_CONSTANTS.ABOUT_SCREEN.VERSION_TEXT_MARGIN_TOP,
     textAlign: 'right',
   },
   contactItem: {
     flexDirection: 'row',
-    marginBottom: 15,
+    marginBottom: LAYOUT_CONSTANTS.ABOUT_SCREEN.CONTACT_ITEM.MARGIN_BOTTOM,
     alignItems: 'center',
-    paddingVertical: 6,
-    paddingHorizontal: 8,
-    borderRadius: 5,
-    backgroundColor: 'rgba(0, 0, 0, 0.03)',
+    paddingVertical: LAYOUT_CONSTANTS.ABOUT_SCREEN.CONTACT_ITEM.PADDING_VERTICAL,
+    paddingHorizontal: LAYOUT_CONSTANTS.ABOUT_SCREEN.CONTACT_ITEM.PADDING_HORIZONTAL,
+    borderRadius: LAYOUT_CONSTANTS.ABOUT_SCREEN.CONTACT_ITEM.BORDER_RADIUS,
+    backgroundColor: `rgba(0, 0, 0, ${LAYOUT_CONSTANTS.ABOUT_SCREEN.CONTACT_ITEM.BACKGROUND_OPACITY})`,
   },
   contactLabel: {
-    fontSize: 16,
-    marginRight: 10,
+    fontSize: LAYOUT_CONSTANTS.FONT_SIZES.LARGE,
+    marginRight: LAYOUT_CONSTANTS.SPACING.MD,
     fontWeight: '500',
   },
   contactValue: {
-    fontSize: 16,
+    fontSize: LAYOUT_CONSTANTS.FONT_SIZES.LARGE,
     textDecorationLine: 'underline',
   },
   shareButton: {
-    marginTop: 15,
+    marginTop: LAYOUT_CONSTANTS.ABOUT_SCREEN.SHARE_BUTTON_MARGIN_TOP,
     width: '100%',
   },
   appInfoHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 15,
+    marginBottom: LAYOUT_CONSTANTS.SPACING.MD,
   },
   appLogo: {
-    width: 40,
-    height: 40,
-    marginRight: 10,
+    width: LAYOUT_CONSTANTS.ABOUT_SCREEN.APP_LOGO.WIDTH,
+    height: LAYOUT_CONSTANTS.ABOUT_SCREEN.APP_LOGO.HEIGHT,
+    marginRight: LAYOUT_CONSTANTS.ABOUT_SCREEN.APP_LOGO.MARGIN_RIGHT,
   },
   copyrightText: {
-    fontSize: 14,
+    fontSize: LAYOUT_CONSTANTS.FONT_SIZES.MEDIUM,
     textAlign: 'center',
-    marginTop: 10,
-    marginBottom: 20,
+    marginTop: LAYOUT_CONSTANTS.ABOUT_SCREEN.COPYRIGHT_MARGIN_TOP,
+    marginBottom: LAYOUT_CONSTANTS.ABOUT_SCREEN.COPYRIGHT_MARGIN_BOTTOM,
   },
   feedbackContainer: {
-    width: '90%',
+    width: LAYOUT_CONSTANTS.ABOUT_SCREEN.SECTION_CARD.WIDTH,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 20,
+    marginBottom: LAYOUT_CONSTANTS.SPACING.LG,
   },
   feedbackButton: {
-    width: '48%',
+    width: LAYOUT_CONSTANTS.ABOUT_SCREEN.FEEDBACK_BUTTON.WIDTH,
   }
 });
 

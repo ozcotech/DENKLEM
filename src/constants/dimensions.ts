@@ -87,4 +87,38 @@ export const LAYOUT_CONSTANTS = {
     SHADOW_RADIUS: 15,
     ELEVATION: 8,
   },
+
+  // About screen specific constants
+  ABOUT_SCREEN: {
+    SECTION_CARD: {
+      WIDTH: '90%',
+      PADDING: 20,
+      MARGIN_BOTTOM: 25,
+      BORDER_RADIUS: 10,
+      ELEVATION: 3,
+    },
+    APP_LOGO: {
+      WIDTH: 40,
+      HEIGHT: 40,
+      MARGIN_RIGHT: 10,
+    },
+    CONTACT_ITEM: {
+      MARGIN_BOTTOM: 15,
+      PADDING_VERTICAL: 6,
+      PADDING_HORIZONTAL: 8,
+      BORDER_RADIUS: 5,
+      BACKGROUND_OPACITY: 0.03,
+    },
+    FEEDBACK_BUTTON: {
+      WIDTH: '48%',
+    },
+    SPACER_HEIGHT: 100,
+    LINE_HEIGHT: 24,
+    SHARE_BUTTON_MARGIN_TOP: 15,
+    COPYRIGHT_MARGIN_TOP: 10,
+    COPYRIGHT_MARGIN_BOTTOM: 20,
+    TITLE_MARGIN_BOTTOM: 25,
+    TEXT_PADDING_HORIZONTAL: 5,
+    VERSION_TEXT_MARGIN_TOP: 10,
+  },
 } as const;

@@ -1,17 +1,17 @@
 export const aboutData = {
   appInfo: {
-    title: "Arabuluculuk Ücreti Hesaplama",
-    description: "Bu uygulama, Türkiye'de arabuluculuk süreçlerinde ücret hesaplamalarını kolaylaştırmak için geliştirilmiştir. Hem vatandaşların hem de arabulucular, avukatlar ve tüm hukuk camiasının kullanabileceği şekilde tasarlanmış olup, 2025 yılı arabuluculuk tarifesine uygun ücret hesaplaması yapar.",
-    version: "1.0.0",
+    title: "Arabuluculuk Ücreti Hesaplama Uygulaması",
+    description: "Bu uygulama, Türkiye'de arabuluculuk süreçlerinde ücret hesaplamalarını kolaylaştırmak için geliştirilmiştir. Hem vatandaşların hem de arabulucular, avukatlar ve diğer hukuk profesyonelleri tarafından kolaylıkla kullanabileceği şekilde tasarlanmış olup, 2025 yılı arabuluculuk tarifesine uygun ücret hesaplaması yapar.",
+    version: "2025.1.0.0",
   },
   sections: [
     {
       title: "Uygulama Hakkında",
-      content: "Arabuluculuk Ücreti Hesaplama uygulaması, arabuluculuk sürecine dahil olan vatandaşlar ve hukuk profesyonelleri için geliştirilmiş pratik bir araçtır. Uygulama, 2025 yılı resmi tarifelerine uygun olarak anlaşmalı ve anlaşmasız arabuluculuk ücretlerini hesaplar, süre hesaplaması yapar ve SMM (Serbest Meslek Makbuzu) düzenlemesi için gerekli vergileri otomatik olarak hesaplar. Arabuluculuk sürecindeki taraflar, bu uygulama sayesinde olası masrafları önceden öğrenebilir."
+      content: "Arabuluculuk Ücreti Hesaplama uygulaması, arabuluculuk sürecine dahil olan vatandaşlar ve hukuk profesyonelleri için geliştirilmiş pratik bir araçtır. Uygulama, 2025 yılı resmi tarifelerine uygun olarak anlaşmalı ve anlaşmasız arabuluculuk ücretlerini hesaplar, süre hesaplaması yapar ve SMM (Serbest Meslek Makbuzu) düzenlemesi için gerekli vergileri otomatik olarak hesaplar. Hiçbir reklam içermez, kişisel veri talep etmez ve saklamaz. İnternet bağlantısı olmadan da çalışabilir ve tamamen ücretsizdir. Arabuluculuk sürecindeki taraflar, bu uygulama sayesinde olası masrafları önceden öğrenebilir."
     },
     {
       title: "Biz Kimiz",
-      content: "OZCO Studio olarak, vatandaşların ve hukuk profesyonellerinin günlük hayatlarını kolaylaştıracak teknolojik çözümler sunmaktayız. Arabuluculuk Ücreti Hesaplama uygulaması, hukuki süreçleri hem arabulucular ve avukatlar, hem de vatandaşlar için daha anlaşılır ve erişilebilir kılmak için geliştirdiğimiz ürünlerden biridir. Amacımız, karmaşık hesaplamaları basitleştirerek tüm tarafları bilgilendirmektir."
+      content: "OZCO Studio, bireysel bir yazılım geliştirme girişimi olarak hayata geçirilmiştir. Herhangi bir şirket ya da kurumla bağlantılı değildir. Arabuluculuk Ücreti Hesaplama uygulaması, bireysel bir hukuk yazılımı çalışması olarak oluşturulmuş, hukuki süreçleri hem vatandaşlar hem de hukuk profesyonelleri için daha anlaşılır ve erişilebilir hale getirmek amacıyla geliştirilmiştir. Amacımız, karmaşık hesaplamaları basitleştirerek tarafların daha sağlıklı karar verebilmesini sağlamaktır."
     },
     {
       title: "Yasal Uyarı",
