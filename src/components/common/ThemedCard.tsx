@@ -1,10 +1,11 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, StyleProp, ViewStyle } from 'react-native';
 import { useTheme } from '../../theme/ThemeContext';
+import { LAYOUT_CONSTANTS } from '../../constants/dimensions';
 
 interface ThemedCardProps {
   children: React.ReactNode;
-  style?: object;
+  style?: StyleProp<ViewStyle>;
 }
 
 export const ThemedCard: React.FC<ThemedCardProps> = ({ children, style }) => {
@@ -29,17 +30,17 @@ export const ThemedCard: React.FC<ThemedCardProps> = ({ children, style }) => {
 
 const styles = StyleSheet.create({
   card: {
-    width: '85%',
-    padding: '5%',
+    width: LAYOUT_CONSTANTS.CARD.DEFAULT_WIDTH,
+    padding: LAYOUT_CONSTANTS.CARD.DEFAULT_PADDING,
     alignItems: 'center',
     justifyContent: 'center',
-    alignSelf: 'center', 
+    alignSelf: 'center',
     shadowOffset: {
-      width: 0,
-      height: 10,
+      width: LAYOUT_CONSTANTS.CARD.SHADOW_OFFSET.WIDTH,
+      height: LAYOUT_CONSTANTS.CARD.SHADOW_OFFSET.HEIGHT,
     },
-    shadowOpacity: 0.25,
-    shadowRadius: 15,
-    elevation: 8,
+    shadowOpacity: LAYOUT_CONSTANTS.CARD.SHADOW_OPACITY,
+    shadowRadius: LAYOUT_CONSTANTS.CARD.SHADOW_RADIUS,
+    elevation: LAYOUT_CONSTANTS.CARD.ELEVATION,
   },
 });

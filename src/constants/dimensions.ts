@@ -49,4 +49,42 @@ export const LAYOUT_CONSTANTS = {
     FULL_SIZE: '100%',
     FADE_DURATION: 0,
   },
+
+  // Button component constants
+  BUTTON: {
+    PADDING_VERTICAL: 12,
+    PADDING_HORIZONTAL: 24,
+    BORDER_RADIUS: 18,
+    BORDER_WIDTH: 0.5,
+    DEFAULT_WIDTH: '85%',
+    SHADOW_OFFSET: {
+      WIDTH: 0,
+      HEIGHT: 2,
+    },
+    SHADOW_OPACITY: 0.2,
+    SHADOW_RADIUS: 3,
+    ELEVATION: 3,
+    // Animation constants
+    SCALE_PRESSED: 0.95,
+    SCALE_NORMAL: 1,
+    ANIMATION_FRICTION: 3,
+    ANIMATION_TENSION: 40,
+    // Icon spacing
+    ICON_MARGIN_RIGHT: 8,
+    // Alternative padding for icon buttons
+    PADDING_HORIZONTAL_WITH_ICON: 30,
+  },
+
+  // Card component constants
+  CARD: {
+    DEFAULT_WIDTH: '85%',
+    DEFAULT_PADDING: '5%',
+    SHADOW_OFFSET: {
+      WIDTH: 0,
+      HEIGHT: 10,
+    },
+    SHADOW_OPACITY: 0.25,
+    SHADOW_RADIUS: 15,
+    ELEVATION: 8,
+  },
 } as const;

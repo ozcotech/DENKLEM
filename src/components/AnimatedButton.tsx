@@ -10,6 +10,7 @@ import {
   StyleProp,
   View,
 } from 'react-native';
+import { LAYOUT_CONSTANTS } from '../constants/dimensions';
 
 interface AnimatedButtonProps {
   title: string;
@@ -24,16 +25,16 @@ const AnimatedButton: React.FC<AnimatedButtonProps> = ({ title, onPress, style, 
 
   const handlePressIn = () => {
     Animated.spring(scaleAnim, {
-      toValue: 0.95,
+      toValue: LAYOUT_CONSTANTS.BUTTON.SCALE_PRESSED,
       useNativeDriver: true,
     }).start();
   };
 
   const handlePressOut = () => {
     Animated.spring(scaleAnim, {
-      toValue: 1,
-      friction: 3,
-      tension: 40,
+      toValue: LAYOUT_CONSTANTS.BUTTON.SCALE_NORMAL,
+      friction: LAYOUT_CONSTANTS.BUTTON.ANIMATION_FRICTION,
+      tension: LAYOUT_CONSTANTS.BUTTON.ANIMATION_TENSION,
       useNativeDriver: true,
     }).start();
   };
@@ -58,19 +59,19 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: 'transparent',
     borderColor: '#fff',
-    borderWidth: 0.5, 
-    borderRadius: 18, 
-    paddingVertical: 12,
-    paddingHorizontal: 30,
+    borderWidth: LAYOUT_CONSTANTS.BUTTON.BORDER_WIDTH,
+    borderRadius: LAYOUT_CONSTANTS.BUTTON.BORDER_RADIUS,
+    paddingVertical: LAYOUT_CONSTANTS.BUTTON.PADDING_VERTICAL,
+    paddingHorizontal: LAYOUT_CONSTANTS.BUTTON.PADDING_HORIZONTAL_WITH_ICON,
     alignItems: 'center',
     justifyContent: 'center',
     shadowOffset: {
-      width: 0,
-      height: 2,
+      width: LAYOUT_CONSTANTS.BUTTON.SHADOW_OFFSET.WIDTH,
+      height: LAYOUT_CONSTANTS.BUTTON.SHADOW_OFFSET.HEIGHT,
     },
-    shadowOpacity: 0.2,
-    shadowRadius: 3,
-    elevation: 3,
+    shadowOpacity: LAYOUT_CONSTANTS.BUTTON.SHADOW_OPACITY,
+    shadowRadius: LAYOUT_CONSTANTS.BUTTON.SHADOW_RADIUS,
+    elevation: LAYOUT_CONSTANTS.BUTTON.ELEVATION,
   },
   buttonContent: {
     flexDirection: 'row',
@@ -78,11 +79,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   iconContainer: {
-    marginRight: 8,
+    marginRight: LAYOUT_CONSTANTS.BUTTON.ICON_MARGIN_RIGHT,
   },
   text: {
     color: '#fff',
-    fontSize: 18,
+    fontSize: LAYOUT_CONSTANTS.FONT_SIZES.X_LARGE,
     fontWeight: 'bold',
   },
 });

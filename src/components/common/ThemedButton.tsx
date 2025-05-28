@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react';
 import { StyleSheet, StyleProp, ViewStyle, TextStyle } from 'react-native';
 import { useTheme } from '../../theme/ThemeContext';
+import { LAYOUT_CONSTANTS } from '../../constants/dimensions';
 import AnimatedButton from '../AnimatedButton';
 
 interface ThemedButtonProps {
@@ -46,22 +47,21 @@ const ThemedButton: React.FC<ThemedButtonProps> = ({
 const styles = StyleSheet.create({
   button: {
     backgroundColor: 'transparent',
-    paddingVertical: 12,
-    paddingHorizontal: 24,
-    borderRadius: 18, 
-    borderWidth: 0.5, 
-    width: '85%',
+    paddingVertical: LAYOUT_CONSTANTS.BUTTON.PADDING_VERTICAL,
+    paddingHorizontal: LAYOUT_CONSTANTS.BUTTON.PADDING_HORIZONTAL,
+    borderRadius: LAYOUT_CONSTANTS.BUTTON.BORDER_RADIUS,
+    borderWidth: LAYOUT_CONSTANTS.BUTTON.BORDER_WIDTH,
+    width: LAYOUT_CONSTANTS.BUTTON.DEFAULT_WIDTH,
     shadowOffset: {
-      width: 0,
-      height: 2,
+      width: LAYOUT_CONSTANTS.BUTTON.SHADOW_OFFSET.WIDTH,
+      height: LAYOUT_CONSTANTS.BUTTON.SHADOW_OFFSET.HEIGHT,
     },
-    shadowOpacity: 0.2, 
-    shadowRadius: 3,
-    elevation: 3,
+    shadowOpacity: LAYOUT_CONSTANTS.BUTTON.SHADOW_OPACITY,
+    shadowRadius: LAYOUT_CONSTANTS.BUTTON.SHADOW_RADIUS,
+    elevation: LAYOUT_CONSTANTS.BUTTON.ELEVATION,
     alignItems: 'center',
   },
   buttonText: {
-    
     textAlign: 'center',
   },
 });
