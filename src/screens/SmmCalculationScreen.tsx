@@ -95,6 +95,7 @@ const SMMCalculationScreen: React.FC = () => {
     <ThemedBackground>
       <ScreenHeader 
         title="SMM Hesaplama" 
+        subtitle="(Tevkifat sınırı gözetilmeden hesaplanmaktadır)"
         useCard={true} 
         isScrollable={true} 
         marginBottom={0} 
@@ -120,7 +121,7 @@ const SMMCalculationScreen: React.FC = () => {
                   {/* Input Section */}
                   <View style={styles.inputSection}>
                     <Text style={[styles.label, { color: theme.colors.text.primary }]}>
-                      {'Arabuluculuk Ücreti:'}
+                      {'Hesaplanacak Ücret:'}
                     </Text>
                     <TextInput
                       style={[
@@ -134,7 +135,7 @@ const SMMCalculationScreen: React.FC = () => {
                       ]}
                       value={mediationFee === '' ? '' : formatKurusToTlString(mediationFee)}
                       onChangeText={handleMediationFeeChange}
-                      placeholder={`Arabuluculuk Ücretini Girin`}
+                      placeholder={`Hesaplanacak Ücreti Girin`}
                       placeholderTextColor={theme.colors.text.secondary || '#666666'}
                       keyboardType="numeric"
                       maxLength={18}

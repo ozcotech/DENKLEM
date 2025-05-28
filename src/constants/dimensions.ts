@@ -122,3 +122,32 @@ export const LAYOUT_CONSTANTS = {
     VERSION_TEXT_MARGIN_TOP: 10,
   },
 } as const;
+
+// Tariff calculation constants
+export const TARIFF_CALCULATION = {
+  MINIMUM_HOURS_MULTIPLIER: 2, // Non-agreement cases require minimum 2 hours calculation
+  VALIDATION: {
+    MIN_PARTY_COUNT: 0,
+    MIN_AMOUNT: 0,
+  },
+  ARRAY_ACCESS: {
+    LAST_INDEX_OFFSET: 1, // For accessing last element: array.length - 1
+  },
+} as const;
+
+// Dispute type constants for type safety
+export const DISPUTE_TYPES = {
+  DEFAULT: 'Diğer',
+  COMMERCIAL: 'Ticari',
+  RENT: 'Kira',
+  PARTNERSHIP_DISSOLUTION: 'Ortaklığın Giderilmesi',
+  WORKER_EMPLOYER: 'İşçi-İşveren',
+  CONSUMER: 'Tüketici',
+  FAMILY: 'Aile',
+} as const;
+
+// Dispute type keywords for mapping
+export const DISPUTE_TYPE_KEYWORDS = {
+  RENT: 'Kira',
+  PARTNERSHIP: 'Ortaklık',
+} as const;
