@@ -3,6 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '../../theme/ThemeContext';
 import { ThemedCard } from './ThemedCard';
+import { LAYOUT_CONSTANTS } from '../../constants/dimensions';
 
 interface ScreenHeaderProps {
   title: string;
@@ -17,7 +18,7 @@ const ScreenHeader: React.FC<ScreenHeaderProps> = ({
   subtitle, 
   useCard = false, // Default to normal header
   isScrollable = false, // Default to non-scrollable
-  marginBottom = 10 // Default margin bottom
+  marginBottom = LAYOUT_CONSTANTS.SCREEN_HEADER.DEFAULT_MARGIN_BOTTOM // Default margin bottom
 }) => {
   const theme = useTheme();
   const insets = useSafeAreaInsets();
@@ -39,7 +40,10 @@ const ScreenHeader: React.FC<ScreenHeaderProps> = ({
     return (
       <View style={[
         styles.headerContainer, 
-        { marginTop: insets.top + 10, marginBottom: marginBottom },
+        { 
+          marginTop: insets.top + LAYOUT_CONSTANTS.SCREEN_HEADER.TOP_OFFSET, 
+          marginBottom: marginBottom 
+        },
         !isScrollable && styles.absolutePosition // Only absolute for non-scrollable (StartScreen)
       ]}>
         <ThemedCard style={styles.headerCard}>
@@ -50,7 +54,13 @@ const ScreenHeader: React.FC<ScreenHeaderProps> = ({
   }
 
   return (
-    <View style={[styles.header, { marginTop: insets.top + 10, marginBottom: marginBottom }]}>
+    <View style={[
+      styles.header, 
+      { 
+        marginTop: insets.top + LAYOUT_CONSTANTS.SCREEN_HEADER.TOP_OFFSET, 
+        marginBottom: marginBottom 
+      }
+    ]}>
       {content}
     </View>
   );
@@ -60,38 +70,38 @@ const styles = StyleSheet.create({
   headerContainer: {
     width: '100%',
     alignItems: 'center',
-    marginBottom: 10,
+    marginBottom: LAYOUT_CONSTANTS.SCREEN_HEADER.DEFAULT_MARGIN_BOTTOM,
   },
   absolutePosition: {
     position: 'absolute',
     top: 0,
-    zIndex: 10,
+    zIndex: LAYOUT_CONSTANTS.SCREEN_HEADER.Z_INDEX,
     width: '100%',
   },
   headerCard: {
-    width: '90%',
-    padding: 15,
-    borderRadius: 10,
+    width: LAYOUT_CONSTANTS.SCREEN_HEADER.WIDTH_PERCENTAGE,
+    padding: LAYOUT_CONSTANTS.SCREEN_HEADER.PADDING,
+    borderRadius: LAYOUT_CONSTANTS.SCREEN_HEADER.BORDER_RADIUS,
     alignItems: 'center',
   },
   header: {
-    padding: 15,
-    borderRadius: 10,
-    marginBottom: 10,
+    padding: LAYOUT_CONSTANTS.SCREEN_HEADER.PADDING,
+    borderRadius: LAYOUT_CONSTANTS.SCREEN_HEADER.BORDER_RADIUS,
+    marginBottom: LAYOUT_CONSTANTS.SCREEN_HEADER.DEFAULT_MARGIN_BOTTOM,
     alignItems: 'center',
     backgroundColor: 'rgba(255, 255, 255, 0.1)',
-    width: '90%',
+    width: LAYOUT_CONSTANTS.SCREEN_HEADER.WIDTH_PERCENTAGE,
     alignSelf: 'center',
   },
   headerText: {
     textAlign: 'center',
-    fontSize: 20,
+    fontSize: LAYOUT_CONSTANTS.FONT_SIZES.XX_LARGE,
     fontWeight: 'bold',
-    marginBottom: 5,
+    marginBottom: LAYOUT_CONSTANTS.SPACING.XS,
   },
   subtitle: {
     textAlign: 'center',
-    fontSize: 14,
+    fontSize: LAYOUT_CONSTANTS.FONT_SIZES.MEDIUM,
     fontStyle: 'italic',
   },
 });

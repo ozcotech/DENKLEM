@@ -13,6 +13,16 @@ export const LAYOUT_CONSTANTS = {
     DEFAULT_SCROLL_END_PADDING: 20,
   },
   
+  // Screen header default values
+  SCREEN_HEADER: {
+    DEFAULT_MARGIN_BOTTOM: 10,
+    TOP_OFFSET: 10,
+    WIDTH_PERCENTAGE: '90%',
+    PADDING: 15,
+    BORDER_RADIUS: 10,
+    Z_INDEX: 10,
+  },
+  
   // Common spacing values
   SPACING: {
     XS: 4,
@@ -21,5 +31,15 @@ export const LAYOUT_CONSTANTS = {
     LG: 24,
     XL: 32,
     XXL: 48,
+  },
+  
+  // Font sizes
+  FONT_SIZES: {
+    SMALL: 12,
+    MEDIUM: 14,
+    LARGE: 16,
+    X_LARGE: 18,
+    XX_LARGE: 20,
+    XXX_LARGE: 24,
   },
 } as const;
