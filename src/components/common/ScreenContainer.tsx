@@ -1,41 +1,38 @@
 import React, { ReactNode } from 'react';
-import { ScrollView, StyleSheet, View, ViewStyle, StyleProp } from 'react-native'; // Added ViewStyle, StyleProp
+import { ScrollView, StyleSheet, View, ViewStyle, StyleProp } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useTheme } from '../../theme/ThemeContext';
+import { LAYOUT_CONSTANTS } from '../../constants/dimensions';
 
 interface ScreenContainerProps {
   children: ReactNode;
   paddingTop?: number;
   marginBottom?: number;
   scrollable?: boolean;
-  scrollEndPadding?: number; // Added new prop
+  scrollEndPadding?: number;
 }
-
-const TAB_BAR_HEIGHT = 50; // Height of CustomTabBar
 
 const ScreenContainer: React.FC<ScreenContainerProps> = ({
   children,
-  paddingTop = 40,
-  marginBottom = 140,
+  paddingTop = LAYOUT_CONSTANTS.SCREEN_CONTAINER.DEFAULT_PADDING_TOP,
+  marginBottom = LAYOUT_CONSTANTS.SCREEN_CONTAINER.DEFAULT_MARGIN_BOTTOM,
   scrollable = true,
-  scrollEndPadding = 20, // Added new prop with default value
+  scrollEndPadding = LAYOUT_CONSTANTS.SCREEN_CONTAINER.DEFAULT_SCROLL_END_PADDING,
 }) => {
   const insets = useSafeAreaInsets();
-  const theme = useTheme(); // theme is used but not directly in the logic being changed here
 
   // Common style for the content area (whether ScrollView's contentContainer or View)
   const contentAreaStyle: StyleProp<ViewStyle> = [
-    styles.container, // Includes flexGrow: 1, alignItems: 'center', width: '100%', minHeight: '100%'
+    styles.container,
     {
       paddingTop,
-      paddingBottom: TAB_BAR_HEIGHT + insets.bottom + scrollEndPadding, // Used new prop
+      paddingBottom: LAYOUT_CONSTANTS.TAB_BAR_HEIGHT + insets.bottom + scrollEndPadding,
     },
   ];
 
   // Common style for the outer ScrollView or View element
   const outerElementStyle: StyleProp<ViewStyle> = [
-    styles.scrollView, // Includes width: '100%'
-    { marginBottom: marginBottom }, // Using marginBottom value received as prop
+    styles.scrollView,
+    { marginBottom: marginBottom },
   ];
 
   if (scrollable) {
@@ -50,8 +47,7 @@ const ScreenContainer: React.FC<ScreenContainerProps> = ({
       </ScrollView>
     );
   } else {
-    // For non-scrollable, contentAreaStyle and outerElementStyle are combined for the View
-    // styles.container has flexGrow: 1, which is crucial for the View to expand
+    // For non-scrollable content
     return (
       <View style={[outerElementStyle, contentAreaStyle]}>
         {children}
@@ -68,7 +64,6 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     alignItems: 'center',
     width: '100%',
-    // minHeight: '100%', // Removed to prevent overlap when not scrollable
   },
 });
 
