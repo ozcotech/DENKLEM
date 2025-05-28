@@ -1,32 +1,73 @@
 import React from 'react';
 import { View, TouchableOpacity, Image, StyleSheet, Platform, Text } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '../../theme/ThemeContext';
-import { RootTabParamList } from '../../navigation/AppNavigator';
+
+// Tab configuration
+const TAB_CONFIG = [
+  {
+    key: 'Start',
+    icon: require('../../../assets/images/home-icon.png'),
+    label: 'Ana Sayfa',
+    route: 'Start' as const,
+  },
+  {
+    key: 'Legislation',
+    icon: require('../../../assets/images/legislation-icon.png'),
+    label: 'Mevzuat',
+    route: 'Legislation' as const,
+  },
+  {
+    key: 'About',
+    icon: require('../../../assets/images/info-icon.png'),
+    label: 'Hakkında',
+    route: 'About' as const,
+  },
+] as const;
+
+// Style constants
+const STYLE_CONSTANTS = {
+  TAB_BAR_HEIGHT: Platform.OS === 'ios' ? 75 : 70,
+  TAB_BUTTON_SIZE: 75,
+  TAB_ICON_SIZE: 24,
+  BORDER_RADIUS: 28,
+} as const;
 
 /**
  * Custom tab bar component that replaces the default header with bottom navigation
  */
-const CustomTabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
+const CustomTabBar = ({ state, navigation }: BottomTabBarProps) => {
   const theme = useTheme();
-  const insets = useSafeAreaInsets();
 
-  // Determine if we're on the About screen to hide the info button
-  const isOnAboutScreen = state.routes[state.index].name === 'About';
-  
-  // Navigation handlers
-  const navigateToHome = () => {
-    navigation.navigate('Start');
-  };
-
-  const navigateToLegislation = () => {
-    navigation.navigate('Legislation');
-  };
-
-  const navigateToAbout = () => {
-    navigation.navigate('About');
+  // Render tab button
+  const renderTabButton = (tabConfig: typeof TAB_CONFIG[number], index: number) => {
+    const isActive = state.index === index;
+    
+    return (
+      <TouchableOpacity 
+        key={tabConfig.key}
+        style={styles.tabButton} 
+        onPress={() => navigation.navigate(tabConfig.route)}
+      >
+        <View style={styles.tabButtonInner}>
+          <Image
+            source={tabConfig.icon}
+            style={[
+              styles.tabIcon, 
+              { tintColor: isActive ? theme.colors.text.primary : theme.colors.text.secondary }
+            ]}
+          />
+          <Text 
+            style={[
+              styles.tabText, 
+              { color: isActive ? theme.colors.text.primary : theme.colors.text.secondary }
+            ]}
+          >
+            {tabConfig.label}
+          </Text>
+        </View>
+      </TouchableOpacity>
+    );
   };
 
   return (
@@ -36,74 +77,12 @@ const CustomTabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => 
           styles.tabBarContainer, 
           { 
             backgroundColor: theme.colors.card.background,
-            paddingBottom: 0, // Remove bottom padding
             borderTopColor: theme.colors.button.border,
             borderColor: theme.colors.button.border,
           }
         ]}
       >
-      {/* Home Button */}
-      <TouchableOpacity 
-        style={[styles.tabButton, state.index === 0 && styles.activeTab]} 
-        onPress={navigateToHome}
-      >
-        <View style={styles.tabButtonInner}>
-          <Image
-            source={require('../../../assets/images/home-icon.png')}
-            style={[styles.tabIcon, { tintColor: state.index === 0 ? theme.colors.text.primary : theme.colors.text.secondary }]}
-          />
-          <Text 
-            style={[
-              styles.tabText, 
-              { color: state.index === 0 ? theme.colors.text.primary : theme.colors.text.secondary }
-            ]}
-          >
-            Ana Sayfa
-          </Text>
-        </View>
-      </TouchableOpacity>
-
-      {/* Legislation Button */}
-      <TouchableOpacity 
-        style={[styles.tabButton, state.index === 1 && styles.activeTab]} 
-        onPress={navigateToLegislation}
-      >
-        <View style={styles.tabButtonInner}>
-          <Image
-            source={require('../../../assets/images/legislation-icon.png')}
-            style={[styles.tabIcon, { tintColor: state.index === 1 ? theme.colors.text.primary : theme.colors.text.secondary }]}
-          />
-          <Text 
-            style={[
-              styles.tabText, 
-              { color: state.index === 1 ? theme.colors.text.primary : theme.colors.text.secondary }
-            ]}
-          >
-            Mevzuat
-          </Text>
-        </View>
-      </TouchableOpacity>
-
-      {/* Info Button (About Screen) */}
-      <TouchableOpacity 
-        style={[styles.tabButton, state.index === 2 && styles.activeTab]} 
-        onPress={navigateToAbout}
-      >
-        <View style={styles.tabButtonInner}>
-          <Image
-            source={require('../../../assets/images/info-icon.png')}
-            style={[styles.tabIcon, { tintColor: state.index === 2 ? theme.colors.text.primary : theme.colors.text.secondary }]}
-          />
-          <Text 
-            style={[
-              styles.tabText, 
-              { color: state.index === 2 ? theme.colors.text.primary : theme.colors.text.secondary }
-            ]}
-          >
-            Hakkında
-          </Text>
-        </View>
-      </TouchableOpacity>
+        {TAB_CONFIG.map((tabConfig, index) => renderTabButton(tabConfig, index))}
       </View>
     </View>
   );
@@ -114,21 +93,21 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 0,
     right: 0,
-    bottom: 20, // moved down for better positioning
+    bottom: 20,
     alignItems: 'center',
     zIndex: 10,
   },
   tabBarContainer: {
     flexDirection: 'row',
     borderWidth: 0.5,
-    borderRadius: 28, // Slightly increased for better proportion
-    width: '90%', // Increased from 85% to 90% for better coverage
+    borderRadius: STYLE_CONSTANTS.BORDER_RADIUS,
+    width: '90%',
     alignSelf: 'center',
-    height: Platform.OS === 'ios' ? 75 : 70, // Increased height for better touch targets
+    height: STYLE_CONSTANTS.TAB_BAR_HEIGHT,
     alignItems: 'center',
     justifyContent: 'space-around',
     paddingHorizontal: 15,
-    paddingVertical: 0, // Remove padding to allow button height control
+    paddingVertical: 0,
     backgroundColor: '#fff', // fallback, will be overridden by theme
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
@@ -140,18 +119,16 @@ const styles = StyleSheet.create({
   tabButton: {
     alignItems: 'center',
     justifyContent: 'center',
-    width: 75,           
-    height: 75,          
-    borderRadius: 40,    
+    width: STYLE_CONSTANTS.TAB_BUTTON_SIZE,
+    height: STYLE_CONSTANTS.TAB_BUTTON_SIZE,
+    borderRadius: 40,
     overflow: 'hidden',
-    marginHorizontal: 15, 
+    marginHorizontal: 15,
   },
-  activeTab: {
-    backgroundColor: 'rgba(0, 0, 0, 0.05)',
-  },
+  
   tabIcon: {
-    width: 24,
-    height: 24,
+    width: STYLE_CONSTANTS.TAB_ICON_SIZE,
+    height: STYLE_CONSTANTS.TAB_ICON_SIZE,
     marginBottom: 4,
     resizeMode: 'contain',
   },
