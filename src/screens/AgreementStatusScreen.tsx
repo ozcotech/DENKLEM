@@ -8,6 +8,7 @@ import ThemedBackground from '../components/common/ThemedBackground';
 import ThemedButton from '../components/common/ThemedButton';
 import ScreenContainer from '../components/common/ScreenContainer';
 import ScreenHeader from '../components/common/ScreenHeader';
+import { LAYOUT_CONSTANTS } from '../constants/dimensions';
 
 const AgreementStatusScreen = () => {
   // ✅ Turned into a NativeStackNavigationProp for AgreementStatusScreen
@@ -46,8 +47,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center', // Ensures vertical centering
     alignItems: 'center',
     width: '100%',
-    paddingHorizontal: '5%', // Reduced from 7.5% to match tabbar width
-    paddingTop: 60, // Added to push content down
+    paddingHorizontal: LAYOUT_CONSTANTS.AGREEMENT_STATUS_SCREEN.CONTAINER.PADDING_HORIZONTAL,
+    paddingTop: LAYOUT_CONSTANTS.AGREEMENT_STATUS_SCREEN.CONTAINER.PADDING_TOP,
   },
   title: {
     textAlign: 'center',
@@ -65,8 +66,8 @@ const styles = StyleSheet.create({
     flex: 1,
     margin: 5,
     padding: 0, // Reduced padding from 5 to 0
-    height: 140, // Increased height to match DisputeCategoryScreen's halfButton
-    minHeight: 100, // Adjusted minHeight
+    height: LAYOUT_CONSTANTS.AGREEMENT_STATUS_SCREEN.TOGGLE_BUTTON.HEIGHT,
+    minHeight: LAYOUT_CONSTANTS.AGREEMENT_STATUS_SCREEN.TOGGLE_BUTTON.MIN_HEIGHT,
     justifyContent: 'center',
     alignItems: 'center', // Added for text centering
     minWidth: 0, // Ensures buttons can shrink if needed

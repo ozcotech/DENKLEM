@@ -121,6 +121,18 @@ export const LAYOUT_CONSTANTS = {
     TEXT_PADDING_HORIZONTAL: 5,
     VERSION_TEXT_MARGIN_TOP: 10,
   },
+
+  // Agreement Status screen specific constants
+  AGREEMENT_STATUS_SCREEN: {
+    CONTAINER: {
+      PADDING_HORIZONTAL: '5%', // Reduced from 7.5% to match tabbar width
+      PADDING_TOP: 60,          // Added to push content down
+    },
+    TOGGLE_BUTTON: {
+      HEIGHT: 140,      // Increased height to match DisputeCategoryScreen's halfButton
+      MIN_HEIGHT: 100,  // Adjusted minHeight
+    },
+  },
 } as const;
 
 // Tariff calculation constants
