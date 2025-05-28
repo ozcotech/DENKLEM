@@ -27,10 +27,10 @@ const TAB_CONFIG = [
 
 // Style constants
 const STYLE_CONSTANTS = {
-  TAB_BAR_HEIGHT: Platform.OS === 'ios' ? 75 : 70,
-  TAB_BUTTON_SIZE: 75,
-  TAB_ICON_SIZE: 24,
-  BORDER_RADIUS: 28,
+  TAB_BAR_HEIGHT: Platform.OS === 'ios' ? 70 : 65,
+  TAB_BUTTON_SIZE: 70,
+  TAB_ICON_SIZE: 30,
+  BORDER_RADIUS: 18,
 } as const;
 
 /**

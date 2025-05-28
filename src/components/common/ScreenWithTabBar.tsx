@@ -6,11 +6,20 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import CustomTabBar from './CustomTabBar';
 import { RootTabParamList } from '../../navigation/AppNavigator';
 
+// Tab route name constants to eliminate magic strings
+const TAB_ROUTE_NAMES = {
+  START: 'Start',
+  LEGISLATION: 'Legislation', 
+  ABOUT: 'About',
+} as const;
+
+type TabRouteName = typeof TAB_ROUTE_NAMES[keyof typeof TAB_ROUTE_NAMES];
+
 const Tab = createBottomTabNavigator<RootTabParamList>();
 
 interface ScreenWithTabBarProps {
   children: React.ReactNode;
-  currentRoute?: 'Start' | 'Legislation' | 'About';
+  currentRoute?: TabRouteName;
 }
 
 /**
@@ -18,21 +27,35 @@ interface ScreenWithTabBarProps {
  */
 const ScreenWithTabBar: React.FC<ScreenWithTabBarProps> = ({ 
   children, 
-  currentRoute = 'Start' 
+  currentRoute = TAB_ROUTE_NAMES.START 
 }) => {
-  const navigation = useNavigation<any>();
+  const navigation = useNavigation();
   const insets = useSafeAreaInsets();
+
+  // Get current tab index based on currentRoute using constants
+  const getCurrentTabIndex = (): number => {
+    switch (currentRoute) {
+      case TAB_ROUTE_NAMES.START:
+        return 0;
+      case TAB_ROUTE_NAMES.LEGISLATION:
+        return 1;
+      case TAB_ROUTE_NAMES.ABOUT:
+        return 2;
+      default:
+        return 0;
+    }
+  };
 
   // Create mock tab bar props to match BottomTabBarProps interface
   const mockTabBarProps: any = {
     state: {
-      index: currentRoute === 'Start' ? 0 : currentRoute === 'Legislation' ? 1 : 2,
+      index: getCurrentTabIndex(),
       routes: [
-        { key: 'Start', name: 'Start', params: undefined },
-        { key: 'Legislation', name: 'Legislation', params: undefined },
-        { key: 'About', name: 'About', params: undefined },
+        { key: TAB_ROUTE_NAMES.START, name: TAB_ROUTE_NAMES.START, params: undefined },
+        { key: TAB_ROUTE_NAMES.LEGISLATION, name: TAB_ROUTE_NAMES.LEGISLATION, params: undefined },
+        { key: TAB_ROUTE_NAMES.ABOUT, name: TAB_ROUTE_NAMES.ABOUT, params: undefined },
       ],
-      routeNames: ['Start', 'Legislation', 'About'],
+      routeNames: [TAB_ROUTE_NAMES.START, TAB_ROUTE_NAMES.LEGISLATION, TAB_ROUTE_NAMES.ABOUT],
       history: [],
       type: 'tab',
       key: 'tab',
@@ -41,9 +64,11 @@ const ScreenWithTabBar: React.FC<ScreenWithTabBarProps> = ({
     descriptors: {},
     navigation: {
       navigate: (screenName: string) => {
-        if (screenName === 'Start' || screenName === 'Legislation' || screenName === 'About') {
+        // Validate against our defined tab route names
+        const validRoutes = [TAB_ROUTE_NAMES.START, TAB_ROUTE_NAMES.LEGISLATION, TAB_ROUTE_NAMES.ABOUT];
+        if (validRoutes.includes(screenName as TabRouteName)) {
           // Navigate to MainTabs with specific screen
-          navigation.navigate('MainTabs', { screen: screenName });
+          (navigation as any).navigate('MainTabs', { screen: screenName });
         }
       },
       emit: () => ({ defaultPrevented: false }),
