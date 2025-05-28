@@ -2,17 +2,19 @@ import React from 'react';
 import { StyleSheet, StyleProp, ViewStyle, Image } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { useTheme } from '../../theme/ThemeContext';
+import { LAYOUT_CONSTANTS } from '../../constants/dimensions';
+import { ASSET_PATHS } from '../../constants/assets';
 
 interface ThemedBackgroundProps {
   children: React.ReactNode;
   style?: StyleProp<ViewStyle>;
-  showOverlayImage?: boolean; // Yeni prop eklendi
+  showOverlayImage?: boolean;
 }
 
 const ThemedBackground: React.FC<ThemedBackgroundProps> = ({ 
   children, 
   style, 
-  showOverlayImage = false // Varsayılan değer false
+  showOverlayImage = false
 }) => {
   const theme = useTheme();
   
@@ -21,12 +23,12 @@ const ThemedBackground: React.FC<ThemedBackgroundProps> = ({
       colors={theme.colors.background} 
       style={[styles.container, style]}
     >
-      {showOverlayImage && ( // Sadece showOverlayImage true ise render et
+      {showOverlayImage && (
         <Image
-          source={require('../../../assets/images/hand-shake.png')}
+          source={ASSET_PATHS.IMAGES.HAND_SHAKE}
           style={styles.overlayImage}
           resizeMode="cover" 
-          fadeDuration={0} 
+          fadeDuration={LAYOUT_CONSTANTS.BACKGROUND.FADE_DURATION} 
         />
       )}
       {children}
@@ -42,9 +44,9 @@ const styles = StyleSheet.create({
   },
   overlayImage: {
     position: 'absolute',
-    width: '100%',
-    height: '100%',
-    opacity: 0.10,
+    width: LAYOUT_CONSTANTS.BACKGROUND.FULL_SIZE,
+    height: LAYOUT_CONSTANTS.BACKGROUND.FULL_SIZE,
+    opacity: LAYOUT_CONSTANTS.BACKGROUND.OVERLAY_OPACITY,
   },
 });
 

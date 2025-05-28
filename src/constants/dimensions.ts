@@ -42,4 +42,11 @@ export const LAYOUT_CONSTANTS = {
     XX_LARGE: 20,
     XXX_LARGE: 24,
   },
+
+  // Background component constants
+  BACKGROUND: {
+    OVERLAY_OPACITY: 0.1,
+    FULL_SIZE: '100%',
+    FADE_DURATION: 0,
+  },
 } as const;
