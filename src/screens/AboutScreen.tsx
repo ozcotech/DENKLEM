@@ -175,6 +175,7 @@ const styles = StyleSheet.create({
     marginBottom: LAYOUT_CONSTANTS.SPACING.MD,
     fontSize: LAYOUT_CONSTANTS.FONT_SIZES.X_LARGE,
     fontWeight: '600',
+    textAlign: 'center',
   },
   cardText: {
     fontSize: LAYOUT_CONSTANTS.FONT_SIZES.LARGE,
@@ -212,14 +213,14 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   appInfoHeader: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     alignItems: 'center',
     marginBottom: LAYOUT_CONSTANTS.SPACING.MD,
   },
   appLogo: {
     width: LAYOUT_CONSTANTS.ABOUT_SCREEN.APP_LOGO.WIDTH,
     height: LAYOUT_CONSTANTS.ABOUT_SCREEN.APP_LOGO.HEIGHT,
-    marginRight: LAYOUT_CONSTANTS.ABOUT_SCREEN.APP_LOGO.MARGIN_RIGHT,
+    marginBottom: LAYOUT_CONSTANTS.SPACING.SM,
   },
   copyrightText: {
     fontSize: LAYOUT_CONSTANTS.FONT_SIZES.MEDIUM,

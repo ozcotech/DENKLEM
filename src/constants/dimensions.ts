@@ -129,8 +129,8 @@ export const LAYOUT_CONSTANTS = {
       PADDING_TOP: 60,          // Added to push content down
     },
     TOGGLE_BUTTON: {
-      HEIGHT: 140,      // Increased height to match DisputeCategoryScreen's halfButton
-      MIN_HEIGHT: 100,  // Adjusted minHeight
+      HEIGHT: 100,      
+      MIN_HEIGHT: 100,  
     },
   },
 } as const;

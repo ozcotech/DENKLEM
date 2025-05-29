@@ -1,5 +1,11 @@
 import React, { useRef } from 'react';
-import { View, Text, StyleSheet, Dimensions, Vibration, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Dimensions,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import { PanGestureHandler } from 'react-native-gesture-handler';
 import Animated, {
   useSharedValue,
@@ -19,9 +25,9 @@ interface ScrollableToggleButtonProps {
   initialSelection?: boolean; // true for "Anlaşma", false for "Anlaşmama"
 }
 
-const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
+const { width: screenWidth } = Dimensions.get('window');
 const BUTTON_WIDTH = screenWidth * 0.9; // 90% of screen width
-const BUTTON_HEIGHT = 100; // Reduced height for single text view
+const BUTTON_HEIGHT = LAYOUT_CONSTANTS.AGREEMENT_STATUS_SCREEN.TOGGLE_BUTTON.HEIGHT; // Use standard height from constants
 const SWIPE_THRESHOLD = BUTTON_HEIGHT * 0.3; // 30% of button height to trigger change
 
 const ScrollableToggleButton: React.FC<ScrollableToggleButtonProps> = ({
@@ -33,33 +39,46 @@ const ScrollableToggleButton: React.FC<ScrollableToggleButtonProps> = ({
   const translateY = useSharedValue(initialSelection ? 0 : -BUTTON_HEIGHT);
   const currentSelection = useRef(initialSelection);
 
-  // Haptic feedback function - using native Vibration as fallback
-  const triggerHaptic = () => {
-    try {
-      // Simple vibration for haptic feedback
-      Vibration.vibrate(50); // 50ms vibration
-    } catch (error) {
-      // Silently ignore if vibration is not available
-      console.log('Vibration not available');
-    }
+  // Scale animations using Reanimated
+  const scaleAgreement = useSharedValue(1);
+  const scaleDisagreement = useSharedValue(1);
+  const mainButtonScale = useSharedValue(1);
+
+  const handlePressIn = (isAgreement: boolean) => {
+    const scaleValue = isAgreement ? scaleAgreement : scaleDisagreement;
+    mainButtonScale.value = withSpring(LAYOUT_CONSTANTS.BUTTON.SCALE_PRESSED, {
+      damping: 15,
+      stiffness: 150,
+    });
+    scaleValue.value = withSpring(LAYOUT_CONSTANTS.BUTTON.SCALE_PRESSED, {
+      damping: 15,
+      stiffness: 150,
+    });
   };
 
-  // Handle selection change
+  const handlePressOut = (isAgreement: boolean) => {
+    const scaleValue = isAgreement ? scaleAgreement : scaleDisagreement;
+    mainButtonScale.value = withSpring(LAYOUT_CONSTANTS.BUTTON.SCALE_NORMAL, {
+      damping: 15,
+      stiffness: 150,
+    });
+    scaleValue.value = withSpring(LAYOUT_CONSTANTS.BUTTON.SCALE_NORMAL, {
+      damping: 15,
+      stiffness: 150,
+    });
+  };
+
   const handleSelectionChange = (newSelection: boolean) => {
     if (currentSelection.current !== newSelection) {
       currentSelection.current = newSelection;
       onSelectionChange(newSelection);
-      triggerHaptic();
     }
   };
 
-  // Handle direct tap selection
   const handleDirectSelection = (isAgreement: boolean) => {
-    // Update visual state
     translateY.value = withSpring(isAgreement ? 0 : -BUTTON_HEIGHT);
-    // Update selection and trigger completion (no haptic feedback for direct tap)
-    currentSelection.current = isAgreement;
-    onSelectionChange(isAgreement);
+    currentSelection.current = isAgreement; // Ensure this is set
+    onSelectionChange(isAgreement); // Ensure this is called
     onSelectionComplete(isAgreement);
   };
 
@@ -69,21 +88,16 @@ const ScrollableToggleButton: React.FC<ScrollableToggleButtonProps> = ({
     },
     onActive: (event, context: any) => {
       const newTranslateY = context.startY + event.translationY;
-      
-      // Constrain the movement
       if (newTranslateY >= -BUTTON_HEIGHT && newTranslateY <= 0) {
         translateY.value = newTranslateY;
       }
     },
     onEnd: (event) => {
       const finalPosition = translateY.value + event.velocityY * 0.1;
-      
       if (finalPosition > -SWIPE_THRESHOLD) {
-        // Snap to "Anlaşma" (top, position 0)
         translateY.value = withSpring(0);
         runOnJS(handleSelectionChange)(true);
       } else {
-        // Snap to "Anlaşmama" (bottom, position -BUTTON_HEIGHT)
         translateY.value = withSpring(-BUTTON_HEIGHT);
         runOnJS(handleSelectionChange)(false);
       }
@@ -96,7 +110,13 @@ const ScrollableToggleButton: React.FC<ScrollableToggleButtonProps> = ({
     };
   });
 
-  const agreementOpacity = useAnimatedStyle(() => {
+  const mainButtonAnimatedStyle = useAnimatedStyle(() => {
+    return {
+      transform: [{ scale: mainButtonScale.value }],
+    };
+  });
+
+  const agreementAnimatedStyle = useAnimatedStyle(() => {
     return {
       opacity: interpolate(
         translateY.value,
@@ -104,10 +124,11 @@ const ScrollableToggleButton: React.FC<ScrollableToggleButtonProps> = ({
         [0.3, 0.7, 1],
         Extrapolate.CLAMP
       ),
+      transform: [{ scale: scaleAgreement.value }],
     };
   });
 
-  const disagreementOpacity = useAnimatedStyle(() => {
+  const disagreementAnimatedStyle = useAnimatedStyle(() => {
     return {
       opacity: interpolate(
         translateY.value,
@@ -115,56 +136,68 @@ const ScrollableToggleButton: React.FC<ScrollableToggleButtonProps> = ({
         [1, 0.7, 0.3],
         Extrapolate.CLAMP
       ),
+      transform: [{ scale: scaleDisagreement.value }],
     };
   });
 
   return (
     <View style={styles.container}>
       <PanGestureHandler onGestureEvent={gestureHandler}>
-        <Animated.View 
+        <Animated.View // This is reanimated's Animated.View for the main button container
           style={[
             styles.buttonContainer,
             {
-              backgroundColor: 'transparent',
+              backgroundColor: 'transparent', // Or theme.colors.button.background if needed
               borderColor: theme.colors.button.border,
               shadowColor: theme.colors.button.shadow,
-            }
+            },
+            mainButtonAnimatedStyle, // Add main button scale animation
           ]}
         >
           <Animated.View style={[styles.slidingContainer, animatedContainerStyle]}>
             {/* Anlaşma Button - Top */}
-            <TouchableOpacity 
-              style={styles.option}
+            <TouchableWithoutFeedback
               onPress={() => handleDirectSelection(true)}
-              activeOpacity={0.8}
+              onPressIn={() => handlePressIn(true)}
+              onPressOut={() => handlePressOut(true)}
             >
-              <Animated.View style={agreementOpacity}>
+              <Animated.View
+                style={[
+                  styles.option,
+                  agreementAnimatedStyle, // Combined opacity and scale from reanimated
+                ]}
+              >
                 <Text style={[styles.optionText, { color: theme.colors.button.text }]}>
                   Anlaşma ✅
                 </Text>
               </Animated.View>
-            </TouchableOpacity>
-            
+            </TouchableWithoutFeedback>
+
             {/* Anlaşmama Button - Bottom */}
-            <TouchableOpacity 
-              style={styles.option}
+            <TouchableWithoutFeedback
               onPress={() => handleDirectSelection(false)}
-              activeOpacity={0.8}
+              onPressIn={() => handlePressIn(false)}
+              onPressOut={() => handlePressOut(false)}
             >
-              <Animated.View style={disagreementOpacity}>
+              <Animated.View
+                style={[
+                  styles.option,
+                  disagreementAnimatedStyle, // Combined opacity and scale from reanimated
+                ]}
+              >
                 <Text style={[styles.optionText, { color: theme.colors.button.text }]}>
                   Anlaşmama ❌
                 </Text>
               </Animated.View>
-            </TouchableOpacity>
+            </TouchableWithoutFeedback>
           </Animated.View>
         </Animated.View>
       </PanGestureHandler>
-      
+
       {/* Instruction Text - Outside button */}
       <View style={styles.instructionContainer}>
         <Text style={[styles.instructionText, { color: theme.colors.text.secondary }]}>
-          Kaydırın ve ↕️ Tıklayın
+          ↕️{'\n'} Yukarı Kaydırın{'\n'}Tıklayın
         </Text>
       </View>
     </View>
@@ -192,29 +225,30 @@ const styles = StyleSheet.create({
     elevation: LAYOUT_CONSTANTS.BUTTON.ELEVATION,
   },
   slidingContainer: {
-    flexDirection: 'column', // Changed from 'row' to 'column'
+    flexDirection: 'column',
     width: '100%',
-    height: BUTTON_HEIGHT * 2, // Double height for sliding effect
+    height: BUTTON_HEIGHT * 2,
   },
   option: {
-    width: '100%', // Full width instead of half width
-    height: BUTTON_HEIGHT, // Full height for each option (was BUTTON_HEIGHT / 2)
+    width: '100%',
+    height: BUTTON_HEIGHT,
     justifyContent: 'center',
     alignItems: 'center',
   },
   optionText: {
-    fontSize: 30,
+    fontSize: 30, 
     textAlign: 'center',
     fontWeight: 'bold',
   },
   instructionContainer: {
-    marginTop: 12, // Space between button and text
+    marginTop: 12,
     width: '100%',
     alignItems: 'center',
   },
   instructionText: {
     fontSize: 12,
     opacity: 0.6,
+    textAlign: 'center',
   },
 });
 
