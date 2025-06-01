@@ -17,6 +17,9 @@ end
 target 'DENKLEM' do
   config = use_native_modules!
 
+  
+  pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
+
   use_react_native!(
     :path => config[:reactNativePath],
     # An absolute path to your application root.
