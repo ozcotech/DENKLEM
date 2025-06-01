@@ -273,9 +273,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = NVS5GU2AHJ;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = NVS5GU2AHJ;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = DENKLEM/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = DENKLEM;
@@ -293,6 +295,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ozco.denklem;
 				PRODUCT_NAME = DENKLEM;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "DENKLEM Distribution";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
