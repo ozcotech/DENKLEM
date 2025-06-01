@@ -39,15 +39,40 @@ const STYLE_CONSTANTS = {
 const CustomTabBar = ({ state, navigation }: BottomTabBarProps) => {
   const theme = useTheme();
 
+  // Handle navigation for home button
+  const handleHomeNavigation = () => {
+    // Check if we're in a tab navigator or stack navigator
+    // For ScreenWithTabBar (mock), state.routeNames will be ['Start', 'Legislation', 'About']
+    // For real TabNavigator, current route will be in state.routeNames
+    const currentRoute = navigation.getState()?.routes?.[navigation.getState()?.index || 0];
+    const routeName = currentRoute?.name || '';
+    
+    // If current route is Start, Legislation, or About, we're in real tab navigator
+    const isInRealTabNavigator = ['Start', 'Legislation', 'About'].includes(routeName);
+    
+    if (isInRealTabNavigator) {
+      // If we're in real tab navigator, go to Start screen
+      navigation.navigate('Start');
+    } else {
+      // If we're in stack navigator (using ScreenWithTabBar), go to DisputeCategory
+      navigation.navigate('DisputeCategory');
+    }
+  };
+
   // Render tab button
   const renderTabButton = (tabConfig: typeof TAB_CONFIG[number], index: number) => {
     const isActive = state.index === index;
+    
+    // Special handling for home button
+    const onPress = tabConfig.key === 'Start' 
+      ? handleHomeNavigation 
+      : () => navigation.navigate(tabConfig.route);
     
     return (
       <TouchableOpacity 
         key={tabConfig.key}
         style={styles.tabButton} 
-        onPress={() => navigation.navigate(tabConfig.route)}
+        onPress={onPress}
       >
         <View style={styles.tabButtonInner}>
           <Image

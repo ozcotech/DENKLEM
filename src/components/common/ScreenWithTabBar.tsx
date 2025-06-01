@@ -64,14 +64,32 @@ const ScreenWithTabBar: React.FC<ScreenWithTabBarProps> = ({
     descriptors: {},
     navigation: {
       navigate: (screenName: string) => {
-        // Validate against our defined tab route names
-        const validRoutes = [TAB_ROUTE_NAMES.START, TAB_ROUTE_NAMES.LEGISLATION, TAB_ROUTE_NAMES.ABOUT];
-        if (validRoutes.includes(screenName as TabRouteName)) {
-          // Navigate to MainTabs with specific screen
-          (navigation as any).navigate('MainTabs', { screen: screenName });
+        // Special handling for home button - navigate to DisputeCategory when in app flow
+        if (screenName === TAB_ROUTE_NAMES.START) {
+          (navigation as any).navigate('DisputeCategory');
+        } else if (screenName === 'DisputeCategory') {
+          // Direct navigation to DisputeCategory for handleHomeNavigation
+          (navigation as any).navigate('DisputeCategory');
+        } else {
+          // Validate against our defined tab route names
+          const validRoutes = [TAB_ROUTE_NAMES.LEGISLATION, TAB_ROUTE_NAMES.ABOUT];
+          const typedScreenName = screenName as 'Legislation' | 'About';
+          if (validRoutes.includes(typedScreenName)) {
+            // Navigate to MainTabs with specific screen
+            (navigation as any).navigate('MainTabs', { screen: typedScreenName });
+          }
         }
       },
       emit: () => ({ defaultPrevented: false }),
+      getState: () => ({
+        index: 0,
+        routes: [{ name: 'AgreementStatus', key: 'stack' }], // Use actual current route name
+        routeNames: ['AgreementStatus'],
+        history: [],
+        type: 'stack',
+        key: 'stack',
+        stale: false,
+      }),
     },
     insets,
   };
