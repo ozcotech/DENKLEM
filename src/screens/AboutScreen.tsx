@@ -51,11 +51,31 @@ const AboutScreen = () => {
     }
   };
 
-  const handleShare = () => {
-    Alert.alert(
-      `Bilgi`,
-      `Uygulama henüz mağazada yayınlanmadı. Çok yakında paylaşabileceksiniz.`
-    );
+  const handleShare = async () => {
+    try {
+      const result = await Share.share({
+        message: 'Arabuluculuk Ücreti Hesaplama uygulamasını indirin!\n\nhttps://apps.apple.com/tr/app/denklem/id6746580824',
+        url: 'https://apps.apple.com/tr/app/denklem/id6746580824',
+        title: 'DENKLEM - Arabuluculuk Ücreti Hesaplama'
+      });
+    } catch (error) {
+      Alert.alert('Hata', 'Paylaşım yapılamadı.');
+    }
+  };
+
+  const handleRateApp = async () => {
+    const appStoreUrl = 'https://apps.apple.com/tr/app/denklem/id6746580824?action=write-review';
+    
+    try {
+      const canOpen = await Linking.canOpenURL(appStoreUrl);
+      if (canOpen) {
+        await Linking.openURL(appStoreUrl);
+      } else {
+        Alert.alert('Hata', 'App Store açılamadı.');
+      }
+    } catch (error) {
+      Alert.alert('Hata', 'App Store\'a yönlendirme yapılamadı.');
+    }
   };
 
   return (
@@ -132,12 +152,7 @@ const AboutScreen = () => {
           <View style={styles.feedbackContainer}>
             <ThemedButton 
               title={`Uygulamayı Değerlendirin`}
-              onPress={() => {
-                Alert.alert(
-                  `Bilgi`,
-                  `Uygulama henüz mağazada yayınlanmadı. Çok yakında değerlendirme yapabileceksiniz.`
-                );
-              }}
+              onPress={handleRateApp}
               style={styles.feedbackButton}
             />
             
